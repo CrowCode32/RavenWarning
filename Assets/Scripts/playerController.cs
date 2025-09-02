@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour
 
     void Movement()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed * Time.deltaTime, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
@@ -32,8 +32,9 @@ public class playerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > collision.collider.transform.position.y)
+        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
         {
+            Debug.Log("JumpsReset");
             jumpCount = 0;
         }
     }

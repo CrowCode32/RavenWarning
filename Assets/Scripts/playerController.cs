@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
+    [SerializeField] LayerMask groundLayer;
 
     float horizontal;
     int jumpCount;
@@ -30,7 +31,8 @@ public class playerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        
+        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > collision.collider.transform.position.y)
         {
             jumpCount = 0;
         }

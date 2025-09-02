@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class playerController : MonoBehaviour
+
+public class playerController : MonoBehaviour ,IPickup
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] int speed;
@@ -9,9 +11,20 @@ public class playerController : MonoBehaviour
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
 
+    //Trinket Stuff
+    [SerializeField] trinket trinket;
+    [SerializeField] GameObject trinketModel;
+    [SerializeField] List<trinket> trinketsAquired = new List<trinket>();
+
+    
     float horizontal;
     int jumpCount;
 
+    void Start()
+    {
+        //Whatever trinket you equip before starting will be displayed on the player after starting with this line
+        //trinketModel = trinket.model;
+    }
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -34,8 +47,16 @@ public class playerController : MonoBehaviour
         
         if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
         {
-            Debug.Log("JumpsReset");
+            
             jumpCount = 0;
         }
+    }
+
+    public void getTrinket(trinket trinket)
+    {
+        Debug.Log("Adding to list...");
+        trinketsAquired.Add(trinket);
+
+        //Add the trinket to the collection(UI stuff)
     }
 }

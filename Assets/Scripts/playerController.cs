@@ -14,9 +14,9 @@ public class playerController : MonoBehaviour ,IPickup
     //Trinket Stuff
     [SerializeField] trinket trinket;
     [SerializeField] GameObject trinketModel;
-    [SerializeField] List<trinket> trinketsAquired = new List<trinket>();
+    public List<trinket> trinketsAquired = new List<trinket>();
 
-    
+    public bool gotFeather;
     float horizontal;
     int jumpCount;
 
@@ -58,5 +58,11 @@ public class playerController : MonoBehaviour ,IPickup
         trinketsAquired.Add(trinket);
 
         //Add the trinket to the collection(UI stuff)
+    }
+
+    public void getFeather(feather feather)
+    {
+        Debug.Log("You got a feather!");
+        gotFeather = true;
     }
 }

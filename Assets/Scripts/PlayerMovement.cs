@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] CharacterController controller;
+    [SerializeField] Rigidbody2D rb;
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
 
@@ -20,40 +20,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-       
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //moveDir = (Input.GetAxis("Horizontal") * transform.right);
-        //controller.Move(moveDir * speed * Time.deltaTime);
-
         movement();
         sprint();
     }
 
     void movement()
     {
+        float moveHorizontal = Input.GetAxis("Horizontal");
 
-        if (controller.isGrounded)
-        {
-            jumpCount = 0;
-            playerVel = Vector3.zero;
-        }
-        else
-        {
-            playerVel.y -= gravity * Time.deltaTime;
-        }
-
-        moveDir = (Input.GetAxis("Horizontal") * transform.right);
-
-        controller.Move(moveDir * speed * Time.deltaTime);
+        rb.linearVelocity = new Vector2(moveHorizontal * speed, rb.linearVelocity.y);
 
         jump();
-
-        controller.Move(playerVel * Time.deltaTime);
-        playerVel.y -= gravity * Time.deltaTime;
     }
 
     void jump()
@@ -61,8 +44,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount < JumpMax)
         {
             jumpCount++;
-            playerVel.y = jumpSpeed;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
+    }
+
+    // Reset jump upon colliding
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        jumpCount = 0;
     }
 
     void sprint()

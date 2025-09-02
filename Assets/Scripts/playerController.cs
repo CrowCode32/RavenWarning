@@ -1,0 +1,38 @@
+using UnityEngine;
+using UnityEngine.Rendering;
+
+public class playerController : MonoBehaviour
+{
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] int speed;
+    [SerializeField] int jumpSpeed;
+    [SerializeField] int jumpMax;
+
+    float horizontal;
+    int jumpCount;
+
+    void Update()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        Movement();
+    }
+
+    void Movement()
+    {
+        rb.linearVelocity = new Vector2(horizontal * speed * Time.deltaTime, rb.linearVelocity.y);
+
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        {
+            jumpCount++;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            jumpCount = 0;
+        }
+    }
+}

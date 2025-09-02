@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 871752263046758170}
   - component: {fileID: 3734409073974191742}
   m_Layer: 0
-  m_Name: TempFeather
+  m_Name: TempCardinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

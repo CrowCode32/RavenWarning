@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] int jumpSpeed;
     [SerializeField] int JumpMax;
-    [SerializeField] int gravity;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -51,7 +50,10 @@ public class PlayerMovement : MonoBehaviour
     // Reset jump upon colliding
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        jumpCount = 0;
+        if (collision.collider.CompareTag("Ground"))
+        {
+            jumpCount = 0;
+        }
     }
 
     void sprint()

@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4093803035835705406}
-  - component: {fileID: 3615791221745715595}
+  - component: {fileID: 765707424139868569}
   - component: {fileID: 4803216134300275987}
   - component: {fileID: 8422360893966061274}
   - component: {fileID: 525030917866625313}
   m_Layer: 0
-  m_Name: Capsule (1)
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 5570369955125929455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3615791221745715595
+--- !u!114 &765707424139868569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,14 +45,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4869596124616975790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9fe2955b12766f4a8f277b4c79c5b03, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f749e1c055b8e043b40466b89b0ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8422360893966061274}
   speed: 5
-  sprintMod: 2
   jumpSpeed: 5
-  JumpMax: 2
+  jumpMax: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  trinket: {fileID: 0}
+  trinketModel: {fileID: 0}
+  trinketsAquired: []
+  gotFeather: 0
 --- !u!212 &4803216134300275987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -124,7 +130,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c3260c9776fe5cf46a6b649e7fe528d7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

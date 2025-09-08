@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour
 
     private bool movingToAttack = true;
     private float chaseDistance = 5f;
-    private float attackDistance = 1.5f;
+    private float attackDistance = 2f;
 
     void Start()
     {

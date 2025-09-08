@@ -47,7 +47,6 @@ public class playerController : MonoBehaviour ,IPickup
         
         if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
         {
-            
             jumpCount = 0;
         }
     }

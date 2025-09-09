@@ -69,18 +69,14 @@ public class enemyAI : MonoBehaviour
 
         if (!hit)
         {
-            Debug.Log("Attack: No collider in range (Check player, radius, or point");
             return;
         }
             var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
 
         if (pc != null)
         {
-            Debug.Log("Hit Player");
-
             pc.takeDamage(attackDamage);
         }
-        Debug.Log("Player has been hit in player layer, but no controller found");
     }
 
     void OnDrawGizmosSelected()

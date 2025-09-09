@@ -2,18 +2,26 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using Unity.Collections;
+using Unity.VisualScripting;
 
 public class enemyAI : MonoBehaviour
 {
-
+    // Patrol
     public float speed = 1f;
     public Transform positionA;
     public Transform positionB;
     public Transform player;
-
     private bool movingToAttack = true;
     private float chaseDistance = 5f;
     private float attackDistance = 2f;
+
+    // Attacks
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackCooldown = 1.0f;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackRadius = 0.6f;
+    [SerializeField] private LayerMask playerLayer;
+    private float lastAttackTime = -999f;
 
     void Start()
     {
@@ -47,6 +55,21 @@ public class enemyAI : MonoBehaviour
             {
                 movingToAttack = !movingToAttack;
             }
+        }
+    }
+
+    public void Attack2D()
+    {
+        if (Time.time < lastAttackTime + attackCooldown) return;
+        lastAttackTime = Time.time;
+
+        Vector2 g = attackPoint ? (Vector2)attackPoint.position : (Vector2)transform.position;
+        Collider2D hit = Physics2D.OverlapCircle(g, attackRadius, playerLayer);
+        if (hit != null)
+        {
+            var pc = hit.GetComponent<playerController>();
+            if (pc != null)
+                pc.takeDamage(attackDamage);
         }
     }
 }

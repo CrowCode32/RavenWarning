@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4803216134300275987}
   - component: {fileID: 8422360893966061274}
   - component: {fileID: 525030917866625313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -51,10 +51,21 @@ MonoBehaviour:
   rb: {fileID: 8422360893966061274}
   speed: 5
   jumpSpeed: 5
-  jumpMax: 5
+  jumpMax: 2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  maxHealth: 5
+  currentHealth: 0
+  damageOverlay: {fileID: 0}
+  flashAlpha: 0.8
+  flashHold: 0.15
+  flashFadeSpeed: 3
+  lowHealthThreshHold: 0.3
+  maxLowHealthAlpha: 0.5
+  minPulse: 0.75
+  maxPulse: 2
+  pulseResponse: 5
   trinket: {fileID: 0}
   trinketModel: {fileID: 0}
   trinketsAquired: []

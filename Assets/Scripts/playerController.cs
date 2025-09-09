@@ -1,19 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 
 public class playerController : MonoBehaviour ,IPickup
 {
-    // Player
+    // Movment
     [SerializeField] Rigidbody2D rb;
     [SerializeField] int speed;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
+
+    // Health
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int currentHealth;
-    
+    [SerializeField] private Image damageOverlay;
+
+    // Flash and low health flash
+    [SerializeField] private float flashAlpha = 0.8f;
+    [SerializeField] private float flashHold = 0.15f;
+    [SerializeField] private float flashFadeSpeed = 3f;
+    [SerializeField] private float lowHealthThreshHold = 0.30f;
+    [SerializeField] private float maxLowHealthAlpha = 0.5f;
+    [SerializeField] private float minPulse = 0.75f;
+    [SerializeField] private float maxPulse = 2.0f;
+    [SerializeField] private float pulseResponse = 5f;
 
     // Trinket Stuff
     [SerializeField] trinket trinket;
@@ -21,16 +34,23 @@ public class playerController : MonoBehaviour ,IPickup
     public List<trinket> trinketsAquired = new List<trinket>();
 
     public bool gotFeather;
+
     float horizontal;
     int jumpCount;
+
+    private float flashTimer = 0f;
+    private float flashCurrentAlpha = 0f;
 
     void Start()
     {
         currentHealth = maxHealth;
 
-    
-
-
+        if (!damageOverlay)
+        {
+            var g = damageOverlay.color;
+            g.a = 0f;
+            damageOverlay.color = g;
+        }
 
         // Whatever trinket you equip before starting will be displayed on the player after starting with this line
         // trinketModel = trinket.model;
@@ -39,6 +59,7 @@ public class playerController : MonoBehaviour ,IPickup
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         Movement();
+        UpdateOverlayAlpha();
     }
 
     void Movement()
@@ -101,7 +122,37 @@ public class playerController : MonoBehaviour ,IPickup
     }
 
     public void triggerFlash()
-    { 
-        
+    {
+        flashTimer = flashHold;
+        flashCurrentAlpha = flashAlpha;
+    }
+
+    public void UpdateOverlayAlpha()
+    {
+        if (!damageOverlay) return;
+        float damageTime = Time.deltaTime;
+
+        if (flashTimer > 0f) flashTimer -= damageTime;
+
+        else flashCurrentAlpha = Mathf.MoveTowards(flashCurrentAlpha, 0f, flashFadeSpeed * damageTime);
+
+        float lowHealthAlpha = 0f;
+        float healthFraction = (maxHealth > 0) ? (float)currentHealth / maxHealth : 0f;
+
+        if (healthFraction < lowHealthThreshHold)
+        {
+            float i = Mathf.InverseLerp(lowHealthThreshHold, 0f, healthFraction);
+            float mp = Mathf.Lerp(minPulse, maxPulse, i);
+            float pulse = 0.5f * 0.5f * Mathf.Sin(Time.time * Mathf.PI * 2f * mp);
+            float targetAlpha = Mathf.Lerp(lowHealthAlpha * 0.5f, maxLowHealthAlpha, pulse);
+
+            lowHealthAlpha = Mathf.Lerp(damageOverlay.color.a, targetAlpha, damageTime * pulseResponse);
+        }
+
+        float finalAplha = Mathf.Max(flashCurrentAlpha, lowHealthAlpha);
+
+        var g = damageOverlay.color;
+        g.a = finalAplha;
+        damageOverlay.color = g;
     }
 }

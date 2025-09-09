@@ -5,13 +5,17 @@ using UnityEngine.Rendering;
 
 public class playerController : MonoBehaviour ,IPickup
 {
+    // Player
     [SerializeField] Rigidbody2D rb;
     [SerializeField] int speed;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int currentHealth;
+    
 
-    //Trinket Stuff
+    // Trinket Stuff
     [SerializeField] trinket trinket;
     [SerializeField] GameObject trinketModel;
     public List<trinket> trinketsAquired = new List<trinket>();
@@ -22,8 +26,14 @@ public class playerController : MonoBehaviour ,IPickup
 
     void Start()
     {
-        //Whatever trinket you equip before starting will be displayed on the player after starting with this line
-        //trinketModel = trinket.model;
+        currentHealth = maxHealth;
+
+    
+
+
+
+        // Whatever trinket you equip before starting will be displayed on the player after starting with this line
+        // trinketModel = trinket.model;
     }
     void Update()
     {
@@ -63,5 +73,35 @@ public class playerController : MonoBehaviour ,IPickup
     {
         Debug.Log("You got a feather!");
         gotFeather = true;
+    }
+
+    public void takeDamage(int amount)
+    {
+        if (amount <= 0) return;
+        currentHealth = Mathf.Max(0, currentHealth - amount);
+        triggerFlash();
+
+        if (currentHealth <= 0)
+            death();
+    }
+
+    public void heal(int amount)
+    {
+        if (amount <= 0)
+        {
+            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        }
+    }
+
+    private void death()
+    {
+        Debug.Log("The Player died");
+
+        // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
+    }
+
+    public void triggerFlash()
+    { 
+        
     }
 }

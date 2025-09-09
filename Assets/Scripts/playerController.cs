@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour ,IPickup
 {
     // Movment
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] Animator anim;
     [SerializeField] int speed;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
@@ -57,6 +58,8 @@ public class playerController : MonoBehaviour ,IPickup
     }
     void Update()
     {
+        setAnimations();
+
         horizontal = Input.GetAxisRaw("Horizontal");
         Movement();
         UpdateOverlayAlpha();
@@ -154,5 +157,23 @@ public class playerController : MonoBehaviour ,IPickup
         var g = damageOverlay.color;
         g.a = finalAplha;
         damageOverlay.color = g;
+    }
+
+    void setAnimations()
+    {
+        // float playerSpeedCurr = rb.linearVelocity.normalized.magnitude;
+
+        float moveSpeed = Input.GetAxisRaw("Horizontal");
+        Debug.Log(moveSpeed);
+
+        anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        if (moveSpeed > 0)
+        {
+            rb.GetComponent<SpriteRenderer>().flipX = false;
+        } else if (moveSpeed < 0)
+        {
+            rb.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        
     }
 }

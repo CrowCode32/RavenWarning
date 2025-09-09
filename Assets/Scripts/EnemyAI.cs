@@ -36,6 +36,7 @@ public class enemyAI : MonoBehaviour
         if (distanceToPlayer <= attackDistance)
         {
             Debug.Log("Attacking the player");
+            Attack2D();
         }
 
         // Player chase
@@ -65,11 +66,30 @@ public class enemyAI : MonoBehaviour
 
         Vector2 g = attackPoint ? (Vector2)attackPoint.position : (Vector2)transform.position;
         Collider2D hit = Physics2D.OverlapCircle(g, attackRadius, playerLayer);
-        if (hit != null)
+
+        if (!hit)
         {
-            var pc = hit.GetComponent<playerController>();
-            if (pc != null)
-                pc.takeDamage(attackDamage);
+            Debug.Log("Attack: No collider in range (Check player, radius, or point");
+            return;
+        }
+            var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
+
+        if (pc != null)
+        {
+            Debug.Log("Hit Player");
+
+            pc.takeDamage(attackDamage);
+        }
+        Debug.Log("Player has been hit in player layer, but no controller found");
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
         }
     }
+
 }

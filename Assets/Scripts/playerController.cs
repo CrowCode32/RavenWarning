@@ -108,7 +108,7 @@ public class playerController : MonoBehaviour ,IPickup
 
     public void heal(int amount)
     {
-        if (amount <= 0)
+        if (amount > 0)
         {
             currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
         }
@@ -143,7 +143,7 @@ public class playerController : MonoBehaviour ,IPickup
         {
             float i = Mathf.InverseLerp(lowHealthThreshHold, 0f, healthFraction);
             float mp = Mathf.Lerp(minPulse, maxPulse, i);
-            float pulse = 0.5f * 0.5f * Mathf.Sin(Time.time * Mathf.PI * 2f * mp);
+            float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * Mathf.PI * 2f * mp);
             float targetAlpha = Mathf.Lerp(lowHealthAlpha * 0.5f, maxLowHealthAlpha, pulse);
 
             lowHealthAlpha = Mathf.Lerp(damageOverlay.color.a, targetAlpha, damageTime * pulseResponse);

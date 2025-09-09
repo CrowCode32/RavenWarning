@@ -3,13 +3,12 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class storm : MonoBehaviour
 {
-    [SerializeField] Transform wall;
     [SerializeField] Transform startPos;
     [SerializeField] Transform endPos;
     [SerializeField] int speed;
 
     Vector3 spawnPos;
-    public float exitDiff;
+    float exitDiff;
 
     // Update is called once per frame
     void Update()
@@ -21,6 +20,11 @@ public class storm : MonoBehaviour
 
         exitDiff = endPos.position.x - transform.position.x;
 
+        if(exitDiff <= 0)
+        {
+            enabled = false;
+        }
+        
         // If player changed level
         // swapScene();
     }
@@ -42,6 +46,6 @@ public class storm : MonoBehaviour
     void swapScene(int playerProg)
     {
         spawnPos.x = startPos.position.x - exitDiff;
-        wall.position = spawnPos;
+        transform.position = spawnPos;
     }
 }

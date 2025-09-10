@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -58,6 +59,22 @@ public class playerController : MonoBehaviour ,IPickup
 
     float horizontal;
     int jumpCount;
+
+    void Awake()
+    {
+        Time.timeScale = 1f;
+
+        if(!gameOverUI)
+        {
+            var found = GameObject.FindWithTag("GameOver");
+            if (found) gameOverUI = found;
+        }
+
+        if (gameOverUI)
+        {
+            gameOverUI.SetActive(false);
+        }
+    }
 
     void Start()
     {

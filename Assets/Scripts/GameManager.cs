@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.IO;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
 {
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
+
+    private GameData gameData;
+    private string saveFilePath;
 
     [Header("Object References")]
     [Tooltip("Assign the player's GameObject here.")]
@@ -45,6 +49,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // A safe place to store player data.
+        saveFilePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
+
         // --- Singleton Pattern Implementation ---
         // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
@@ -56,10 +63,13 @@ public class GameManager : MonoBehaviour
         // This is the first instance. Make it the singleton and ensure it persists
         // between scene loads (e.g., when returning to the hub).
         instance = this;
-        
+
         timeScaleOrig = Time.timeScale;
 
         DontDestroyOnLoad(gameObject);
+
+        // Load the game as soon as the manager is ready
+        LoadGame();
     }
 
     private void Start()
@@ -141,7 +151,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-    
+
     public void statePause()
     {
         isPaused = !isPaused;
@@ -156,5 +166,40 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    /// <summary>
+    /// Saves the current game data to a JSON file.
+    /// </summary>
+    public void SaveGame()
+    {
+        // Convert the GameData object to a JSON string.
+        string json = JsonUtility.ToJson(gameData, true); // 'true' for pretty print
+
+        // Write the JSON string to the file.
+        File.WriteAllText(saveFilePath, json);
+        Debug.Log("Game data saved to: " + saveFilePath);
+    }
+
+    /// <summary>
+    /// Loads game data from a JSON file, or creates a new game if no file exists.
+    /// </summary>
+    public void LoadGame()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            // If a save file exists, read it.
+            string json = File.ReadAllText(saveFilePath);
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from: " + saveFilePath);
+        }
+        else
+        {
+            // If no save file exists, create a new GameData object with default values.
+            Debug.Log("No save file found. Creating a new game.");
+            gameData = new GameData();
+        }
     }
 }

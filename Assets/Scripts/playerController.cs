@@ -33,7 +33,7 @@ public class playerController : MonoBehaviour ,IPickup
     // Trinket Stuff
     [SerializeField] trinket trinket;
     [SerializeField] GameObject trinketModel;
-    public List<trinket> trinketsAquired = new List<trinket>();
+    
 
     //Feather
     [SerializeField] feather featherQueue;   //allows the player to switch feathers in the UI without affecting the game
@@ -99,7 +99,7 @@ public class playerController : MonoBehaviour ,IPickup
     public void getTrinket(trinket trinket)
     {
         Debug.Log("Adding to list...");
-        trinketsAquired.Add(trinket);
+        
 
         //Add the trinket to the collection(UI stuff)
     }

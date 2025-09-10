@@ -29,6 +29,9 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] private float maxPulse = 2.0f;
     [SerializeField] private float pulseResponse = 5f;
 
+    private float flashTimer = 0f;
+    private float flashCurrentAlpha = 0f;
+
     // Attacks
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRadius = 0.5f;
@@ -47,14 +50,11 @@ public class playerController : MonoBehaviour ,IPickup
     float horizontal;
     int jumpCount;
 
-    private float flashTimer = 0f;
-    private float flashCurrentAlpha = 0f;
-
     void Start()
     {
         currentHealth = maxHealth;
 
-        if (!damageOverlay)
+        if (damageOverlay)
         {
             var g = damageOverlay.color;
             g.a = 0f;

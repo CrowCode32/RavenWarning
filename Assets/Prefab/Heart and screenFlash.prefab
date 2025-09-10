@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4876974310782555438}
   - component: {fileID: 4570792382939086682}
   m_Layer: 0
-  m_Name: UI
+  m_Name: Heart and screenFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

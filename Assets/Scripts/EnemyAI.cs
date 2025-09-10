@@ -28,8 +28,14 @@ public class enemyAI : MonoBehaviour
     // Hit feedback
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Color hitColor = Color.red;
-    [SerializeField] private float flashTimer = 0.1f;
+    [SerializeField] private float flashDuration = 0.1f;
     [SerializeField] private float hurtFrames = 0.5f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSfx;
+    [SerializeField] private AudioClip deathSfx;
+    [SerializeField] private float knockback = 4f;
+
 
     private Color _origColor;
     private float _flashTimer = 0f;
@@ -121,12 +127,29 @@ public class enemyAI : MonoBehaviour
         if (_iFrameTimer > 0f) return;
 
         _iFrameTimer = hurtFrames;
-        currentHealth = Mathf.Max(currentHealth - amount);
+        currentHealth = Mathf.Max(0, currentHealth - amount);
 
+        // Hit anim
+        if (animator)
+            animator.SetTrigger("Hit");
         if (sprite)
         {
             sprite.color = hitColor;
-            _flashTimer = flashTimer;
+            _flashTimer = flashDuration;
+        }
+
+        // Sound SFX
+        if (audioSource && hitSfx) audioSource.PlayOneShot(hitSfx);
+
+        // Knoackback --- VOID this out if we don't need it
+        if (player)
+        {
+            var rb = GetComponent<Rigidbody2D>();
+            if (rb)
+            {
+                Vector2 dir = (transform.position - player.position).normalized;
+                rb.AddForce(dir * knockback, ForceMode2D.Impulse);
+            }    
         }
 
         if (currentHealth <= 0)

@@ -35,10 +35,10 @@ public class dialogue : MonoBehaviour
         }
     }
 
-    void startDialogue()
+    public void startDialogue()
     {
         index = 0;
-        
+
         string allText = dialogueFile.text;
         lines = allText.Split("\n");
 

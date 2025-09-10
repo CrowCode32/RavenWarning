@@ -21,15 +21,41 @@ public class enemyAI : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRadius = 0.6f;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int currentHealth;
     private float lastAttackTime = -999f;
+
+    // Hit feedback
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float flashTimer = 0.1f;
+    [SerializeField] private float hurtFrames = 0.5f;
+
+    private Color _origColor;
+    private float _flashTimer = 0f;
+    private float _iFrameTimer = 0f;
+
+    private void Awake()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        if (sprite) _origColor = sprite.color;
     }
 
     void Update()
     {
+        if (_iFrameTimer > 0f) _iFrameTimer -= Time.deltaTime; // Invulnerability
+
+        if (_flashTimer > 0f)
+        {
+            _flashTimer -= Time.deltaTime;
+            if (_flashTimer <= 0f && sprite) sprite.color = _origColor;
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         // Attack distance
@@ -88,4 +114,29 @@ public class enemyAI : MonoBehaviour
         }
     }
 
+    public void takeDamage(int amount)
+    {
+        if (amount <= 0) return;
+
+        if (_iFrameTimer > 0f) return;
+
+        _iFrameTimer = hurtFrames;
+        currentHealth = Mathf.Max(currentHealth - amount);
+
+        if (sprite)
+        {
+            sprite.color = hitColor;
+            _flashTimer = flashTimer;
+        }
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+    private void Death()
+    {
+        Destroy(gameObject);
+        // Todo - play death anim/SFX, add score or drop loot
+    }
 }

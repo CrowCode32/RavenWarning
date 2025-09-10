@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
 
+    private bool isJournalOpen = false;
+
 
     private void Awake()
     {
@@ -34,12 +36,34 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-        private void Start()
+    private void Start()
     {
         // Ensure the journal is closed at the start of the game.
         if (journalMenuUI != null)
         {
             journalMenuUI.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        // Check for the journal input key (e.g., 'J' or 'Tab').
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            // This will print a message to the console every time we press 'J'.
+            Debug.Log("'J' key pressed!");
+            ToggleJournal();
+        }
+    }
+
+    /// <summary>
+    /// Toggles the journal UI open and closed.
+    /// This can be called from a UI Button's OnClick() event.
+    /// </summary>
+
+    public void ToggleJournal()
+    {
+        isJournalOpen = !isJournalOpen;
+        journalMenuUI.SetActive(isJournalOpen);
     }
 }

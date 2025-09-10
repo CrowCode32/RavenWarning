@@ -1,0 +1,2 @@
+This is the first line of dialogue.
+This is the second line of dialogue.

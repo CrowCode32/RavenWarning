@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
 /// Implemented as a singleton to be easily accessible from other scripts.

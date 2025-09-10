@@ -139,7 +139,8 @@ public class enemyAI : MonoBehaviour
         }
 
         // Sound SFX
-        if (audioSource && hitSfx) audioSource.PlayOneShot(hitSfx);
+        if (audioSource && hitSfx) 
+            audioSource.PlayOneShot(hitSfx);
 
         // Knoackback --- VOID this out if we don't need it
         if (player)
@@ -159,7 +160,14 @@ public class enemyAI : MonoBehaviour
     }
     private void Death()
     {
-        Destroy(gameObject);
+        if (audioSource && deathSfx)
+            audioSource.PlayOneShot(deathSfx); 
+        
+        var col = GetComponent<Collider2D>();
+        if (col) col.enabled = false;
+        enabled = false;
+
+        Destroy(gameObject, deathSfx ? deathSfx.length : 0f);
         // Todo - play death anim/SFX, add score or drop loot
     }
 }

@@ -161,10 +161,7 @@ public class playerController : MonoBehaviour ,IPickup
 
     void setAnimations()
     {
-        // float playerSpeedCurr = rb.linearVelocity.normalized.magnitude;
-
         float moveSpeed = Input.GetAxisRaw("Horizontal");
-        Debug.Log(moveSpeed);
 
         anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
         if (moveSpeed > 0)

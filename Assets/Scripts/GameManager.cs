@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
@@ -17,7 +18,18 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
 
+    [Header("Storm Mechanics")]
+    [Tooltip("The storm wall prefab that will chase the player.")]
+    public GameObject stormPrefab;
+
+    [Tooltip("An empty GameObject marking the storm's initial spawn position.")]
+    public Transform stormSpawnPoint;
+
+    [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
+    public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
+
     private bool isJournalOpen = false;
+    private bool hasRunStarted = false;
 
 
     private void Awake()
@@ -53,6 +65,39 @@ public class GameManager : MonoBehaviour
             // This will print a message to the console every time we press 'J'.
             Debug.Log("'J' key pressed!");
             ToggleJournal();
+        }
+    }
+
+    /// <summary>
+    /// This method should be called by a trigger when the player exits the tutorial area.
+    /// </summary>
+
+    public void BeginRun()
+    {
+        // Ensure this can only be called once per run.
+        if (!hasRunStarted)
+        {
+            hasRunStarted = true;
+            Debug.Log("Run has started! Storm timer initiated.");
+            // The run has officially started, so we begin the storm countdown.
+            StartCoroutine(SpawnStormCoroutine());
+        }
+    }
+
+    private IEnumerator SpawnStormCoroutine()
+    {
+        // Wait for the specified delay to give the player a head start.
+        yield return new WaitForSeconds(stormSpawnDelay);
+
+        Debug.Log("Spawning the storm!");
+        // Now, spawn the storm.
+        if (stormPrefab != null && stormSpawnPoint != null)
+        {
+            Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
         }
     }
 

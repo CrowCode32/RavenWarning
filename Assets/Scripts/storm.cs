@@ -3,22 +3,29 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class storm : MonoBehaviour
 {
-    [SerializeField] Transform startPos;
-    [SerializeField] Transform endPos;
     [SerializeField] int speed;
 
-    Vector3 spawnPos;
-    float exitDiff;
+    Vector3 startPos; // = normal spawn position
+    Vector3 endPos;   // last possible end point
+    Vector3 spawnPos; // = normal spawn position + offset
+    float exitDiff = 0;
 
+
+    private void Start()
+    {
+        //Game manager instantiates
+        startPos = GameManager.instance.stormSpawnPoint.position;
+        endPos = GameManager.instance.stormEndPoint.position;
+        spawnStorm();
+    }
+    
     // Update is called once per frame
     void Update()
     {
-        //If player has exited graveyard
-        enabled = true;
-        spawnPos = startPos.position;
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-        exitDiff = endPos.position.x - transform.position.x;
+        //Determining how far the storm is from the exit for offset in future levels
+        exitDiff = endPos.x - transform.position.x;
 
         if(exitDiff <= 0)
         {
@@ -43,9 +50,20 @@ public class storm : MonoBehaviour
         }
     }
 
+    void spawnStorm()
+    {
+        //if(player is on second level or higher){
+        // spawnPos.x = startPos.transform.position.x - exitDiff;
+        //} else {
+        spawnPos = startPos;
+        //}
+
+        transform.position = spawnPos;
+    }
+
     void swapScene(int playerProg)
     {
-        spawnPos.x = startPos.position.x - exitDiff;
-        transform.position = spawnPos;
+        spawnPos.x = startPos.x = exitDiff;
+        GameManager.instance.stormSpawnPoint.position = spawnPos;
     }
 }

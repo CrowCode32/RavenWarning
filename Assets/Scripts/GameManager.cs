@@ -29,16 +29,21 @@ public class GameManager : MonoBehaviour
     [Tooltip("An empty GameObject marking the storm's initial spawn position.")]
     public Transform stormSpawnPoint;
 
+    [Tooltip("An empty GameObject marking the storm's last possible position.")]
+    public Transform stormEndPoint;
+
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
 
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
 
+    public bool isPaused;
+    float timeScaleOrig;
+
 
     private void Awake()
     {
-        LoadScene("MainMenu");
         // --- Singleton Pattern Implementation ---
         // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
@@ -50,6 +55,9 @@ public class GameManager : MonoBehaviour
         // This is the first instance. Make it the singleton and ensure it persists
         // between scene loads (e.g., when returning to the hub).
         instance = this;
+
+        timeScaleOrig = Time.timeScale;
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -104,7 +112,7 @@ public class GameManager : MonoBehaviour
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation);
+            Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else
         {
@@ -131,5 +139,20 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    public void statePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void stateUnpause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

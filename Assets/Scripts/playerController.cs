@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -15,14 +14,6 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
-
-    // SFX
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip hurtSfx;
-    [SerializeField] private AudioClip deathSfx;
-    [SerializeField] private float deathFreezeDelay = 0.75f;
-    private bool isDead = false;
 
     // Health
     [SerializeField] private int maxHealth = 5;
@@ -39,71 +30,50 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] private float maxPulse = 2.0f;
     [SerializeField] private float pulseResponse = 5f;
 
-    private float flashTimer = 0f;
-    private float flashCurrentAlpha = 0f;
-
-    // Attacks
-    [SerializeField] Transform attackPoint;
-    [SerializeField] float attackRadius = 0.5f;
-    [SerializeField] float attackCooldown = 0.3f;
-    [SerializeField] int attackDamage = 1;
-    [SerializeField] LayerMask enemyLayer;
-    float lastAttackTime = -999f;
-
     // Trinket Stuff
     [SerializeField] trinket trinket;
     [SerializeField] GameObject trinketModel;
     public List<trinket> trinketsAquired = new List<trinket>();
 
-    public bool gotFeather;
+    //Feather
+    [SerializeField] feather featherQueue;   //allows the player to switch feathers in the UI without affecting the game
+    [SerializeField] feather feather; //players current feather that gives them said feather's ability
+
+    public bool gotFeather; //check for unlocking the next feather
+    private bool hasRevive = false; //Vulture
+    private bool canBreakWalls = false; //Woodpecker
+    private int storeJumpMax; //Roadrunner
 
     float horizontal;
     int jumpCount;
 
-    void Awake()
-    {
-        Time.timeScale = 1f;
-
-        if(!gameOverUI)
-        {
-            var found = GameObject.FindWithTag("GameOver");
-            if (found) gameOverUI = found;
-        }
-
-        if (gameOverUI)
-        {
-            gameOverUI.SetActive(false);
-        }
-    }
+    private float flashTimer = 0f;
+    private float flashCurrentAlpha = 0f;
 
     void Start()
     {
         currentHealth = maxHealth;
-
-        if (damageOverlay)
+        storeJumpMax = jumpMax;
+        if (!damageOverlay)
         {
             var g = damageOverlay.color;
             g.a = 0f;
             damageOverlay.color = g;
         }
 
+        FeatherAbility(feather);
         // Whatever trinket you equip before starting will be displayed on the player after starting with this line
         // trinketModel = trinket.model;
     }
     void Update()
     {
-        if (isDead) return;
-
+        featherQueue = GameManager.instance.selectedFeather; 
+        
         setAnimations();
 
         horizontal = Input.GetAxisRaw("Horizontal");
         Movement();
         UpdateOverlayAlpha();
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            slashAttack();
-        }
     }
 
     void Movement()
@@ -142,14 +112,12 @@ public class playerController : MonoBehaviour ,IPickup
 
     public void takeDamage(int amount)
     {
-        if (amount <= 0 || isDead) return;
-
         if (amount <= 0) return;
         currentHealth = Mathf.Max(0, currentHealth - amount);
         triggerFlash();
 
         if (currentHealth <= 0)
-            StartCoroutine(death());
+            death();
     }
 
     public void heal(int amount)
@@ -160,28 +128,20 @@ public class playerController : MonoBehaviour ,IPickup
         }
     }
 
-    private IEnumerator death()
+    private void death()
     {
-        isDead = true;
+        if (hasRevive)
+        {
+            currentHealth = (maxHealth / 2);
+        }
+        else
+        {
+            Debug.Log("The Player died");
+            
 
-        // Stop motion and inputs
-        if (rb) rb.linearVelocity = Vector2.zero;
+            // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
+        }
 
-        // Play death anim and SFX
-        if (anim) anim.SetTrigger("Death");
-        if (audioSource && deathSfx)
-            audioSource.PlayOneShot(deathSfx);
-
-        // Delay to see the player fall over
-        yield return new WaitForSeconds(deathFreezeDelay);
-
-        // Show Game over/lose menu and pause the game
-        if (gameOverUI)
-            gameOverUI.SetActive(true);
-        Time.timeScale = 0f;
-
-        Debug.Log("The Player died");
-        // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
     }
 
     public void triggerFlash()
@@ -219,7 +179,6 @@ public class playerController : MonoBehaviour ,IPickup
         damageOverlay.color = g;
     }
 
-    // Can alose be used for the enemies
     void setAnimations()
     {
         float moveSpeed = Input.GetAxisRaw("Horizontal");
@@ -232,32 +191,75 @@ public class playerController : MonoBehaviour ,IPickup
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
+        
     }
 
-    void slashAttack()
+
+    //This method will go in spawn/whatever the trigger is to leave the tutorial room
+    void FeatherAbility(feather feather)
     {
-        if (Time.time < lastAttackTime + attackCooldown) return;
-        lastAttackTime = Time.time;
 
-        if (!attackPoint)
+        if (feather == null)
         {
-            Debug.Log("Is attacking");
-            return;
+
         }
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, enemyLayer);
-        if (hits.Length == 0) return;
-
-        foreach (var h in hits)
+        else
         {
-            var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
-            if (enemy != null)
+            Debug.Log(feather.featherName);
+            switch (feather.featherName)
             {
-                enemy.takeDamage(attackDamage);
+
+                case "Roadrunner":
+                    speed *= 2;
+                    jumpMax = 0;
+                    break;
+
+                case "Woodpecker":
+                    canBreakWalls = true;
+                    break;
+
+                case "Vulture":
+                    hasRevive = true;
+                    break;
+
+                case "Cardinal":
+                    Debug.Log("Tweet tweet I'm a cardinal");
+                    break;
+
+                default:
+                    return;
+
             }
         }
 
-        // Add attack animation here
-        anim.SetTrigger("Slash");
+    }
+
+    //will be ran right before setting feather = featherQueue;
+    void FeatherAbilityUndo(feather feather)
+    {
+        switch (feather.featherName)
+        {
+
+            case "Roadrunner":
+                speed /= 2;
+                jumpMax = storeJumpMax;
+                break;
+            case "WoodPecker":
+                canBreakWalls = false;
+                break;
+            case "Vulture":
+                hasRevive = false; 
+                break;
+
+            default:
+                return;
+
+        }
+    }
+
+    //future implementation of Woodpecker's complex ability
+    void wallBreak()
+    {
+
     }
 }

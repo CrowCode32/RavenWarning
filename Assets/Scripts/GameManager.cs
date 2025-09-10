@@ -1,5 +1,9 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
@@ -17,6 +21,18 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
+    [Tooltip("Assign the main Settings UI Panel here.")]
+    public GameObject SettingsMenuUI;
+    [Tooltip("Assign the main Stats UI Panel here.")]
+    public GameObject StatsMenuUI;
+    [SerializeField] TMP_Dropdown featherDrop;
+    [SerializeField] TMP_Dropdown trinketDrop;
+
+    [Tooltip("Assign the main Unlocks UI Panel here.")]
+    public GameObject UnlocksMenuUI;
+
+    [Tooltip("Assign the scene's main camera here.")]
+    public Camera mainCamera;
 
     [Header("Storm Mechanics")]
     [Tooltip("The storm wall prefab that will chase the player.")]
@@ -25,11 +41,33 @@ public class GameManager : MonoBehaviour
     [Tooltip("An empty GameObject marking the storm's initial spawn position.")]
     public Transform stormSpawnPoint;
 
+    [Tooltip("An empty GameObject marking the storm's last possible position.")]
+    public Transform stormEndPoint;
+
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
 
+
+    [Header("Feather")]
+    [Tooltip("Updates featherQueue.")]
+    public feather selectedFeather;
+    [Tooltip("Acquired feathers.")]
+    public List<feather> feathersAquired = new List<feather>();
+
+    [Header("Trinket")]
+    [Tooltip("Updates player trinket.")]
+    public trinket selectedTrinket;
+    [Tooltip("Acquired trinkets.")]
+    public List<trinket> trinketsAquired = new List<trinket>();
+
+    int featherIndex;
+    int trinketIndex;
+
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
+
+    public bool isPaused;
+    float timeScaleOrig;
 
 
     private void Awake()
@@ -45,15 +83,26 @@ public class GameManager : MonoBehaviour
         // This is the first instance. Make it the singleton and ensure it persists
         // between scene loads (e.g., when returning to the hub).
         instance = this;
+
+        timeScaleOrig = Time.timeScale;
+
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        UpdateTrinketDropdown();
+        UpdateFeatherDropdown();
         // Ensure the journal is closed at the start of the game.
         if (journalMenuUI != null)
         {
             journalMenuUI.SetActive(false);
+        }
+
+        // If a camera hasn't been assigned manually, find it.
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
         }
     }
 
@@ -93,7 +142,7 @@ public class GameManager : MonoBehaviour
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation);
+            Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else
         {
@@ -110,5 +159,90 @@ public class GameManager : MonoBehaviour
     {
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
+    }
+
+    // <summary>
+    /// Loads a new scene by its string name.
+    /// Make sure the scene is added to the Build Settings.
+    /// </summary>
+    /// <param name="sceneName">The name of the scene file to load.</param>
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+    public void statePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void stateUnpause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void UpdateTrinketDropdown()
+    {
+        trinketDrop.ClearOptions();
+        List<string> trinketNames = new List<string>();
+        trinketNames.Add("None");
+        for (int i = 0; i < trinketsAquired.Count; i++)
+        {
+            trinketNames.Add(trinketsAquired[i].trinketName);
+        }
+
+        trinketDrop.AddOptions(trinketNames);
+    }
+    public void UpdateFeatherDropdown()
+    {
+        featherDrop.ClearOptions();
+        List<string> featherNames = new List<string>();
+        featherNames.Add("None");
+        for (int i = 0; i < feathersAquired.Count; i++)
+        {
+            featherNames.Add(feathersAquired[i].featherName);
+        }
+
+        featherDrop.AddOptions(featherNames);
+
+    }
+
+    public void OnFeatherDropdownChanged()
+    {
+       
+        featherIndex = featherDrop.value;
+
+        if(featherIndex == 0)
+        {
+            selectedFeather = null;
+        }
+        else
+        {
+            selectedFeather = feathersAquired[featherIndex - 1];
+        }
+            
+
+    }
+
+    public void OnTrinketDropdownChanged()
+    {
+
+        trinketIndex = trinketDrop.value;
+
+        if (trinketIndex == 0)
+        {
+            selectedTrinket = null;
+        }
+        else
+        {
+            selectedTrinket = trinketsAquired[trinketIndex - 1];
+        }
+
+
     }
 }

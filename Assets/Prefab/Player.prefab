@@ -197,6 +197,8 @@ MonoBehaviour:
   trinket: {fileID: 0}
   trinketModel: {fileID: 0}
   trinketsAquired: []
+  featherQueue: {fileID: 0}
+  feather: {fileID: 11400000, guid: 3f0fadc9d7ce6f042bc2981b2f259ba2, type: 2}
   gotFeather: 0
 --- !u!212 &4803216134300275987
 SpriteRenderer:

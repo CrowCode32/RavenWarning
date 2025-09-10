@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    
     public void statePause()
     {
         isPaused = !isPaused;

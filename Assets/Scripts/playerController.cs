@@ -29,6 +29,14 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] private float maxPulse = 2.0f;
     [SerializeField] private float pulseResponse = 5f;
 
+    // Attacks
+    [SerializeField] Transform attackPoint;
+    [SerializeField] float attackRadius = 0.5f;
+    [SerializeField] float attackCooldown = 0.3f;
+    [SerializeField] int attackDamage = 1;
+    [SerializeField] LayerMask enemyLayer;
+    float lastAttackTime = -999f;
+
     // Trinket Stuff
     [SerializeField] trinket trinket;
     [SerializeField] GameObject trinketModel;
@@ -63,6 +71,10 @@ public class playerController : MonoBehaviour ,IPickup
         horizontal = Input.GetAxisRaw("Horizontal");
         Movement();
         UpdateOverlayAlpha();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            slashAttack();
+        }
     }
 
     void Movement()
@@ -159,6 +171,7 @@ public class playerController : MonoBehaviour ,IPickup
         damageOverlay.color = g;
     }
 
+    // Can alose be used for the enemies
     void setAnimations()
     {
         float moveSpeed = Input.GetAxisRaw("Horizontal");
@@ -171,6 +184,32 @@ public class playerController : MonoBehaviour ,IPickup
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
-        
+    }
+
+    void slashAttack()
+    {
+        if (Time.time < lastAttackTime + attackCooldown) return;
+        lastAttackTime = Time.time;
+
+        if (!attackPoint)
+        {
+            Debug.Log("Is attacking");
+            return;
+        }
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, enemyLayer);
+        if (hits.Length == 0) return;
+
+        foreach (var h in hits)
+        {
+            var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
+            if (enemy != null)
+            {
+                enemy.takeDamage(attackDamage);
+            }
+        }
+
+        // Add attack animation here
+        anim.SetTrigger("Slash");
     }
 }

@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
 
+    [Tooltip("Assign the scene's main camera here.")]
+    public Camera mainCamera;
+
     [Header("Storm Mechanics")]
     [Tooltip("The storm wall prefab that will chase the player.")]
     public GameObject stormPrefab;
@@ -54,6 +57,12 @@ public class GameManager : MonoBehaviour
         if (journalMenuUI != null)
         {
             journalMenuUI.SetActive(false);
+        }
+       
+        // If a camera hasn't been assigned manually, find it.
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
         }
     }
 

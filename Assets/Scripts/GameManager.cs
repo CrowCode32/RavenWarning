@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         {
             journalMenuUI.SetActive(false);
         }
-       
+
         // If a camera hasn't been assigned manually, find it.
         if (mainCamera == null)
         {
@@ -119,5 +120,15 @@ public class GameManager : MonoBehaviour
     {
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
+    }
+
+    // <summary>
+    /// Loads a new scene by its string name.
+    /// Make sure the scene is added to the Build Settings.
+    /// </summary>
+    /// <param name="sceneName">The name of the scene file to load.</param>
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

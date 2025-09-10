@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -13,6 +14,14 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
+
+    // SFX
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hurtSfx;
+    [SerializeField] private AudioClip deathSfx;
+    [SerializeField] private float deathFreezeDelay = 0.75f;
+    private bool isDead = false;
 
     // Health
     [SerializeField] private int maxHealth = 5;
@@ -66,11 +75,14 @@ public class playerController : MonoBehaviour ,IPickup
     }
     void Update()
     {
+        if (isDead) return;
+
         setAnimations();
 
         horizontal = Input.GetAxisRaw("Horizontal");
         Movement();
         UpdateOverlayAlpha();
+
         if (Input.GetButtonDown("Fire1"))
         {
             slashAttack();
@@ -113,6 +125,8 @@ public class playerController : MonoBehaviour ,IPickup
 
     public void takeDamage(int amount)
     {
+        if (amount <= 0 || isDead) return;
+
         if (amount <= 0) return;
         currentHealth = Mathf.Max(0, currentHealth - amount);
         triggerFlash();
@@ -129,10 +143,27 @@ public class playerController : MonoBehaviour ,IPickup
         }
     }
 
-    private void death()
+    private IEnumerator death()
     {
-        Debug.Log("The Player died");
+        isDead = true;
 
+        // Stop motion and inputs
+        if (rb) rb.linearVelocity = Vector2.zero;
+
+        // Play death anim and SFX
+        if (anim) anim.SetTrigger("Death");
+        if (audioSource && deathSfx)
+            audioSource.PlayOneShot(deathSfx);
+
+        // Delay to see the player fall over
+        yield return new WaitForSeconds(deathFreezeDelay);
+
+        // Show Game over/lose menu and pause the game
+        if (gameOverUI)
+            gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
+
+        Debug.Log("The Player died");
         // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
     }
 

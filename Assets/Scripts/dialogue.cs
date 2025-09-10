@@ -2,15 +2,29 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using System.Collections;
+using System.Linq;
 
 public class dialogue : MonoBehaviour
 {
-    [SerializeField] TextAsset dialogueFile;
+    public static dialogue instance;
+    
     public TextMeshProUGUI textField;
     public string[] lines;
     public float textSpeed;
 
+    TextAsset dialogueFile;
     int index;
+    
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,5 +79,10 @@ public class dialogue : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void setDialogue(TextAsset newText)
+    {
+        dialogueFile = newText;
     }
 }

@@ -5,13 +5,16 @@ public class dialogueTrigger : MonoBehaviour
     [SerializeField] TextAsset dialogueFile;
     [SerializeField] GameObject dialogueBox;
     bool isTriggered;
+    bool reset;
 
     // Update is called once per frame
     void Update()
     {
-        if(isTriggered && Input.GetButtonDown("Interact"))
+
+        if (isTriggered && Input.GetButtonDown("Interact"))
         {
             dialogueBox.SetActive(true);
+            dialogue.instance.setDialogue(dialogueFile);
         }
     }
 

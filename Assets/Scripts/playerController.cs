@@ -132,7 +132,7 @@ public class playerController : MonoBehaviour ,IPickup
         triggerFlash();
 
         if (currentHealth <= 0)
-            death();
+            StartCoroutine(death());
     }
 
     public void heal(int amount)

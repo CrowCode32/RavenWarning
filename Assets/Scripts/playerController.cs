@@ -206,12 +206,15 @@ public class playerController : MonoBehaviour ,IPickup
                 speed *= 2;
                 jumpMax = 0;
                 break;
+
                 case "Woodpecker":
                 canBreakWalls = true;
                 break;
+
                 case "Vulture":
                     hasRevive = true; 
                 break;
+
                 case "Cardinal":
                 Debug.Log("Tweet tweet I'm a cardinal");
                 break;

@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour
     [Tooltip("An empty GameObject marking the storm's initial spawn position.")]
     public Transform stormSpawnPoint;
 
-    [Tooltip("An empty GameObject marking the storm's last possible position.")]
-    public Transform stormEndPoint;
-
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
 
@@ -41,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        LoadScene("MainMenu");
         // --- Singleton Pattern Implementation ---
         // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
@@ -106,7 +104,7 @@ public class GameManager : MonoBehaviour
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Instantiate(stormPrefab, stormSpawnPoint.transform);
+            Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation);
         }
         else
         {

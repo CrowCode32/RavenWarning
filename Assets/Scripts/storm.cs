@@ -15,7 +15,7 @@ public class storm : MonoBehaviour
     {
         //Game manager instantiates
         startPos = GameManager.instance.stormSpawnPoint.position;
-        endPos = GameManager.instance.stormEndPoint.position;
+        //endPos = GameManager.instance.stormEndPoint.position;
         spawnStorm();
     }
     

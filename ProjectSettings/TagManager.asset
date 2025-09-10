@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
-  - Storm
+  - GameOver
   layers:
   - Default
   - TransparentFX
@@ -16,7 +16,7 @@ TagManager:
   - Ground
   - Player
   - Storm
-  - 
+  - Enemy
   - 
   - 
   - 

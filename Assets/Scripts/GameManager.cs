@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
 
+    public bool isPaused;
+    float timeScaleOrig;
+
 
     private void Awake()
     {
@@ -52,6 +55,9 @@ public class GameManager : MonoBehaviour
         // This is the first instance. Make it the singleton and ensure it persists
         // between scene loads (e.g., when returning to the hub).
         instance = this;
+        
+        timeScaleOrig = Time.timeScale;
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -133,5 +139,20 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    public void statePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void stateUnpause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = timeScaleOrig;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

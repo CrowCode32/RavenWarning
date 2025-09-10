@@ -67,8 +67,8 @@ public class playerController : MonoBehaviour ,IPickup
     }
     void Update()
     {
-        //featherQueue = GameManager.instance.currentFeather; 
-        //When gamemanager is implemented, constantly updates to grab currently selected feather in the journal
+        featherQueue = GameManager.instance.selectedFeather; 
+        
         setAnimations();
 
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -198,31 +198,40 @@ public class playerController : MonoBehaviour ,IPickup
     //This method will go in spawn/whatever the trigger is to leave the tutorial room
     void FeatherAbility(feather feather)
     {
-        Debug.Log(feather.featherName);
-        switch (feather.featherName)
+
+        if (feather == null)
         {
-            
+
+        }
+        else
+        {
+            Debug.Log(feather.featherName);
+            switch (feather.featherName)
+            {
+
                 case "Roadrunner":
-                speed *= 2;
-                jumpMax = 0;
-                break;
+                    speed *= 2;
+                    jumpMax = 0;
+                    break;
 
                 case "Woodpecker":
-                canBreakWalls = true;
-                break;
+                    canBreakWalls = true;
+                    break;
 
                 case "Vulture":
-                    hasRevive = true; 
-                break;
+                    hasRevive = true;
+                    break;
 
                 case "Cardinal":
-                Debug.Log("Tweet tweet I'm a cardinal");
-                break;
+                    Debug.Log("Tweet tweet I'm a cardinal");
+                    break;
 
                 default:
-                return;
-                
+                    return;
+
+            }
         }
+
     }
 
     //will be ran right before setting feather = featherQueue;

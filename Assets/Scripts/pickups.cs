@@ -20,6 +20,8 @@ public class pickups : MonoBehaviour
         {
             Debug.Log("Nah thats a feather");
             pickupable.getFeather(feather);
+            GameManager.instance.feathersAquired.Add(feather);
+            GameManager.instance.UpdateFeatherDropdown();
             Destroy(gameObject);
         }
     }

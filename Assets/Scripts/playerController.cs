@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -34,7 +35,14 @@ public class playerController : MonoBehaviour ,IPickup
     [SerializeField] GameObject trinketModel;
     public List<trinket> trinketsAquired = new List<trinket>();
 
-    public bool gotFeather;
+    //Feather
+    [SerializeField] feather featherQueue;   //allows the player to switch feathers in the UI without affecting the game
+    [SerializeField] feather feather; //players current feather that gives them said feather's ability
+
+    public bool gotFeather; //check for unlocking the next feather
+    private bool hasRevive = false; //Vulture
+    private bool canBreakWalls = false; //Woodpecker
+    private int storeJumpMax; //Roadrunner
 
     float horizontal;
     int jumpCount;
@@ -45,7 +53,7 @@ public class playerController : MonoBehaviour ,IPickup
     void Start()
     {
         currentHealth = maxHealth;
-
+        storeJumpMax = jumpMax;
         if (!damageOverlay)
         {
             var g = damageOverlay.color;
@@ -53,11 +61,14 @@ public class playerController : MonoBehaviour ,IPickup
             damageOverlay.color = g;
         }
 
+        FeatherAbility(feather);
         // Whatever trinket you equip before starting will be displayed on the player after starting with this line
         // trinketModel = trinket.model;
     }
     void Update()
     {
+        //featherQueue = GameManager.instance.currentFeather; 
+        //When gamemanager is implemented, constantly updates to grab currently selected feather in the journal
         setAnimations();
 
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -119,9 +130,18 @@ public class playerController : MonoBehaviour ,IPickup
 
     private void death()
     {
-        Debug.Log("The Player died");
+        if (hasRevive)
+        {
+            currentHealth = (maxHealth / 2);
+        }
+        else
+        {
+            Debug.Log("The Player died");
+            
 
-        // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
+            // Add later on --- disable inputs, play death animimation, show UI maybe and respawn
+        }
+
     }
 
     public void triggerFlash()
@@ -172,5 +192,62 @@ public class playerController : MonoBehaviour ,IPickup
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
         
+    }
+
+
+    //This method will go in spawn/whatever the trigger is to leave the tutorial room
+    void FeatherAbility(feather feather)
+    {
+        Debug.Log(feather.featherName);
+        switch (feather.featherName)
+        {
+            
+                case "Roadrunner":
+                speed *= 2;
+                jumpMax = 0;
+                break;
+                case "Woodpecker":
+                canBreakWalls = true;
+                break;
+                case "Vulture":
+                    hasRevive = true; 
+                break;
+                case "Cardinal":
+                Debug.Log("Tweet tweet I'm a cardinal");
+                break;
+
+                default:
+                return;
+                
+        }
+    }
+
+    //will be ran right before setting feather = featherQueue;
+    void FeatherAbilityUndo(feather feather)
+    {
+        switch (feather.featherName)
+        {
+
+            case "Roadrunner":
+                speed /= 2;
+                jumpMax = storeJumpMax;
+                break;
+            case "WoodPecker":
+                canBreakWalls = false;
+                break;
+            case "Vulture":
+                hasRevive = false; 
+                break;
+
+            default:
+                return;
+
+        }
+    }
+
+    //future implementation of Woodpecker's complex ability
+    void wallBreak()
+    {
+
     }
 }

@@ -96,6 +96,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("'J' key pressed!");
             ToggleJournal();
         }
+
+        // A temporary way to test saving the game.
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SaveGame();
+        }
     }
 
     /// <summary>
@@ -171,14 +177,20 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Saves the current game data to a JSON file.
     /// </summary>
-    public void SaveGame()
+ 
+     public void SaveGame()
     {
+        // For testing, we'll just add 10 currency each time we save.
+        gameData.currency += 10;
+
         // Convert the GameData object to a JSON string.
-        string json = JsonUtility.ToJson(gameData, true); // 'true' for pretty print
+        string json = JsonUtility.ToJson(gameData, true);
 
         // Write the JSON string to the file.
         File.WriteAllText(saveFilePath, json);
-        Debug.Log("Game data saved to: " + saveFilePath);
+
+        // Use a log that confirms the value that was saved.
+        Debug.Log("Game data saved! Current currency: " + gameData.currency);
     }
 
     /// <summary>

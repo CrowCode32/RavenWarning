@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public GameObject StatsMenuUI;
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
+    
 
     [Tooltip("Assign the main Unlocks UI Panel here.")]
     public GameObject UnlocksMenuUI;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+    [SerializeField] private List<TrinketSlotUI> trinketSlots;
 
     int featherIndex;
     int trinketIndex;
@@ -262,6 +264,14 @@ public class GameManager : MonoBehaviour
             selectedTrinket = trinketsAquired[trinketIndex - 1];
         }
 
+
+    }
+
+    public void EnableJournalEntryTrinket(int num)
+    {
+        TrinketSlotUI slot = trinketSlots[num];
+        slot.locked.gameObject.SetActive(false);
+        slot.unlocked.gameObject.SetActive(true);
 
     }
 

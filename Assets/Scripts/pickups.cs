@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class pickups : MonoBehaviour
 {
     [SerializeField] trinket trinket;
     [SerializeField] feather feather;
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,6 +16,8 @@ public class pickups : MonoBehaviour
         {
             Debug.Log("Yep thats a trinket");
             pickupable.getTrinket(trinket);
+            Debug.Log(trinket.trinketNum);
+            GameManager.instance.EnableJournalEntryTrinket(trinket.trinketNum);
             GameManager.instance.trinketsAquired.Add(trinket);
             GameManager.instance.UpdateTrinketDropdown();
             Destroy(gameObject);

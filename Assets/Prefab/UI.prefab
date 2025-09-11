@@ -1953,7 +1953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7085879724707510365
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5894,6 +5894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 835097248923671641}
   - component: {fileID: 1831074145287731668}
+  - component: {fileID: 187855269306300305}
   - component: {fileID: 7965009349667069649}
   m_Layer: 5
   m_Name: TrinketLabel (6)
@@ -5931,6 +5932,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2166108833894236053}
   m_CullTransparentMesh: 1
+--- !u!114 &187855269306300305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166108833894236053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 1712902147512430710}
+  unlocked: {fileID: 7162890812575368258}
 --- !u!114 &7965009349667069649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6168,6 +6183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7021893986864815247}
   - component: {fileID: 1566669921529603054}
+  - component: {fileID: 8239723809810696517}
   - component: {fileID: 5670360033432007701}
   m_Layer: 5
   m_Name: TrinketLabel (17)
@@ -6205,6 +6221,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2257846484589181557}
   m_CullTransparentMesh: 1
+--- !u!114 &8239723809810696517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257846484589181557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 1463471429924171710}
+  unlocked: {fileID: 133054395272484327}
 --- !u!114 &5670360033432007701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6442,6 +6472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7140817417860352605}
   - component: {fileID: 5980381278649111764}
+  - component: {fileID: 696551307981457320}
   - component: {fileID: 5677458276058445406}
   m_Layer: 5
   m_Name: TrinketLabel (15)
@@ -6479,6 +6510,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2327763031091519067}
   m_CullTransparentMesh: 1
+--- !u!114 &696551307981457320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327763031091519067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 2276577058316198343}
+  unlocked: {fileID: 4952525426680299699}
 --- !u!114 &5677458276058445406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6615,6 +6660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5061020472335580189}
+  - component: {fileID: 896967924901845101}
   - component: {fileID: 4917402152928981990}
   - component: {fileID: 8885731127234483266}
   m_Layer: 5
@@ -6645,6 +6691,20 @@ RectTransform:
   m_AnchoredPosition: {x: 452.99994, y: -328.19742}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &896967924901845101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422793899072140118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 7067152588400963682}
+  unlocked: {fileID: 2168025566659025183}
 --- !u!222 &4917402152928981990
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9928,7 +9988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4064763109911770452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11529,6 +11589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810124311194715464}
   - component: {fileID: 8863687859397225322}
+  - component: {fileID: 2522529101038722903}
   - component: {fileID: 2085925711919813041}
   m_Layer: 5
   m_Name: TrinketLabel (10)
@@ -11566,6 +11627,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3694650496104250164}
   m_CullTransparentMesh: 1
+--- !u!114 &2522529101038722903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694650496104250164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 5500384195475866246}
+  unlocked: {fileID: 9182670642221130828}
 --- !u!114 &2085925711919813041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15203,6 +15278,25 @@ MonoBehaviour:
   feathersAquired: []
   selectedTrinket: {fileID: 0}
   trinketsAquired: []
+  trinketSlots:
+  - {fileID: 8462751752092332242}
+  - {fileID: 749919639518643846}
+  - {fileID: 470522278109614131}
+  - {fileID: 2192248226520106973}
+  - {fileID: 2661764660341544107}
+  - {fileID: 364937433300099002}
+  - {fileID: 187855269306300305}
+  - {fileID: 8923677296090180490}
+  - {fileID: 896967924901845101}
+  - {fileID: 7875532961880746610}
+  - {fileID: 2522529101038722903}
+  - {fileID: 6061977522467400624}
+  - {fileID: 6324590262669915715}
+  - {fileID: 4033798052169515108}
+  - {fileID: 5069159047960271444}
+  - {fileID: 696551307981457320}
+  - {fileID: 4840428699608396502}
+  - {fileID: 8239723809810696517}
   isPaused: 0
 --- !u!1 &4719993491544263452
 GameObject:
@@ -19316,6 +19410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 333892557984755675}
   - component: {fileID: 6015377507222268468}
+  - component: {fileID: 6061977522467400624}
   - component: {fileID: 5053320179413249477}
   m_Layer: 5
   m_Name: TrinketLabel (11)
@@ -19353,6 +19448,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5883299870791905483}
   m_CullTransparentMesh: 1
+--- !u!114 &6061977522467400624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883299870791905483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 849632490674849442}
+  unlocked: {fileID: 826373355768052147}
 --- !u!114 &5053320179413249477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20015,6 +20124,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5632659864781250865}
   - component: {fileID: 4407670872235550045}
+  - component: {fileID: 470522278109614131}
+  - component: {fileID: 2360397360373703630}
   - component: {fileID: 2666421317014757111}
   m_Layer: 5
   m_Name: TrinketLabel (2)
@@ -20052,6 +20163,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6247866604177897726}
   m_CullTransparentMesh: 1
+--- !u!114 &470522278109614131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6247866604177897726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 7326607902490937144}
+  unlocked: {fileID: 1241574351698059179}
+--- !u!114 &2360397360373703630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6247866604177897726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 7326607902490937144}
+  unlocked: {fileID: 1241574351698059179}
 --- !u!114 &2666421317014757111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21539,6 +21678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7585779534036550669}
   - component: {fileID: 369157695021533820}
+  - component: {fileID: 7875532961880746610}
   - component: {fileID: 7246726994592802429}
   m_Layer: 5
   m_Name: TrinketLabel (9)
@@ -21576,6 +21716,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6524351675956951819}
   m_CullTransparentMesh: 1
+--- !u!114 &7875532961880746610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524351675956951819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 3500227461454447650}
+  unlocked: {fileID: 1404275945397622442}
 --- !u!114 &7246726994592802429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21810,10 +21964,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6861725849163534090}
+  - component: {fileID: 8462751752092332242}
   - component: {fileID: 232084708516782167}
   - component: {fileID: 153244193068927961}
   m_Layer: 5
-  m_Name: TrinketLabel
+  m_Name: TrinketLabel (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21840,6 +21995,20 @@ RectTransform:
   m_AnchoredPosition: {x: -23, y: 270.56586}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8462751752092332242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6573603246826374477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 7267815138916871641}
+  unlocked: {fileID: 1093044256232555409}
 --- !u!222 &232084708516782167
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21868,7 +22037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Trinket Name
+  m_text: Diamond
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
   m_sharedMaterial: {fileID: -52106423645554384, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
@@ -22318,7 +22487,7 @@ GameObject:
   - component: {fileID: 3696147639083922768}
   - component: {fileID: 7267815138916871641}
   m_Layer: 5
-  m_Name: TrinketImageEmpty
+  m_Name: DiamondImageEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22955,6 +23124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133278639743492042}
   - component: {fileID: 3218858120213244120}
+  - component: {fileID: 2192248226520106973}
   - component: {fileID: 4543531612307680585}
   m_Layer: 5
   m_Name: TrinketLabel (3)
@@ -22992,6 +23162,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6779960084723400954}
   m_CullTransparentMesh: 1
+--- !u!114 &2192248226520106973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779960084723400954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 3771861823597340438}
+  unlocked: {fileID: 1914480871461587533}
 --- !u!114 &4543531612307680585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24462,6 +24646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2204464643747386189}
   - component: {fileID: 9179372023310358694}
+  - component: {fileID: 4840428699608396502}
   - component: {fileID: 2738791110255982967}
   m_Layer: 5
   m_Name: TrinketLabel (16)
@@ -24499,6 +24684,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7025208686507604435}
   m_CullTransparentMesh: 1
+--- !u!114 &4840428699608396502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025208686507604435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 1539715776759363803}
+  unlocked: {fileID: 8717974181660070748}
 --- !u!114 &2738791110255982967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25023,6 +25222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 653695825882727870}
   - component: {fileID: 1971233885818758822}
+  - component: {fileID: 2661764660341544107}
   - component: {fileID: 8637871749458395495}
   m_Layer: 5
   m_Name: TrinketLabel (4)
@@ -25060,6 +25260,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7157225064483494489}
   m_CullTransparentMesh: 1
+--- !u!114 &2661764660341544107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7157225064483494489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 8530951542777200143}
+  unlocked: {fileID: 0}
 --- !u!114 &8637871749458395495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25233,6 +25447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3702131056318782351}
   - component: {fileID: 6725979924553518383}
+  - component: {fileID: 5069159047960271444}
   - component: {fileID: 4492468904235994637}
   m_Layer: 5
   m_Name: TrinketLabel (14)
@@ -25270,6 +25485,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7223849094152883531}
   m_CullTransparentMesh: 1
+--- !u!114 &5069159047960271444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223849094152883531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 5540589566946086436}
+  unlocked: {fileID: 3975268871255046566}
 --- !u!114 &4492468904235994637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26144,6 +26373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 419791975381265659}
   - component: {fileID: 1621666351749128921}
+  - component: {fileID: 8923677296090180490}
   - component: {fileID: 7407564536570479524}
   m_Layer: 5
   m_Name: TrinketLabel (7)
@@ -26181,6 +26411,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7585598648026317319}
   m_CullTransparentMesh: 1
+--- !u!114 &8923677296090180490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7585598648026317319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 5361941471497453331}
+  unlocked: {fileID: 651597951068150446}
 --- !u!114 &7407564536570479524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27656,6 +27900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4998902491699443887}
   - component: {fileID: 3390694831460928637}
+  - component: {fileID: 6324590262669915715}
   - component: {fileID: 3622657156526055322}
   m_Layer: 5
   m_Name: TrinketLabel (12)
@@ -27693,6 +27938,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7993535967271988179}
   m_CullTransparentMesh: 1
+--- !u!114 &6324590262669915715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7993535967271988179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 2795462866849878812}
+  unlocked: {fileID: 2384573909728504003}
 --- !u!114 &3622657156526055322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28079,6 +28338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 512228987292422848}
+  - component: {fileID: 749919639518643846}
   - component: {fileID: 5127473629547978401}
   - component: {fileID: 2687816699363046007}
   m_Layer: 5
@@ -28109,6 +28369,20 @@ RectTransform:
   m_AnchoredPosition: {x: 215, y: 270.56586}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &749919639518643846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079194804872060041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 4106096169603802685}
+  unlocked: {fileID: 7527030931623194515}
 --- !u!222 &5127473629547978401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28305,6 +28579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3728322581317857982}
   - component: {fileID: 1509570234668189671}
+  - component: {fileID: 364937433300099002}
   - component: {fileID: 4524080096254330565}
   m_Layer: 5
   m_Name: TrinketLabel (5)
@@ -28342,6 +28617,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8081696321881282110}
   m_CullTransparentMesh: 1
+--- !u!114 &364937433300099002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8081696321881282110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 3904600119359468589}
+  unlocked: {fileID: 1969288194149543801}
 --- !u!114 &4524080096254330565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29969,6 +30258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7834108705973000033}
   - component: {fileID: 2633663586018294667}
+  - component: {fileID: 4033798052169515108}
   - component: {fileID: 5248001706520643611}
   m_Layer: 5
   m_Name: TrinketLabel (13)
@@ -30006,6 +30296,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8522140256416230943}
   m_CullTransparentMesh: 1
+--- !u!114 &4033798052169515108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522140256416230943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5563d025ba3e42817542d365db67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: {fileID: 3354729655691894129}
+  unlocked: {fileID: 359480643557071136}
 --- !u!114 &5248001706520643611
 MonoBehaviour:
   m_ObjectHideFlags: 0

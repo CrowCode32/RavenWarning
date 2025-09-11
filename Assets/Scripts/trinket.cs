@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class trinket : ScriptableObject
 {
     public GameObject model;
-    [Range(1, 18)] public int trinketNum;
+    [Range(0, 17)] public int trinketNum;
     public string trinketName;
     public string trinketDesc;
 }

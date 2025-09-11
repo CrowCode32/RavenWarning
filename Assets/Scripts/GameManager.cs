@@ -1,7 +1,12 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 
 /// <summary>
@@ -23,6 +28,16 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
+    [Tooltip("Assign the main Settings UI Panel here.")]
+    public GameObject SettingsMenuUI;
+    [Tooltip("Assign the main Stats UI Panel here.")]
+    public GameObject StatsMenuUI;
+    [SerializeField] TMP_Dropdown featherDrop;
+    [SerializeField] TMP_Dropdown trinketDrop;
+
+
+    [Tooltip("Assign the main Unlocks UI Panel here.")]
+    public GameObject UnlocksMenuUI;
 
     [Tooltip("Assign the scene's main camera here.")]
     public Camera mainCamera;
@@ -39,6 +54,22 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
+
+
+    [Header("Feather")]
+    [Tooltip("Updates featherQueue.")]
+    public feather selectedFeather;
+    [Tooltip("Acquired feathers.")]
+    public List<feather> feathersAquired = new List<feather>();
+
+    [Header("Trinket")]
+    [Tooltip("Updates player trinket.")]
+    public trinket selectedTrinket;
+    [Tooltip("Acquired trinkets.")]
+    public List<trinket> trinketsAquired = new List<trinket>();
+
+    int featherIndex;
+    int trinketIndex;
 
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
@@ -74,6 +105,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        UpdateTrinketDropdown();
+        UpdateFeatherDropdown();
         // Ensure the journal is closed at the start of the game.
         if (journalMenuUI != null)
         {
@@ -174,11 +207,78 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+
     /// <summary>
     /// Saves the current game data to a JSON file.
     /// </summary>
  
      public void SaveGame()
+
+    public void UpdateTrinketDropdown()
+    {
+        trinketDrop.ClearOptions();
+        List<string> trinketNames = new List<string>();
+        trinketNames.Add("None");
+        for (int i = 0; i < trinketsAquired.Count; i++)
+        {
+            trinketNames.Add(trinketsAquired[i].trinketName);
+        }
+
+        trinketDrop.AddOptions(trinketNames);
+    }
+    public void UpdateFeatherDropdown()
+    {
+        featherDrop.ClearOptions();
+        List<string> featherNames = new List<string>();
+        featherNames.Add("None");
+        for (int i = 0; i < feathersAquired.Count; i++)
+        {
+            featherNames.Add(feathersAquired[i].featherName);
+        }
+
+        featherDrop.AddOptions(featherNames);
+
+    }
+
+    public void OnFeatherDropdownChanged()
+    {
+
+        featherIndex = featherDrop.value;
+
+        if (featherIndex == 0)
+        {
+            selectedFeather = null;
+        }
+        else
+        {
+            selectedFeather = feathersAquired[featherIndex - 1];
+        }
+
+
+    }
+
+    public void OnTrinketDropdownChanged()
+    {
+
+        trinketIndex = trinketDrop.value;
+
+        if (trinketIndex == 0)
+        {
+            selectedTrinket = null;
+        }
+        else
+        {
+            selectedTrinket = trinketsAquired[trinketIndex - 1];
+        }
+
+
+    }
+
+    /// <summary>
+    /// Saves the current game data to a JSON file.
+    /// </summary>
+
+    public void SaveGame()
     {
         // For testing, we'll just add 10 currency each time we save.
         gameData.currency += 10;
@@ -213,5 +313,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
+    }
+
+
+    public void lordInformed(string lord)
+    {
+        GameData.instance.inform(lord);
+        Debug.Log("Informed");
     }
 }

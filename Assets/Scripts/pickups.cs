@@ -14,12 +14,16 @@ public class pickups : MonoBehaviour
         {
             Debug.Log("Yep thats a trinket");
             pickupable.getTrinket(trinket);
+            GameManager.instance.trinketsAquired.Add(trinket);
+            GameManager.instance.UpdateTrinketDropdown();
             Destroy(gameObject);
         }
         else if(pickupable != null && feather != null)
         {
             Debug.Log("Nah thats a feather");
             pickupable.getFeather(feather);
+            GameManager.instance.feathersAquired.Add(feather);
+            GameManager.instance.UpdateFeatherDropdown();
             Destroy(gameObject);
         }
     }

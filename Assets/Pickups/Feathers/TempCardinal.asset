@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TempCardinal
   m_EditorClassIdentifier: 
   model: {fileID: 4546894217606218228, guid: 7dba48b812f9eb649bc4515c70d20ff3, type: 3}
-  featherName: 'Cardinal '
+  featherName: Cardinal
   featherDesc: Seems to be heat resistant due to its red sheen...

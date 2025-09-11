@@ -3466,7 +3466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8333939572847156348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3500,10 +3500,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e19771ccf25f8448d66ff57f34ab03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueFile: {fileID: 4900000, guid: 1deb48551b163be4fb730fee672c8f98, type: 3}
   textField: {fileID: 8794199790779403815}
   lines: []
   textSpeed: 0.02
+  dialogueFile: {fileID: 4900000, guid: 1deb48551b163be4fb730fee672c8f98, type: 3}
+  isRunning: 0
 --- !u!222 &1625374521377046738
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3525,7 +3526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

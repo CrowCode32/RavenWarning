@@ -1,9 +1,12 @@
 using System.Collections;
+using System.IO;
+using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
@@ -14,6 +17,9 @@ public class GameManager : MonoBehaviour
 {
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
+
+    private GameData gameData;
+    private string saveFilePath;
 
     [Header("Object References")]
     [Tooltip("Assign the player's GameObject here.")]
@@ -72,6 +78,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // A safe place to store player data.
+        saveFilePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
+
         // --- Singleton Pattern Implementation ---
         // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
@@ -87,6 +96,9 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
 
         DontDestroyOnLoad(gameObject);
+
+        // Load the game as soon as the manager is ready
+        LoadGame();
     }
 
     private void Start()
@@ -114,6 +126,12 @@ public class GameManager : MonoBehaviour
             // This will print a message to the console every time we press 'J'.
             Debug.Log("'J' key pressed!");
             ToggleJournal();
+        }
+
+        // A temporary way to test saving the game.
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SaveGame();
         }
     }
 
@@ -170,6 +188,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
     public void statePause()
     {
         isPaused = !isPaused;
@@ -244,5 +263,46 @@ public class GameManager : MonoBehaviour
         }
 
 
+    }
+
+    /// <summary>
+    /// Saves the current game data to a JSON file.
+    /// </summary>
+ 
+     public void SaveGame()
+    {
+        // For testing, we'll just add 10 currency each time we save.
+        gameData.currency += 10;
+
+        // Convert the GameData object to a JSON string.
+        string json = JsonUtility.ToJson(gameData, true);
+
+        // Write the JSON string to the file.
+        File.WriteAllText(saveFilePath, json);
+
+        // Use a log that confirms the value that was saved.
+        Debug.Log("Game data saved! Current currency: " + gameData.currency);
+    }
+
+    /// <summary>
+    /// Loads game data from a JSON file, or creates a new game if no file exists.
+    /// </summary>
+    public void LoadGame()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            // If a save file exists, read it.
+            string json = File.ReadAllText(saveFilePath);
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from: " + saveFilePath);
+        }
+        else
+        {
+            // If no save file exists, create a new GameData object with default values.
+            Debug.Log("No save file found. Creating a new game.");
+            gameData = new GameData();
+        }
     }
 }

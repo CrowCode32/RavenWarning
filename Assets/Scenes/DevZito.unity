@@ -1555,6 +1555,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 515834044}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &475203000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+  m_PrefabInstance: {fileID: 5313903515434184544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &515834043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,6 +2926,7 @@ GameObject:
   - component: {fileID: 888896560}
   - component: {fileID: 888896559}
   - component: {fileID: 888896561}
+  - component: {fileID: 888896562}
   m_Layer: 9
   m_Name: GhostFloat_0
   m_TagString: Untagged
@@ -2992,7 +2998,7 @@ Transform:
   m_GameObject: {fileID: 888896558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.514885, y: 0.27197385, z: 0}
+  m_LocalPosition: {x: 8.495374, y: 0.5816987, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3021,6 +3027,49 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &888896562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888896558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7d102260cd8914eb21dd0c3bb72d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  positionA: {fileID: 708177319}
+  positionB: {fileID: 571744978}
+  player: {fileID: 475203000}
+  attackDamage: 1
+  attackCooldown: 1
+  attackPoint: {fileID: 572175379}
+  attackRadius: 0.6
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  maxHealth: 3
+  currentHealth: 0
+  screamDamage: 1
+  windUpTime: 0.8
+  screamDuration: 0.6
+  damageTick: 0.5
+  screamRange: 3
+  screamAngle: 70
+  attackType: 0
+  frontOffset: 0.5
+  meleeRadius: 0.5
+  sprite: {fileID: 0}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.1
+  hurtFrames: 0.5
+  animator: {fileID: 888896561}
+  audioSource: {fileID: 0}
+  hitSfx: {fileID: 0}
+  deathSfx: {fileID: 0}
+  knockback: 4
 --- !u!1 &901954859
 GameObject:
   m_ObjectHideFlags: 0
@@ -5118,7 +5167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4045912389975657102, guid: dd6f96866311108408b0db89d8a9182d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4045912389975657102, guid: dd6f96866311108408b0db89d8a9182d, type: 3}
       propertyPath: m_TagString

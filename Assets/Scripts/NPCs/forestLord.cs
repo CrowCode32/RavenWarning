@@ -11,7 +11,6 @@ public class forestLord : MonoBehaviour
             GameManager.instance.lordInformed("Forest");
         }
 
-        isTriggered = false;
         //Destroy(gameObject);
     }
 

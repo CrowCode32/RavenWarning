@@ -26,6 +26,8 @@ public class enemyAI : MonoBehaviour
     private float lastAttackTime = -999f;
     bool isAttacking = false;
 
+    public enum AttackType { Scream, Melee }
+
     // Ghost attack
     [SerializeField] int screamDamage = 1;
     [SerializeField] float windUpTime = 0.8f;
@@ -38,7 +40,9 @@ public class enemyAI : MonoBehaviour
 
 
     // Slashing attack
-
+    [SerializeField] AttackType attackType = AttackType.Melee;
+    [SerializeField] float frontOffset = 0.5f;
+    [SerializeField] float meleeRadius = 0.5f;
 
     // Hit feedback
     [SerializeField] private SpriteRenderer sprite;
@@ -80,40 +84,42 @@ public class enemyAI : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Attack distance
-        if (distanceToPlayer <= attackDistance)
+        // Attack   
+        if (!isAttacking)
         {
-            Debug.Log("Attacking the player");
-            float dx = player.position.x - transform.position.x;
-            FaceDir(dx);
-
-            Attack2D();
-        }
-
-        // Player chase
-        else if (distanceToPlayer <= chaseDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-
-            float dx = player.position.x - transform.position.x;
-            FaceDir(dx);
-        }
-
-        // Switch between the two points --- So patrolling
-        else
-        {
-            Vector2 targetDistance = movingToAttack ? positionA.position : positionB.position;
-            transform.position = Vector2.MoveTowards(transform.position, targetDistance, speed * Time.deltaTime);
-
-            float dx = targetDistance.x - transform.position.x;
-            FaceDir(dx);
-
-            // Switch the direction
-            if (Vector2.Distance(transform.position, targetDistance) < 0.1f)
+            if (distanceToPlayer <= attackDistance)
             {
-                movingToAttack = !movingToAttack;
+                if (Time.time >= lastAttackTime + attackCooldown)
+                {
+                    if (attackType == AttackType.Melee)
+                    {
+                        MeleeAttack();
+                    }
+                    else if (attackType == AttackType.Scream)
+                    {
+                        StartCoroutine(ScreamAttack());
+                    }
+                }
+                else
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);  
+                }
             }
-        }
+            // Chase
+            else if (distanceToPlayer <= chaseDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            }
+            // Patrol
+            else
+            {
+                Vector2 target = (movingToAttack ? positionA : positionB).position;
+                transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+                FaceDir(target.x - transform.position.x);
+
+                if (Vector2.Distance(transform.position, target) < 0.1f) movingToAttack = !movingToAttack;
+            }
+        } 
     }
 
     public void Attack2D()
@@ -136,8 +142,27 @@ public class enemyAI : MonoBehaviour
         }
     }
 
+    // Melee slashing attack
+    void MeleeAttack()
+    {
+        lastAttackTime = Time.time;
+        if (animator)
+            animator.SetTrigger("Attack");
 
+        Vector2 origin = (Vector2)transform.position + FowardDir() * frontOffset;
+        Collider2D hit = Physics2D.OverlapCircle(origin, meleeRadius, playerLayer);
 
+        if (hit)
+        {
+            var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
+
+            if (pc != null)
+                pc.takeDamage(attackDamage);
+        }
+
+    }
+
+    // Screaming or howl attack
      IEnumerator ScreamAttack()
     {
         isAttacking = true;

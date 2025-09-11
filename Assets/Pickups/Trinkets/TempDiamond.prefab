@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8706e9d945d1af74284b080e8c34c46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trinket: {fileID: 0}
+  trinket: {fileID: 11400000, guid: c91579df725b23b49b8b8d9811151b77, type: 2}
+  feather: {fileID: 0}
 --- !u!212 &8981834775365944681
 SpriteRenderer:
   m_ObjectHideFlags: 0

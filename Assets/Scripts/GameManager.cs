@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
@@ -15,21 +14,15 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
+    private GameData gameData;
+    private string saveFilePath;
+
     [Header("Object References")]
     [Tooltip("Assign the player's GameObject here.")]
     public GameObject player;
 
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
-    [Tooltip("Assign the main Settings UI Panel here.")]
-    public GameObject SettingsMenuUI;
-    [Tooltip("Assign the main Stats UI Panel here.")]
-    public GameObject StatsMenuUI;
-    [SerializeField] TMP_Dropdown featherDrop;
-    [SerializeField] TMP_Dropdown trinketDrop;
-
-    [Tooltip("Assign the main Unlocks UI Panel here.")]
-    public GameObject UnlocksMenuUI;
 
     [Tooltip("Assign the scene's main camera here.")]
     public Camera mainCamera;
@@ -47,22 +40,6 @@ public class GameManager : MonoBehaviour
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
 
-
-    [Header("Feather")]
-    [Tooltip("Updates featherQueue.")]
-    public feather selectedFeather;
-    [Tooltip("Acquired feathers.")]
-    public List<feather> feathersAquired = new List<feather>();
-
-    [Header("Trinket")]
-    [Tooltip("Updates player trinket.")]
-    public trinket selectedTrinket;
-    [Tooltip("Acquired trinkets.")]
-    public List<trinket> trinketsAquired = new List<trinket>();
-
-    int featherIndex;
-    int trinketIndex;
-
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
 
@@ -72,6 +49,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // A safe place to store player data.
+        saveFilePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
+
         // --- Singleton Pattern Implementation ---
         // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
@@ -87,12 +67,13 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
 
         DontDestroyOnLoad(gameObject);
+
+        // Load the game as soon as the manager is ready
+        LoadGame();
     }
 
     private void Start()
     {
-        UpdateTrinketDropdown();
-        UpdateFeatherDropdown();
         // Ensure the journal is closed at the start of the game.
         if (journalMenuUI != null)
         {
@@ -114,6 +95,12 @@ public class GameManager : MonoBehaviour
             // This will print a message to the console every time we press 'J'.
             Debug.Log("'J' key pressed!");
             ToggleJournal();
+        }
+
+        // A temporary way to test saving the game.
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SaveGame();
         }
     }
 
@@ -170,6 +157,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
     public void statePause()
     {
         isPaused = !isPaused;
@@ -186,63 +174,44 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void UpdateTrinketDropdown()
+    /// <summary>
+    /// Saves the current game data to a JSON file.
+    /// </summary>
+ 
+     public void SaveGame()
     {
-        trinketDrop.ClearOptions();
-        List<string> trinketNames = new List<string>();
-        trinketNames.Add("None");
-        for (int i = 0; i < trinketsAquired.Count; i++)
-        {
-            trinketNames.Add(trinketsAquired[i].trinketName);
-        }
+        // For testing, we'll just add 10 currency each time we save.
+        gameData.currency += 10;
 
-        trinketDrop.AddOptions(trinketNames);
-    }
-    public void UpdateFeatherDropdown()
-    {
-        featherDrop.ClearOptions();
-        List<string> featherNames = new List<string>();
-        featherNames.Add("None");
-        for (int i = 0; i < feathersAquired.Count; i++)
-        {
-            featherNames.Add(feathersAquired[i].featherName);
-        }
+        // Convert the GameData object to a JSON string.
+        string json = JsonUtility.ToJson(gameData, true);
 
-        featherDrop.AddOptions(featherNames);
+        // Write the JSON string to the file.
+        File.WriteAllText(saveFilePath, json);
 
+        // Use a log that confirms the value that was saved.
+        Debug.Log("Game data saved! Current currency: " + gameData.currency);
     }
 
-    public void OnFeatherDropdownChanged()
+    /// <summary>
+    /// Loads game data from a JSON file, or creates a new game if no file exists.
+    /// </summary>
+    public void LoadGame()
     {
-       
-        featherIndex = featherDrop.value;
-
-        if(featherIndex == 0)
+        if (File.Exists(saveFilePath))
         {
-            selectedFeather = null;
+            // If a save file exists, read it.
+            string json = File.ReadAllText(saveFilePath);
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from: " + saveFilePath);
         }
         else
         {
-            selectedFeather = feathersAquired[featherIndex - 1];
+            // If no save file exists, create a new GameData object with default values.
+            Debug.Log("No save file found. Creating a new game.");
+            gameData = new GameData();
         }
-            
-
-    }
-
-    public void OnTrinketDropdownChanged()
-    {
-
-        trinketIndex = trinketDrop.value;
-
-        if (trinketIndex == 0)
-        {
-            selectedTrinket = null;
-        }
-        else
-        {
-            selectedTrinket = trinketsAquired[trinketIndex - 1];
-        }
-
-
     }
 }

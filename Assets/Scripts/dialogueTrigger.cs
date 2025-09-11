@@ -17,7 +17,7 @@ public class dialogueTrigger : MonoBehaviour
     void Update()
     {
 
-        if (isTriggered && Input.GetButtonDown("Interact"))
+        if (isTriggered && Input.GetButtonDown("Interact") && instance.isRunning == false)
         {
             dialogueBox.SetActive(true);
             instance.startDialogue(diaInput);

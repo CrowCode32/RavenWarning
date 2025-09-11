@@ -20,15 +20,8 @@ public class dialogue : MonoBehaviour
     void OnEnable()
     {
         textField.text = string.Empty;
-        //isRunning = false;
+        index = 0;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    /*void Start()
-    {
-        textField.text = string.Empty;
-        //startDialogue(dialogueFile);
-    }*/
 
     // Update is called once per frame
     void Update()
@@ -51,8 +44,6 @@ public class dialogue : MonoBehaviour
     public void startDialogue(TextAsset dialogueInput)
     {
         isRunning = true;
-        index = 0;
-        Debug.Log("Index: " + index);
 
         string allText = dialogueInput.text;
         lines = allText.Split("\n");

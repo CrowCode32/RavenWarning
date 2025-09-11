@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         journalMenuUI.SetActive(isJournalOpen);
     }
 
-    // <summary>
+    /// <summary>
     /// Loads a new scene by its string name.
     /// Make sure the scene is added to the Build Settings.
     /// </summary>
@@ -208,11 +208,13 @@ public class GameManager : MonoBehaviour
     }
 
 
+
     /// <summary>
     /// Saves the current game data to a JSON file.
     /// </summary>
  
      public void SaveGame()
+
 
     public void UpdateTrinketDropdown()
     {
@@ -313,6 +315,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
+
     }
 
 
@@ -320,5 +323,6 @@ public class GameManager : MonoBehaviour
     {
         GameData.instance.inform(lord);
         Debug.Log("Informed");
+
     }
 }

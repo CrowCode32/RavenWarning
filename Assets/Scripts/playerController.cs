@@ -45,6 +45,7 @@ public class playerController : MonoBehaviour ,IPickup
     private int storeJumpMax; //Roadrunner
 
     float horizontal;
+    bool isJumping = false;
     int jumpCount;
 
     private float flashTimer = 0f;
@@ -82,9 +83,10 @@ public class playerController : MonoBehaviour ,IPickup
 
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
+            isJumping = true;
             jumpCount++;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
-        }
+        } 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -94,6 +96,12 @@ public class playerController : MonoBehaviour ,IPickup
         {
             jumpCount = 0;
         }
+
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+
     }
 
     public void getTrinket(trinket trinket)
@@ -192,8 +200,11 @@ public class playerController : MonoBehaviour ,IPickup
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
         
-    }
+        anim.SetBool("isJumping", isJumping);
+        anim.SetInteger("jumpCount", jumpCount);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
 
+    }
 
     //This method will go in spawn/whatever the trigger is to leave the tutorial room
     void FeatherAbility(feather feather)

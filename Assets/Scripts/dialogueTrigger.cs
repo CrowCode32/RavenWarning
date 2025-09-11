@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class dialogueTrigger : MonoBehaviour
 {
-    [SerializeField] TextAsset dialogueFile;
+    [SerializeField] TextAsset diaInput;
     [SerializeField] GameObject dialogueBox;
     bool isTriggered;
-    bool reset;
+
+    dialogue instance;
+
+    void Start()
+    {
+        instance = dialogueBox.GetComponent<dialogue>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -14,7 +20,7 @@ public class dialogueTrigger : MonoBehaviour
         if (isTriggered && Input.GetButtonDown("Interact"))
         {
             dialogueBox.SetActive(true);
-            dialogue.instance.setDialogue(dialogueFile);
+            instance.startDialogue(diaInput);
         }
     }
 

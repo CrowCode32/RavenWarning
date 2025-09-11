@@ -3,42 +3,41 @@ using TMPro;
 using System.IO;
 using System.Collections;
 using System.Linq;
+using NUnit.Framework;
+using System;
 
 public class dialogue : MonoBehaviour
-{
-    public static dialogue instance;
-    
+{   
     public TextMeshProUGUI textField;
     public string[] lines;
     public float textSpeed;
 
-    TextAsset dialogueFile;
+    public TextAsset dialogueFile;
     int index;
-    
-    void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-        } else
-        {
-            Destroy(gameObject);
-        }
-    }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool isRunning;
+
+
+    void OnEnable()
     {
         textField.text = string.Empty;
-        startDialogue();
+        //isRunning = false;
     }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /*void Start()
+    {
+        textField.text = string.Empty;
+        //startDialogue(dialogueFile);
+    }*/
 
     // Update is called once per frame
     void Update()
     {
+        if(!isRunning || lines == null) { return; }
+        
         if (Input.GetButtonDown("Interact"))
         {
-            if (textField.text == lines[index])
+            if (textField.GetParsedText() == lines[index])
             {
                 nextLine();
             } else
@@ -49,11 +48,13 @@ public class dialogue : MonoBehaviour
         }
     }
 
-    public void startDialogue()
+    public void startDialogue(TextAsset dialogueInput)
     {
+        isRunning = true;
         index = 0;
+        Debug.Log("Index: " + index);
 
-        string allText = dialogueFile.text;
+        string allText = dialogueInput.text;
         lines = allText.Split("\n");
 
         StartCoroutine(TypeLine());
@@ -77,12 +78,8 @@ public class dialogue : MonoBehaviour
             StartCoroutine(TypeLine());
         } else
         {
+            isRunning = false;
             gameObject.SetActive(false);
         }
-    }
-
-    public void setDialogue(TextAsset newText)
-    {
-        dialogueFile = newText;
     }
 }

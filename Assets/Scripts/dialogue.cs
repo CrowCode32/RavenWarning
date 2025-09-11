@@ -2,29 +2,35 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using System.Collections;
+using System.Linq;
+using NUnit.Framework;
+using System;
 
 public class dialogue : MonoBehaviour
-{
-    [SerializeField] TextAsset dialogueFile;
+{   
     public TextMeshProUGUI textField;
     public string[] lines;
     public float textSpeed;
 
+    public TextAsset dialogueFile;
     int index;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool isRunning;
+
+
+    void OnEnable()
     {
         textField.text = string.Empty;
-        startDialogue();
+        index = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!isRunning || lines == null) { return; }
+        
         if (Input.GetButtonDown("Interact"))
         {
-            if (textField.text == lines[index])
+            if (textField.GetParsedText() == lines[index])
             {
                 nextLine();
             } else
@@ -35,11 +41,11 @@ public class dialogue : MonoBehaviour
         }
     }
 
-    void startDialogue()
+    public void startDialogue(TextAsset dialogueInput)
     {
-        index = 0;
-        
-        string allText = dialogueFile.text;
+        isRunning = true;
+
+        string allText = dialogueInput.text;
         lines = allText.Split("\n");
 
         StartCoroutine(TypeLine());
@@ -63,6 +69,7 @@ public class dialogue : MonoBehaviour
             StartCoroutine(TypeLine());
         } else
         {
+            isRunning = false;
             gameObject.SetActive(false);
         }
     }

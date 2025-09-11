@@ -7,11 +7,11 @@ using Unity.VisualScripting;
 public class enemyAI : MonoBehaviour
 {
     // Patrol
-    public float speed = 1f;
+    public float speed = 3f;
     public Transform positionA;
     public Transform positionB;
     public Transform player;
-    private bool movingToAttack = true;
+    bool movingToAttack = true;
     private float chaseDistance = 5f;
     private float attackDistance = 2f;
 
@@ -24,6 +24,21 @@ public class enemyAI : MonoBehaviour
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int currentHealth;
     private float lastAttackTime = -999f;
+    bool isAttacking = false;
+
+    // Ghost attack
+    [SerializeField] int screamDamage = 1;
+    [SerializeField] float windUpTime = 0.8f;
+    [SerializeField] float screamDuration = 0.6f;
+    [SerializeField] float damageTick = 0.5f;
+    [SerializeField] float screamRange = 3f;
+    [SerializeField] float screamAngle = 70f;
+
+    // Knight attack
+
+
+    // Slashing attack
+
 
     // Hit feedback
     [SerializeField] private SpriteRenderer sprite;
@@ -35,8 +50,6 @@ public class enemyAI : MonoBehaviour
     [SerializeField] private AudioClip hitSfx;
     [SerializeField] private AudioClip deathSfx;
     [SerializeField] private float knockback = 4f;
-
-
     private Color _origColor;
     private float _flashTimer = 0f;
     private float _iFrameTimer = 0f;
@@ -54,6 +67,7 @@ public class enemyAI : MonoBehaviour
 
     void Update()
     {
+        // Timers
         if (_iFrameTimer > 0f) _iFrameTimer -= Time.deltaTime; // Invulnerability
 
         if (_flashTimer > 0f)
@@ -62,12 +76,17 @@ public class enemyAI : MonoBehaviour
             if (_flashTimer <= 0f && sprite) sprite.color = _origColor;
         }
 
+        if (!player) return;
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         // Attack distance
         if (distanceToPlayer <= attackDistance)
         {
             Debug.Log("Attacking the player");
+            float dx = player.position.x - transform.position.x;
+            FaceDir(dx);
+
             Attack2D();
         }
 
@@ -75,6 +94,9 @@ public class enemyAI : MonoBehaviour
         else if (distanceToPlayer <= chaseDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+
+            float dx = player.position.x - transform.position.x;
+            FaceDir(dx);
         }
 
         // Switch between the two points --- So patrolling
@@ -82,6 +104,9 @@ public class enemyAI : MonoBehaviour
         {
             Vector2 targetDistance = movingToAttack ? positionA.position : positionB.position;
             transform.position = Vector2.MoveTowards(transform.position, targetDistance, speed * Time.deltaTime);
+
+            float dx = targetDistance.x - transform.position.x;
+            FaceDir(dx);
 
             // Switch the direction
             if (Vector2.Distance(transform.position, targetDistance) < 0.1f)
@@ -111,14 +136,58 @@ public class enemyAI : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+
+
+     IEnumerator ScreamAttack()
     {
-        if (attackPoint)
+        isAttacking = true;
+        lastAttackTime = Time.time;
+
+        // WindUp
+        float t = 0f;
+        if (animator)
+            animator.SetTrigger("Windup");
+        while (t < windUpTime)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+            FaceDir(player.position.x - transform.position.x);
+            t += Time.deltaTime;
+            yield return null;
         }
+
+        // Scream tick in cone shape
+        if (animator)  
+            animator.SetTrigger("Attack");
+        float elasped = 0f;
+        float nextTick = 0f;
+
+        while (elasped < screamDuration)
+        {
+            elasped += Time.deltaTime;
+            FaceDir(player.position.x - transform.position.x);
+
+            if (elasped >= nextTick)
+            {
+                nextTick += damageTick;
+
+                // Get colliders in cone range
+                Vector2 origin = transform.position;
+                Collider2D[] hits = Physics2D.OverlapCircleAll(origin, screamRange, playerLayer);
+
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    var pc = hits[i].GetComponent<playerController>() ?? hits[i].GetComponentInParent<playerController>();
+
+                    if (pc != null && InScreamCone(origin, hits[i].transform.position))
+                    {
+                        pc.takeDamage(screamDamage);
+                    }
+                }
+            }
+            yield return null;
+        }
+        isAttacking = false;
     }
+
 
     public void takeDamage(int amount)
     {
@@ -169,5 +238,32 @@ public class enemyAI : MonoBehaviour
 
         Destroy(gameObject, deathSfx ? deathSfx.length : 0f);
         // Todo - play death anim/SFX, add score or drop loot
+    }
+
+    private void FaceDir(float dx)
+    {
+        if (sprite == null) return;
+        if (dx > 0.1f)
+            sprite.flipX = false; // Right
+        else if (dx < -0.1f)
+            sprite.flipX = true; // Left
+    }
+
+    Vector2 FowardDir()
+    {
+        if (!sprite) return Vector2.right;
+        return sprite.flipX ? Vector2.left : Vector2.right;
+    }
+
+    bool InScreamCone(Vector2 origin, Vector2 targetPos)
+    {
+        Vector2 toTarget = targetPos - origin;
+        float dist = toTarget.magnitude;
+        if (dist > screamRange || dist < Mathf.Epsilon) return false;
+
+        Vector2 fwd = FowardDir().normalized;
+        float cos = Vector2.Dot(fwd, toTarget.normalized);
+        float limit = Mathf.Cos(screamAngle * Mathf.Deg2Rad);
+        return cos >= limit;
     }
 }

@@ -3,7 +3,6 @@ using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -55,6 +54,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
 
+    [Header("Run Progress")]
+    [Tooltip("Tracks if the player has informed the lord in the cave level.")]
+    public bool lordInCaveInformed = false;
+    [Tooltip("Tracks if the player has informed the lord in the forest level.")]
+    public bool lordInForestInformed = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -213,7 +217,6 @@ public class GameManager : MonoBehaviour
     /// Saves the current game data to a JSON file.
     /// </summary>
  
-     public void SaveGame()
 
 
     public void UpdateTrinketDropdown()
@@ -318,11 +321,62 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    public void lordInformed(string lord)
+    /// <summary>
+    /// Sets the status of the Cave Lord to 'informed' and saves the game.
+    /// </summary>
+    public void InformLordOfCave()
     {
-        GameData.instance.inform(lord);
-        Debug.Log("Informed");
+        // Only update and save if this is the first time informing this lord.
+        if (!lordInCaveInformed)
+        {
+            lordInCaveInformed = true;
+            Debug.Log("The lord in the cave has been informed.");
+            SaveGame();
+        }
+    }
 
+    /// <summary>
+    /// Sets the status of the Forest Lord to 'informed' and saves the game.
+    /// </summary>
+    public void InformLordOfForest()
+    {
+        // Only update and save if this is the first time informing this lord.
+        if (!lordInForestInformed)
+        {
+            lordInForestInformed = true;
+            Debug.Log("The lord in the forest has been informed.");
+            SaveGame();
+        }
+    }
+
+
+    /// <summary>
+    /// This is the central function for updating a lord's status.
+    /// I set it up this way so any lord in the game can just call this one
+    /// function instead of having its own logic.
+    /// </summary>
+
+     public void lordInformed(string lord)
+    {
+        // I'm keeping all the save data in the 'gameData' object, which the
+        // GameManager creates and manages. This makes the GameManager our "single
+        // source of truth" for all game progress. It's cleaner than making 
+        // GameData a singleton because this keeps our data separate from our logic.
+        
+        // Check which lord is being referenced by the string
+        if (lord == "Forest" && !gameData.lesserLordForestInformed)
+        {
+            // The GameManager is the only thing that should be allowed to change
+            // the game's data. Then, it immediately saves the progress.
+            gameData.lesserLordForestInformed = true;
+            Debug.Log("The lord in the forest has been informed.");
+            SaveGame(); 
+        }
+        else if (lord == "Cave" && !gameData.lesserLordCaveInformed)
+        {
+            gameData.lesserLordCaveInformed = true;
+            Debug.Log("The lord in the cave has been informed.");
+            SaveGame(); 
+        }
     }
 }

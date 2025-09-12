@@ -64,6 +64,7 @@ public class playerController : MonoBehaviour, IPickup
     private int storeJumpMax; // Roadrunner
 
     float horizontal;
+    bool isJumping = false;
     int jumpCount;
 
     void Awake()
@@ -121,6 +122,7 @@ public class playerController : MonoBehaviour, IPickup
 
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
+            isJumping = true;
             jumpCount++;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
@@ -131,6 +133,11 @@ public class playerController : MonoBehaviour, IPickup
         if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
         {
             jumpCount = 0;
+        }
+
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isJumping = false;
         }
     }
 
@@ -245,6 +252,10 @@ public class playerController : MonoBehaviour, IPickup
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
+
+        anim.SetBool("isJumping", isJumping);
+        anim.SetInteger("jumpCount", jumpCount);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 
     void slashAttack()

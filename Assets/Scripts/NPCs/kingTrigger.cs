@@ -8,6 +8,7 @@ public class kingTrigger : MonoBehaviour
     [SerializeField] TextAsset KingForestInformed;
     [SerializeField] GameObject dialogueBox;
     bool isTriggered;
+    bool win;
 
     dialogue instance;
 
@@ -26,21 +27,29 @@ public class kingTrigger : MonoBehaviour
             // Both informed, win
             if (GameManager.instance.lordInCaveInformed && GameManager.instance.lordInForestInformed)
             {
+                win = true;
                 instance.startDialogue(KingInformed);
             // Only forest lord informed
             } else if (GameManager.instance.lordInForestInformed)
             {
+                win = false;
                 instance.startDialogue(KingForestInformed);
             // Only cave lord informed
             } else if (GameManager.instance.lordInCaveInformed)
             {
+                win = false;
                 instance.startDialogue(KingCaveInformed);
             // Neither informed
             } else
             {
+                win = false;
                 instance.startDialogue(KingUninformed);
             }
         }
+        
+        // Tells the game manager to call the function for win/lose accordingly 
+        if (win && instance.isComplete) { GameManager.instance.gameWon(); }
+        else if (!win && instance.isComplete) { GameManager.instance.gameLost(); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

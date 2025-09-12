@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
-
+    
     int featherIndex;
     int trinketIndex;
 
@@ -385,5 +385,22 @@ public class GameManager : MonoBehaviour
     {
         gameData.lesserLordForestInformed = false;
         gameData.lesserLordCaveInformed = false;
+    }
+
+    // This method is called when the game is TRULY won.
+    public void gameWon()
+    {
+        statePause();
+        Debug.Log("Game won");
+
+        LoadScene("Credits");
+        //Wait until credits animation has ended and then load main menu
+        Time.timeScale = 1;
+    }
+
+    public void gameLost()
+    {
+        statePause();
+        Debug.Log("Game lost");
     }
 }

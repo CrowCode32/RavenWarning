@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RavenWarning.unity
     guid: 31af1accdd067ab4aad4d1b38812897c
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 3a8726fbc62439a4e9045e5e448d3f52
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

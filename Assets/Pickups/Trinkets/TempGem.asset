@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e61953b488cb93948a58814892cbaddb, type: 3}
-  m_Name: TempDiamond
+  m_Name: TempGem
   m_EditorClassIdentifier: 
-  model: {fileID: 7922432254740541296, guid: 7cb9051fe3dd8d74c8e04f7df886fbcd, type: 3}
-  trinketNum: 0
-  trinketName: Diamond
-  trinketDesc: 'A shiny gem! '
+  model: {fileID: 7922432254740541296, guid: 61df6762117d75e40906afc67c187791, type: 3}
+  trinketNum: 1
+  trinketName: Gem
+  trinketDesc: A shiny Gem!

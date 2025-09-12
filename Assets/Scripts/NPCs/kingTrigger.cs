@@ -66,7 +66,7 @@ public class kingTrigger : MonoBehaviour
         {
             isTriggered = false;
             instance.isRunning = false;
-            dialogueBox.SetActive(false);
+            if (dialogueBox != null) { dialogueBox.SetActive(false); }
         }
     }
 }

@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's GameObject here.")]
     public GameObject player;
 
+    [Tooltip("Assign the main Menu UI Panel here.")]
+    public GameObject mainMenuUI;
+
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
     [Tooltip("Assign the main Settings UI Panel here.")]
@@ -101,6 +104,9 @@ public class GameManager : MonoBehaviour
 
         // Load the game as soon as the manager is ready
         LoadGame();
+
+        mainMenuUI.SetActive(true);
+        
     }
 
     private void Start()
@@ -269,6 +275,7 @@ public class GameManager : MonoBehaviour
 
     public void EnableJournalEntryTrinket(int num)
     {
+        Debug.Log(num);
         TrinketSlotUI slot = trinketSlots[num];
         slot.locked.gameObject.SetActive(false);
         slot.unlocked.gameObject.SetActive(true);

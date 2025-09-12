@@ -15,4 +15,29 @@ public class buttonFunctions : MonoBehaviour
        
 
     }
+
+    public void start()
+    {
+       
+    }
+
+    public void load()
+    {
+
+    }
+
+    public void options()
+    { 
+    
+    }
+
+    public void credits()
+    {
+
+    }
+
+    public void exit()
+    {
+
+    }
 }

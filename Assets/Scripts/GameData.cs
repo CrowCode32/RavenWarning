@@ -40,20 +40,4 @@ public class GameData
         this.lesserLordCaveInformed = false;
         this.lesserLordForestInformed = false;
     }
-
-    public void inform(string lord)
-    {
-        if(lord == null)
-        {
-            UnityEngine.Debug.Log("null Lord");
-        } else if (lord == "Forest")
-        {
-            lesserLordForestInformed = true;
-        } else if (lord == "Cave")
-        {
-            lesserLordCaveInformed = true;
-        }
-
-        UnityEngine.Debug.Log(lesserLordForestInformed);
-    }
 }

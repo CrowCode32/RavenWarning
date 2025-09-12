@@ -16,7 +16,6 @@ public class dialogueTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (isTriggered && Input.GetButtonDown("Interact") && instance.isRunning == false)
         {
             dialogueBox.SetActive(true);
@@ -37,6 +36,8 @@ public class dialogueTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isTriggered = false;
+            instance.isRunning = false;
+            dialogueBox.SetActive(false);
         }
     }
 }

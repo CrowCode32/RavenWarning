@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 7922432254740541296, guid: 61df6762117d75e40906afc67c187791, type: 3}
   trinketNum: 1
-  trinketName: Jem
-  trinketDesc: A shiny Jem!
+  trinketName: Gem
+  trinketDesc: A shiny Gem!

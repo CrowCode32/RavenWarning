@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 
@@ -295,6 +296,8 @@ public class GameManager : MonoBehaviour
         slot.unlocked.gameObject.SetActive(true);
 
     }
+
+ 
 
     /// <summary>
     /// Saves the current game data to a JSON file.

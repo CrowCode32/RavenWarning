@@ -207,14 +207,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    /// <summary>
-    /// Saves the current game data to a JSON file.
-    /// </summary>
- 
-     public void SaveGame()
-
-
     public void UpdateTrinketDropdown()
     {
         trinketDrop.ClearOptions();
@@ -314,14 +306,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
-
-    }
-
-
-    public void lordInformed(string lord)
-    {
-        GameData.instance.inform(lord);
-        Debug.Log("Informed");
 
     }
 }

@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
-    [SerializeField] private List<TrinketSlotUI> trinketSlots;
+    [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
     int featherIndex;
     int trinketIndex;

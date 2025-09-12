@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
+
 /// <summary>
 /// Manages the overall game state, player data, and major events like the storm.
 /// Implemented as a singleton to be easily accessible from other scripts.
@@ -179,7 +180,7 @@ public class GameManager : MonoBehaviour
         journalMenuUI.SetActive(isJournalOpen);
     }
 
-    // <summary>
+    /// <summary>
     /// Loads a new scene by its string name.
     /// Make sure the scene is added to the Build Settings.
     /// </summary>
@@ -204,6 +205,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+
+
+    /// <summary>
+    /// Saves the current game data to a JSON file.
+    /// </summary>
+ 
+     public void SaveGame()
+
 
     public void UpdateTrinketDropdown()
     {
@@ -304,11 +314,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
+
     }
+
 
     public void lordInformed(string lord)
     {
         GameData.instance.inform(lord);
         Debug.Log("Informed");
+
     }
 }

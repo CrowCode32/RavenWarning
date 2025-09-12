@@ -362,7 +362,7 @@ public class GameManager : MonoBehaviour
         // GameManager creates and manages. This makes the GameManager our "single
         // source of truth" for all game progress. It's cleaner than making 
         // GameData a singleton because this keeps our data separate from our logic.
-        
+
         // Check which lord is being referenced by the string
         if (lord == "Forest" && !gameData.lesserLordForestInformed)
         {
@@ -378,5 +378,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("The lord in the cave has been informed.");
             SaveGame(); 
         }
+    }
+
+    // This method would be called when the player dies, resetting only values which are not maintained after death.
+    public void deathDataReset()
+    {
+        gameData.lesserLordForestInformed = false;
+        gameData.lesserLordCaveInformed = false;
     }
 }

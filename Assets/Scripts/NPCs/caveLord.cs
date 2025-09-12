@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class forestLord : MonoBehaviour
+public class caveLord : MonoBehaviour
 {
     bool isTriggered;
 
     void Update()
     {
-        if (isTriggered && Input.GetButtonDown("Interact")) {
-            GameManager.instance.lordInformed("Forest");
+        if (isTriggered && Input.GetButtonDown("Interact"))
+        {
+            GameManager.instance.lordInformed("Cave");
         }
     }
 

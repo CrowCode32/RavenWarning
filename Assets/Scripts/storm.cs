@@ -52,10 +52,13 @@ public class storm : MonoBehaviour
 
     void spawnStorm()
     {
-        //if(player is on second level or higher){
-        // spawnPos.x = startPos.transform.position.x - exitDiff;
-        //} else {
-        spawnPos = startPos;
+        /*if (GameManager.instance.caveReached || GameManager.instance.forestReached)
+        {
+            spawnPos.x = startPos.x - exitDiff;
+        }
+        else
+        {*/
+            spawnPos = startPos;
         //}
 
         transform.position = spawnPos;

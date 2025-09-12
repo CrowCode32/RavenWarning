@@ -3353,6 +3353,7 @@ MonoBehaviour:
   textSpeed: 0.02
   dialogueFile: {fileID: 4900000, guid: 1deb48551b163be4fb730fee672c8f98, type: 3}
   isRunning: 0
+  isComplete: 0
 --- !u!222 &1625374521377046738
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5866,6 +5867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 1712902147512430710}
   unlocked: {fileID: 7162890812575368258}
 --- !u!114 &7965009349667069649
@@ -6156,6 +6158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 1463471429924171710}
   unlocked: {fileID: 133054395272484327}
 --- !u!114 &5670360033432007701
@@ -6446,6 +6449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 2276577058316198343}
   unlocked: {fileID: 4952525426680299699}
 --- !u!114 &5677458276058445406
@@ -6628,6 +6632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 7067152588400963682}
   unlocked: {fileID: 2168025566659025183}
 --- !u!222 &4917402152928981990
@@ -11757,6 +11762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 0}
   unlocked: {fileID: 0}
 --- !u!114 &2085925711919813041
@@ -12881,7 +12887,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8379035017474101061}
-  - {fileID: 8344093392605561969}
   - {fileID: 8853170414044411461}
   - {fileID: 8333939572847156348}
   - {fileID: 2608454156742343155}
@@ -15395,97 +15400,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &4658819736350589816
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8344093392605561969}
-  - component: {fileID: 3833390018328879220}
-  m_Layer: 0
-  m_Name: gameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8344093392605561969
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4658819736350589816}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5798380749685052644}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3833390018328879220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4658819736350589816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4207228b5a907748b866b77a8b1a897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  activeMenu: {fileID: 0}
-  mainMenuUI: {fileID: 8376306712146554846}
-  loadingScreenUI: {fileID: 3510292549798655921}
-  loadingBar: {fileID: 2711776755489464977}
-  journalMenuUI: {fileID: 910193478875868756}
-  journalMenus:
-  - {fileID: 6284673677350405568}
-  - {fileID: 7338704899115259404}
-  - {fileID: 5089359012566315223}
-  nextButton: {fileID: 4719993491544263452}
-  prevButton: {fileID: 8617559429898871327}
-  featherDrop: {fileID: 8924129456348410923}
-  trinketDrop: {fileID: 6328892659079694153}
-  mainCamera: {fileID: 0}
-  stormPrefab: {fileID: 0}
-  stormSpawnPoint: {fileID: 0}
-  stormEndPoint: {fileID: 0}
-  stormSpawnDelay: 120
-  lordInCaveInformed: 0
-  lordInForestInformed: 0
-  selectedFeather: {fileID: 0}
-  feathersAquired: []
-  selectedTrinket: {fileID: 0}
-  trinketsAquired: []
-  trinketSlots:
-  - {fileID: 8462751752092332242}
-  - {fileID: 749919639518643846}
-  - {fileID: 470522278109614131}
-  - {fileID: 2192248226520106973}
-  - {fileID: 2661764660341544107}
-  - {fileID: 364937433300099002}
-  - {fileID: 187855269306300305}
-  - {fileID: 8923677296090180490}
-  - {fileID: 896967924901845101}
-  - {fileID: 7875532961880746610}
-  - {fileID: 2522529101038722903}
-  - {fileID: 6061977522467400624}
-  - {fileID: 6324590262669915715}
-  - {fileID: 4033798052169515108}
-  - {fileID: 5069159047960271444}
-  - {fileID: 696551307981457320}
-  - {fileID: 4840428699608396502}
-  - {fileID: 8239723809810696517}
-  journalMenuIndex: 0
-  isPaused: 0
-  gameStarted: 0
 --- !u!1 &4719993491544263452
 GameObject:
   m_ObjectHideFlags: 0
@@ -19797,6 +19711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 849632490674849442}
   unlocked: {fileID: 826373355768052147}
 --- !u!114 &5053320179413249477
@@ -20557,6 +20472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 7326607902490937144}
   unlocked: {fileID: 1241574351698059179}
 --- !u!114 &2360397360373703630
@@ -20572,6 +20488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 7326607902490937144}
   unlocked: {fileID: 1241574351698059179}
 --- !u!114 &2666421317014757111
@@ -22139,6 +22056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 3500227461454447650}
   unlocked: {fileID: 1404275945397622442}
 --- !u!114 &7246726994592802429
@@ -22431,6 +22349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 7267815138916871641}
   unlocked: {fileID: 1093044256232555409}
 --- !u!222 &232084708516782167
@@ -23777,6 +23696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 3771861823597340438}
   unlocked: {fileID: 1914480871461587533}
 --- !u!114 &4543531612307680585
@@ -25463,6 +25383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 1539715776759363803}
   unlocked: {fileID: 8717974181660070748}
 --- !u!114 &2738791110255982967
@@ -26040,6 +25961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 8530951542777200143}
   unlocked: {fileID: 0}
 --- !u!114 &8637871749458395495
@@ -26266,6 +26188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 5540589566946086436}
   unlocked: {fileID: 3975268871255046566}
 --- !u!114 &4492468904235994637
@@ -27193,6 +27116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 5361941471497453331}
   unlocked: {fileID: 651597951068150446}
 --- !u!114 &7407564536570479524
@@ -28615,6 +28539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 2795462866849878812}
   unlocked: {fileID: 2384573909728504003}
 --- !u!114 &3622657156526055322
@@ -29062,6 +28987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 4106096169603802685}
   unlocked: {fileID: 7527030931623194515}
 --- !u!222 &5127473629547978401
@@ -29311,6 +29237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 3904600119359468589}
   unlocked: {fileID: 1969288194149543801}
 --- !u!114 &4524080096254330565
@@ -30824,6 +30751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 0}
+  description: {fileID: 0}
   locked: {fileID: 3354729655691894129}
   unlocked: {fileID: 359480643557071136}
 --- !u!114 &5248001706520643611

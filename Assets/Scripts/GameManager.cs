@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 
 
@@ -48,6 +49,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("Prev button.")]
     public GameObject prevButton;
 
+    public Image progFill;
+    public Image playerIcon;
+    public Image stormIcon;
+
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
     
@@ -74,6 +79,8 @@ public class GameManager : MonoBehaviour
     public bool lordInCaveInformed = false;
     [Tooltip("Tracks if the player has informed the lord in the forest level.")]
     public bool lordInForestInformed = false;
+    public bool caveReached = false;
+    public bool forestReached = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -231,9 +238,6 @@ public class GameManager : MonoBehaviour
         activeMenu = loadingScreenUI;
         Debug.Log("Loading...");
         StartCoroutine(FillLoadingBar(5f));
-        
-        
-
     }
 
     private IEnumerator FillLoadingBar(float duration)
@@ -475,5 +479,35 @@ public class GameManager : MonoBehaviour
     {
         statePause();
         Debug.Log("Game lost");
+    }
+
+    Vector2 findProgFill()
+    {
+        RectTransform fillTrans = progFill.rectTransform;
+        Rect fillRect = fillTrans.rect;
+
+        float fillAmount = progFill.fillAmount;
+
+        // Location of fill edge locally
+        float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
+        float yPos = fillRect.center.y;
+
+        // Local pos as vector
+        Vector2 localPos = new Vector2(xPos, yPos);
+
+        // Converted to world & then screen pos
+        Vector2 worldPos = fillTrans.TransformPoint(localPos);
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
+
+        Vector2 currPos = playerIcon.transform.position;
+        return new Vector2(screenPos.x, currPos.y);
+    }
+
+    public void updateProgUI()
+    {
+        if (caveReached)
+        {
+            playerIcon.transform.position = findProgFill();
+        }
     }
 }

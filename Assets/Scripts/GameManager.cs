@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Runtime.CompilerServices;
 
 
 
@@ -26,22 +27,31 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's GameObject here.")]
     public GameObject player;
 
+
+    [Tooltip("The currently active menu.")]
+    public GameObject activeMenu;
+
     [Tooltip("Assign the main Menu UI Panel here.")]
     public GameObject mainMenuUI;
 
+    [Tooltip("Assign the Loading screen UI Panel here.")]
+    public GameObject loadingScreenUI;
+    [SerializeField] Image loadingBar;
+
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
-    [Tooltip("Assign the main Settings UI Panel here.")]
-    public GameObject SettingsMenuUI;
-    [Tooltip("Assign the main Stats UI Panel here.")]
-    public GameObject StatsMenuUI;
+
+    [Tooltip("Three journal UI menus")]
+    public List<GameObject> journalMenus;
+    [Tooltip("Next button.")] 
+    public GameObject nextButton;
+    [Tooltip("Prev button.")]
+    public GameObject prevButton;
+
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
     
 
-
-    [Tooltip("Assign the main Unlocks UI Panel here.")]
-    public GameObject UnlocksMenuUI;
 
     [Tooltip("Assign the scene's main camera here.")]
     public Camera mainCamera;
@@ -80,13 +90,14 @@ public class GameManager : MonoBehaviour
 
     int featherIndex;
     int trinketIndex;
+    public int journalMenuIndex = 0;
 
     private bool isJournalOpen = false;
     private bool hasRunStarted = false;
 
     public bool isPaused;
     float timeScaleOrig;
-
+    public bool gameStarted = false;
 
     private void Awake()
     {
@@ -112,7 +123,8 @@ public class GameManager : MonoBehaviour
         // Load the game as soon as the manager is ready
         LoadGame();
 
-        mainMenuUI.SetActive(true);
+        activeMenu = mainMenuUI;
+        activeMenu.SetActive(true);
         
     }
 
@@ -136,11 +148,16 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Check for the journal input key (e.g., 'J' or 'Tab').
+
         if (Input.GetKeyDown(KeyCode.J))
         {
             // This will print a message to the console every time we press 'J'.
             Debug.Log("'J' key pressed!");
-            ToggleJournal();
+            if(gameStarted)
+            {
+                ToggleJournal();
+            }
+            
         }
 
         // A temporary way to test saving the game.
@@ -166,6 +183,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator SpawnStormCoroutine()
     {
         // Wait for the specified delay to give the player a head start.
@@ -190,8 +208,12 @@ public class GameManager : MonoBehaviour
 
     public void ToggleJournal()
     {
+        
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
+        journalMenus[journalMenuIndex].SetActive(true);
+        nextButton.SetActive(true);
+        prevButton.SetActive(true);
     }
 
     /// <summary>
@@ -199,6 +221,36 @@ public class GameManager : MonoBehaviour
     /// Make sure the scene is added to the Build Settings.
     /// </summary>
     /// <param name="sceneName">The name of the scene file to load.</param>
+
+    public void loadingScreen()
+    {
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        loadingScreenUI.SetActive(true);
+        activeMenu = loadingScreenUI;
+        Debug.Log("Loading...");
+        StartCoroutine(FillLoadingBar(5f));
+        
+        
+
+    }
+
+    private IEnumerator FillLoadingBar(float duration)
+    {
+        float elapsed = 0f;
+        loadingBar.fillAmount = 0f;
+
+        while (elapsed<duration)
+        {
+            elapsed += Time.deltaTime;
+            loadingBar.fillAmount = Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+
+        loadingScreenUI.SetActive(false);
+        activeMenu = null;
+    }
+    
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

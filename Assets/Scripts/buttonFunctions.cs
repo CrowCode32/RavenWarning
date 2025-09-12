@@ -17,8 +17,10 @@ public class buttonFunctions : MonoBehaviour
 
     }
 
-    public void start()
+    public void startGame()
     {
+        GameManager.instance.gameStarted = true;
+        GameManager.instance.loadingScreen();
         //load Graveyard scene
     }
 
@@ -31,7 +33,7 @@ public class buttonFunctions : MonoBehaviour
     {
         
         GameManager.instance.journalMenuUI.SetActive(true);
-        GameManager.instance.SettingsMenuUI.SetActive(true);
+        GameManager.instance.journalMenus[0].SetActive(true);
         
     }
 
@@ -42,12 +44,24 @@ public class buttonFunctions : MonoBehaviour
 
     public void next()
     {
-
+        GameManager.instance.journalMenus[GameManager.instance.journalMenuIndex].SetActive(false);
+        GameManager.instance.journalMenuIndex++;
+        if (GameManager.instance.journalMenuIndex>2)
+        {
+            GameManager.instance.journalMenuIndex = 0;
+        }
+        GameManager.instance.journalMenus[GameManager.instance.journalMenuIndex].SetActive(true);
     }
 
     public void prev()
     {
-
+        GameManager.instance.journalMenus[GameManager.instance.journalMenuIndex].SetActive(false);
+        GameManager.instance.journalMenuIndex--;
+        if (GameManager.instance.journalMenuIndex < 0)
+        {
+            GameManager.instance.journalMenuIndex = 2;
+        }
+        GameManager.instance.journalMenus[GameManager.instance.journalMenuIndex].SetActive(true);
     }
 
     public void close()

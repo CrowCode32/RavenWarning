@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
-public class playerController : MonoBehaviour, IPickup
+public class playerController : MonoBehaviour, IPickup , IHeal
 {
     // Movement
     [SerializeField] Rigidbody2D rb;
@@ -174,11 +174,12 @@ public class playerController : MonoBehaviour, IPickup
         GameManager.instance.playerHP.fillAmount = (float)currentHealth / maxHealth;
     }
 
-    public void heal(int amount)
+    public void Heal(int amount)
     {
         if (amount > 0)
         {
             currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+            UpdatePlayerHPBar();
         }
     }
 

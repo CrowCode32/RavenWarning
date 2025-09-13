@@ -86,6 +86,7 @@ public class playerController : MonoBehaviour, IPickup
     void Start()
     {
         currentHealth = maxHealth;
+        UpdatePlayerHPBar();
         storeJumpMax = jumpMax;
 
         if (damageOverlay)
@@ -157,6 +158,7 @@ public class playerController : MonoBehaviour, IPickup
     {
         if (amount <= 0 || isDead) return;
 
+        UpdatePlayerHPBar();
         currentHealth = Mathf.Max(0, currentHealth - amount);
         triggerFlash();
 
@@ -165,6 +167,11 @@ public class playerController : MonoBehaviour, IPickup
 
         if (currentHealth <= 0)
             StartCoroutine(death());
+    }
+
+    public void UpdatePlayerHPBar()
+    {
+        GameManager.instance.playerHP.fillAmount = (float)currentHealth / maxHealth;
     }
 
     public void heal(int amount)

@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public GameObject loadingScreenUI;
     [SerializeField] Image loadingBar;
 
+    [Tooltip("Assign the Pause Menu UI Panel here.")]
+    public GameObject pauseMenuUI;
+
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
 
@@ -174,6 +177,13 @@ public class GameManager : MonoBehaviour
             
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            activeMenu = pauseMenuUI;
+            activeMenu.SetActive(true);
+            statePause();
+        }
+
         // A temporary way to test saving the game.
         if (Input.GetKeyDown(KeyCode.F5))
         {
@@ -225,9 +235,14 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
+        if(journalMenuIndex == 0)
+        {
+            journalMenuIndex++;
+        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
+        statePause();
     }
 
     /// <summary>
@@ -269,6 +284,7 @@ public class GameManager : MonoBehaviour
 
     public void statePause()
     {
+       
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -277,6 +293,8 @@ public class GameManager : MonoBehaviour
 
     public void stateUnpause()
     {
+        activeMenu.SetActive(false);
+        activeMenu = null;
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;

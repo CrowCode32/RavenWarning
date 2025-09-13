@@ -34,7 +34,9 @@ public class buttonFunctions : MonoBehaviour
         
         GameManager.instance.journalMenuUI.SetActive(true);
         GameManager.instance.journalMenus[0].SetActive(true);
-        
+        GameManager.instance.journalMenus[1].SetActive(false);
+        GameManager.instance.journalMenus[2].SetActive(false);
+
     }
 
     public void credits()
@@ -81,4 +83,17 @@ public class buttonFunctions : MonoBehaviour
 #endif
 
     }
+
+    public void resume()
+    {
+
+        GameManager.instance.stateUnpause();
+    }
+
+    public void journal()
+    {
+        GameManager.instance.ToggleJournal();
+    }
+
+   
 }

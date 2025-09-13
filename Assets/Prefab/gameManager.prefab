@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3313410729177962700}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -960, y: -540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -57,6 +57,9 @@ MonoBehaviour:
   - {fileID: 0}
   nextButton: {fileID: 0}
   prevButton: {fileID: 0}
+  progFill: {fileID: 0}
+  playerIcon: {fileID: 0}
+  stormIcon: {fileID: 0}
   featherDrop: {fileID: 0}
   trinketDrop: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -66,6 +69,11 @@ MonoBehaviour:
   stormSpawnDelay: 120
   lordInCaveInformed: 0
   lordInForestInformed: 0
+  inGraveyard: 0
+  inCave: 0
+  inForest: 0
+  inKingdom: 0
+  inKing: 0
   selectedFeather: {fileID: 0}
   feathersAquired: []
   selectedTrinket: {fileID: 0}

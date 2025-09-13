@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 2829837851378048402}
   - component: {fileID: 8422360893966061274}
   - component: {fileID: 525030917866625313}
+  - component: {fileID: 5580669310067967734}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -176,6 +177,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  gameOverUI: {fileID: 0}
+  audioSource: {fileID: 0}
+  hurtSfx: {fileID: 0}
+  deathSfx: {fileID: 0}
+  deathFreezeDelay: 0.75
   maxHealth: 5
   currentHealth: 0
   damageOverlay: {fileID: 0}
@@ -196,7 +202,6 @@ MonoBehaviour:
     m_Bits: 512
   trinket: {fileID: 0}
   trinketModel: {fileID: 0}
-  trinketsAquired: []
   featherQueue: {fileID: 0}
   feather: {fileID: 11400000, guid: 3f0fadc9d7ce6f042bc2981b2f259ba2, type: 2}
   gotFeather: 0
@@ -341,6 +346,20 @@ CapsuleCollider2D:
   m_Offset: {x: -0.009697935, y: 0.005914887}
   m_Size: {x: 0.15840195, y: 0.62283224}
   m_Direction: 0
+--- !u!114 &5580669310067967734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869596124616975790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5af13d89f9dc3f41ba5917a2d58fd85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  controller: {fileID: 765707424139868569}
 --- !u!1 &7992290717404699337
 GameObject:
   m_ObjectHideFlags: 0

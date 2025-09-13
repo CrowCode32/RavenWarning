@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's GameObject here.")]
     public GameObject player;
 
+    [Tooltip("Assign the player's Healthbar here.")]
+    public Image playerHP;
+
 
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;

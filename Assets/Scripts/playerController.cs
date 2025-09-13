@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
-public class playerController : MonoBehaviour, IPickup
+public class playerController : MonoBehaviour, IPickup , IHeal
 {
     // Movement
     [SerializeField] Rigidbody2D rb;
@@ -86,6 +86,7 @@ public class playerController : MonoBehaviour, IPickup
     void Start()
     {
         currentHealth = maxHealth;
+        UpdatePlayerHPBar();
         storeJumpMax = jumpMax;
 
         if (damageOverlay)
@@ -157,6 +158,7 @@ public class playerController : MonoBehaviour, IPickup
     {
         if (amount <= 0 || isDead) return;
 
+        UpdatePlayerHPBar();
         currentHealth = Mathf.Max(0, currentHealth - amount);
         triggerFlash();
 
@@ -167,11 +169,17 @@ public class playerController : MonoBehaviour, IPickup
             StartCoroutine(death());
     }
 
-    public void heal(int amount)
+    public void UpdatePlayerHPBar()
+    {
+        GameManager.instance.playerHP.fillAmount = (float)currentHealth / maxHealth;
+    }
+
+    public void Heal(int amount)
     {
         if (amount > 0)
         {
             currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+            UpdatePlayerHPBar();
         }
     }
 

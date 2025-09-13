@@ -79,8 +79,11 @@ public class GameManager : MonoBehaviour
     public bool lordInCaveInformed = false;
     [Tooltip("Tracks if the player has informed the lord in the forest level.")]
     public bool lordInForestInformed = false;
-    public bool caveReached = false;
-    public bool forestReached = false;
+    public bool inGraveyard = false;
+    public bool inCave = false;
+    public bool inForest = false;
+    public bool inKingdom = false;
+    public bool inKing = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -480,9 +483,15 @@ public class GameManager : MonoBehaviour
         statePause();
         Debug.Log("Game lost");
     }
-
+    
     Vector2 findProgFill()
     {
+        if (inKing) { progFill.fillAmount = 1f; }
+        else if (inKingdom) { progFill.fillAmount = 0.6f; }
+        else if (inForest) { progFill.fillAmount = 0.3f;  }
+        else if (inCave) { progFill.fillAmount = 0.1f; }
+        else if (inGraveyard) { progFill.fillAmount = .02f; }
+            
         RectTransform fillTrans = progFill.rectTransform;
         Rect fillRect = fillTrans.rect;
 
@@ -505,9 +514,6 @@ public class GameManager : MonoBehaviour
 
     public void updateProgUI()
     {
-        if (caveReached)
-        {
-            playerIcon.transform.position = findProgFill();
-        }
+        playerIcon.transform.position = findProgFill();
     }
 }

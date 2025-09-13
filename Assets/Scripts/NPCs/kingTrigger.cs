@@ -22,6 +22,9 @@ public class kingTrigger : MonoBehaviour
     {
         if (isTriggered && Input.GetButtonDown("Interact") && instance.isRunning == false)
         {
+            GameManager.instance.inKing = true;
+            GameManager.instance.updateProgUI();
+            
             dialogueBox.SetActive(true);
 
             // Both informed, win

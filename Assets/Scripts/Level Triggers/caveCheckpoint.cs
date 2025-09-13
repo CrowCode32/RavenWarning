@@ -7,9 +7,9 @@ public class caveCheckpoint : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Cave Checkpoint Reached");
-            GameManager.instance.caveReached = true;
-            GameManager.instance.updateProgUI();
+            GameManager.instance.inCave = true;
             //GameManager.instance.LoadScene("Cave");
+            GameManager.instance.updateProgUI();
         }
         
     }

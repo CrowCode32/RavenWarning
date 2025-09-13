@@ -52,21 +52,15 @@ public class storm : MonoBehaviour
 
     void spawnStorm()
     {
-        /*if (GameManager.instance.caveReached || GameManager.instance.forestReached)
+        if (GameManager.instance.inCave || GameManager.instance.inForest)
         {
             spawnPos.x = startPos.x - exitDiff;
         }
         else
-        {*/
+        {
             spawnPos = startPos;
-        //}
+        }
 
         transform.position = spawnPos;
-    }
-
-    void swapScene(int playerProg)
-    {
-        spawnPos.x = startPos.x = exitDiff;
-        GameManager.instance.stormSpawnPoint.position = spawnPos;
     }
 }

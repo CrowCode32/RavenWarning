@@ -15260,7 +15260,7 @@ GameObject:
   - component: {fileID: 1884038888991064419}
   - component: {fileID: 6638693808112543980}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17391,7 +17391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 135240965947415396}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 827834570745404859}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4965698560906853784
 GameObject:
   m_ObjectHideFlags: 0
@@ -19037,7 +19049,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3394867473410347798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 827834570745404859}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: journal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5348063306036277543
 GameObject:
   m_ObjectHideFlags: 0
@@ -23212,7 +23236,7 @@ GameObject:
   - component: {fileID: 6540272347350782656}
   - component: {fileID: 7519091943925141233}
   m_Layer: 5
-  m_Name: ExitText
+  m_Name: MainMenuText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23265,7 +23289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
   m_sharedMaterial: {fileID: -52106423645554384, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
@@ -29868,7 +29892,7 @@ GameObject:
   - component: {fileID: 7614435703516343859}
   - component: {fileID: 4198044353542965177}
   m_Layer: 5
-  m_Name: ExitBorder
+  m_Name: MainMenuBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29921,7 +29945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
   m_sharedMaterial: {fileID: -52106423645554384, guid: e5346a3f8fcb50841bb6f63bc30fb5a5, type: 2}
@@ -34662,7 +34686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6795015314091259085
 RectTransform:
   m_ObjectHideFlags: 0

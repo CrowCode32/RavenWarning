@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - GameOver
+  - Storm
+  - Storm Start
+  - Storm End
   layers:
   - Default
   - TransparentFX

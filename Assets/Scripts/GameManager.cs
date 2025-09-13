@@ -55,6 +55,14 @@ public class GameManager : MonoBehaviour
     [Tooltip("Prev button.")]
     public GameObject prevButton;
 
+    [SerializeField] public Slider masterVolumeSlider;
+    [SerializeField] public Slider musicVolumeSlider;
+    [SerializeField] public Slider SFXVolumeSlider;
+    [SerializeField] public Slider mouseSensitivitySlider;
+    [SerializeField] public Slider brightnessSlider;
+
+    public float mouseSensitivity;
+
     public Image progFill;
     public Image playerIcon;
     public Image stormIcon;
@@ -308,6 +316,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
  
 
+
+    public float ApplySlider(Slider slider)
+    {
+        return slider.value;
+    }
 
     public void UpdateTrinketDropdown()
     {

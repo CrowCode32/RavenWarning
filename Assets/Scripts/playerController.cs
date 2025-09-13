@@ -111,6 +111,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         Movement();
         UpdateOverlayAlpha();
 
+        float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * GameManager.instance.mouseSensitivity;
+
         if (Input.GetButtonDown("Fire1"))
         {
             slashAttack();

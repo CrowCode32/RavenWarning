@@ -516,4 +516,23 @@ public class GameManager : MonoBehaviour
     {
         playerIcon.transform.position = findProgFill();
     }
+
+    public async void loadStorm(string scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+        Debug.Log("Print please");
+        await asyncLoad;
+
+        updateProgUI();
+        Debug.Log("Updated");
+        if (stormPrefab != null && stormSpawnPoint != null)
+        {
+            Debug.Log("Spawned");
+            Instantiate(stormPrefab, stormSpawnPoint.transform);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+        }
+    }
 }

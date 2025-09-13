@@ -16,7 +16,7 @@ public class storm : MonoBehaviour
         //Game manager instantiates
         startPos = GameManager.instance.stormSpawnPoint.position;
         endPos = GameManager.instance.stormEndPoint.position;
-        spawnStorm();
+        setStormSpawn();
     }
     
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class storm : MonoBehaviour
         }
     }
 
-    void spawnStorm()
+    public void setStormSpawn()
     {
         if (GameManager.instance.inCave || GameManager.instance.inForest)
         {

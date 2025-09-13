@@ -15,6 +15,7 @@ public class dialogue : MonoBehaviour
     public TextAsset dialogueFile;
     int index;
     public bool isRunning;
+    public bool isComplete; // only used by kingTrigger script
 
 
     void OnEnable()
@@ -70,6 +71,7 @@ public class dialogue : MonoBehaviour
         } else
         {
             isRunning = false;
+            isComplete = true;
             gameObject.SetActive(false);
         }
     }

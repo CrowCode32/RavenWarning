@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 
 
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("Prev button.")]
     public GameObject prevButton;
 
+    public Image progFill;
+    public Image playerIcon;
+    public Image stormIcon;
+
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
     
@@ -77,6 +82,11 @@ public class GameManager : MonoBehaviour
     public bool lordInCaveInformed = false;
     [Tooltip("Tracks if the player has informed the lord in the forest level.")]
     public bool lordInForestInformed = false;
+    public bool inGraveyard = false;
+    public bool inCave = false;
+    public bool inForest = false;
+    public bool inKingdom = false;
+    public bool inKing = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -89,6 +99,7 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+
     [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
     int featherIndex;
@@ -233,9 +244,6 @@ public class GameManager : MonoBehaviour
         activeMenu = loadingScreenUI;
         Debug.Log("Loading...");
         StartCoroutine(FillLoadingBar(5f));
-        
-        
-
     }
 
     private IEnumerator FillLoadingBar(float duration)
@@ -460,5 +468,74 @@ public class GameManager : MonoBehaviour
     {
         gameData.lesserLordForestInformed = false;
         gameData.lesserLordCaveInformed = false;
+    }
+
+    // This method is called when the game is TRULY won.
+    public void gameWon()
+    {
+        statePause();
+        Debug.Log("Game won");
+
+        LoadScene("Credits");
+        //Wait until credits animation has ended and then load main menu
+        Time.timeScale = 1;
+    }
+
+    public void gameLost()
+    {
+        statePause();
+        Debug.Log("Game lost");
+    }
+    
+    Vector2 findProgFill()
+    {
+        if (inKing) { progFill.fillAmount = 1f; }
+        else if (inKingdom) { progFill.fillAmount = 0.6f; }
+        else if (inForest) { progFill.fillAmount = 0.3f;  }
+        else if (inCave) { progFill.fillAmount = 0.1f; }
+        else if (inGraveyard) { progFill.fillAmount = .02f; }
+            
+        RectTransform fillTrans = progFill.rectTransform;
+        Rect fillRect = fillTrans.rect;
+
+        float fillAmount = progFill.fillAmount;
+
+        // Location of fill edge locally
+        float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
+        float yPos = fillRect.center.y;
+
+        // Local pos as vector
+        Vector2 localPos = new Vector2(xPos, yPos);
+
+        // Converted to world & then screen pos
+        Vector2 worldPos = fillTrans.TransformPoint(localPos);
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
+
+        Vector2 currPos = playerIcon.transform.position;
+        return new Vector2(screenPos.x, currPos.y);
+    }
+
+    public void updateProgUI()
+    {
+        playerIcon.transform.position = findProgFill();
+    }
+
+    public async void loadStorm(string scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+        Debug.Log("Print please");
+        await asyncLoad;
+
+        updateProgUI();
+        Debug.Log("Updated");
+        if (stormPrefab != null && stormSpawnPoint != null)
+        {
+            Debug.Log("Spawned");
+            Instantiate(stormPrefab, stormSpawnPoint.transform);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+        }
     }
 }

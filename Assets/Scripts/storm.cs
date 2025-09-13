@@ -13,6 +13,7 @@ public class storm : MonoBehaviour
 
     private void Start()
     {
+
         //Game manager instantiates
         startPos = GameManager.instance.stormSpawnPoint.position;
         endPos = GameManager.instance.stormEndPoint.position;
@@ -26,14 +27,12 @@ public class storm : MonoBehaviour
 
         //Determining how far the storm is from the exit for offset in future levels
         exitDiff = endPos.x - transform.position.x;
+        GameManager.instance.stormOffset = exitDiff;
 
-        if(exitDiff <= 0)
+        if (exitDiff <= 0)
         {
             enabled = false;
         }
-        
-        // If player changed level
-        // swapScene();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,13 +53,13 @@ public class storm : MonoBehaviour
     {
         if (GameManager.instance.inCave || GameManager.instance.inForest)
         {
-            spawnPos.x = startPos.x - exitDiff;
+            spawnPos.x = spawnPos.x - GameManager.instance.stormOffset;
+
         }
         else
         {
             spawnPos = startPos;
         }
-
         transform.position = spawnPos;
     }
 }

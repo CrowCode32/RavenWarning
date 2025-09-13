@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
+    private bool firstLoad = true;
+
     private GameData gameData;
     private string saveFilePath;
 
@@ -70,6 +72,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("An empty GameObject marking the storm's last possible position.")]
     public Transform stormEndPoint;
+
+    [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
+    public float stormOffset;
 
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
@@ -134,8 +139,13 @@ public class GameManager : MonoBehaviour
         // Load the game as soon as the manager is ready
         LoadGame();
 
-        activeMenu = mainMenuUI;
-        activeMenu.SetActive(true);
+        Debug.Log("First Load: " + firstLoad);
+        if (firstLoad)
+        {
+            firstLoad = false;
+            activeMenu = mainMenuUI;
+            activeMenu.SetActive(true);
+        }
         
     }
 
@@ -520,14 +530,11 @@ public class GameManager : MonoBehaviour
     public async void loadStorm(string scene)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-        Debug.Log("Print please");
         await asyncLoad;
 
         updateProgUI();
-        Debug.Log("Updated");
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Debug.Log("Spawned");
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else

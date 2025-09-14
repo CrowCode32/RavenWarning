@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     private bool canBreakWalls = false; // Woodpecker
     private int storeJumpMax; // Roadrunner
 
-    float horizontal;
+    float horizontal = 0f;
     bool isJumping = false;
     int jumpCount;
 
@@ -107,11 +107,27 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         featherQueue = GameManager.instance.selectedFeather;
         setAnimations();
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = 0f;
+
+        
+
+        if (Input.GetKey(InputManager.instance.GetKey("Left")))
+        {
+            horizontal = -1f;
+        }
+
+        if (Input.GetKey(InputManager.instance.GetKey("Right")))
+        {
+            horizontal = 1f;
+        }
+        
         Movement();
         UpdateOverlayAlpha();
 
-        if (Input.GetButtonDown("Fire1"))
+        float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * GameManager.instance.mouseSensitivity;
+
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Fire1")))
         {
             slashAttack();
         }
@@ -121,7 +137,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Jump")) && jumpCount < jumpMax)
         {
             isJumping = true;
             jumpCount++;
@@ -249,14 +265,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // Can also be used for the enemies
     void setAnimations()
     {
-        float moveSpeed = Input.GetAxisRaw("Horizontal");
+        //float moveSpeed = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        if (moveSpeed > 0)
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (horizontal > 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (moveSpeed < 0)
+        else if (horizontal < 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -302,7 +318,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         {
             case "Roadrunner":
                 speed *= 2;
-                jumpMax = 0;
+                jumpMax = 1;
                 break;
 
             case "Woodpecker":

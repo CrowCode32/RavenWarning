@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's Healthbar here.")]
     public Image playerHP;
 
-    [Tooltip("Assign the main Settings UI Panel here.")]
-    public GameObject SettingsMenuUI;
 
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
@@ -44,6 +42,9 @@ public class GameManager : MonoBehaviour
     public GameObject loadingScreenUI;
     [SerializeField] Image loadingBar;
 
+    [Tooltip("Assign the Pause Menu UI Panel here.")]
+    public GameObject pauseMenuUI;
+
     [Tooltip("Assign the main Journal UI Panel here.")]
     public GameObject journalMenuUI;
 
@@ -53,6 +54,22 @@ public class GameManager : MonoBehaviour
     public GameObject nextButton;
     [Tooltip("Prev button.")]
     public GameObject prevButton;
+
+    [SerializeField] public Slider masterVolumeSlider;
+    [SerializeField] public Slider musicVolumeSlider;
+    [SerializeField] public Slider SFXVolumeSlider;
+    [SerializeField] public Slider mouseSensitivitySlider;
+    [SerializeField] public Slider brightnessSlider;
+    [SerializeField] public Image brightnessImage;
+
+
+    [Tooltip("Press any key...")]
+    public GameObject keyInput;
+
+   
+
+    public float mouseSensitivity = 1f;
+
 
     public Image progFill;
     public Image playerIcon;
@@ -78,6 +95,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The delay in seconds after leaving the tutorial before the storm spawns.")]
     public float stormSpawnDelay = 120.0f; // Defaulting to 2 minutes (120s)
+    
+    [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
+    public float stormOffset;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -114,6 +134,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+
+
 
     private void Awake()
     {
@@ -161,36 +183,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Toggles the game's pause state and manages the active menu.
-    /// </summary>
-    /// <param name="menuToToggle">The menu panel to show/hide.</param>
-    public void ToggleMenu(GameObject menuToToggle)
-    {
-        // Toggle the pause state
-        isPaused = !isPaused;
-
-        // Activate or deactivate the passed-in menu object
-        if (menuToToggle != null)
-        {
-            menuToToggle.SetActive(isPaused);
-        }
-
-        // Pause or unpause the game time
-        if (isPaused)
-        {
-            Time.timeScale = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Time.timeScale = timeScaleOrig;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-
     private void Update()
     {
         // Check for the journal input key (e.g., 'J' or 'Tab').
@@ -201,16 +193,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("'J' key pressed!");
             if(gameStarted)
             {
-                Debug.Log("Toggling Journal Menu. isPaused state will become: " + !isPaused);
-                ToggleMenu(journalMenuUI);
+                ToggleJournal();
             }
             
         }
 
-        // Toggles the main pause menu.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleMenu(SettingsMenuUI); 
+            activeMenu = pauseMenuUI;
+            activeMenu.SetActive(true);
+            statePause();
         }
 
         // A temporary way to test saving the game.
@@ -264,9 +256,14 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
+        if(journalMenuIndex == 0)
+        {
+            journalMenuIndex++;
+        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
+        statePause();
     }
 
     /// <summary>
@@ -308,6 +305,7 @@ public class GameManager : MonoBehaviour
 
     public void statePause()
     {
+       
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -316,6 +314,8 @@ public class GameManager : MonoBehaviour
 
     public void stateUnpause()
     {
+        activeMenu.SetActive(false);
+        activeMenu = null;
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -329,6 +329,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
  
 
+
+    public float ApplySlider(Slider slider)
+    {
+        return slider.value;
+    }
 
     public void UpdateTrinketDropdown()
     {
@@ -557,5 +562,24 @@ public class GameManager : MonoBehaviour
     public void updateProgUI()
     {
         playerIcon.transform.position = findProgFill();
+    }
+
+    public async void loadStorm(string scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+        Debug.Log("Print please");
+        await asyncLoad;
+
+        updateProgUI();
+        Debug.Log("Updated");
+        if (stormPrefab != null && stormSpawnPoint != null)
+        {
+            Debug.Log("Spawned");
+            Instantiate(stormPrefab, stormSpawnPoint.transform);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+        }
     }
 }

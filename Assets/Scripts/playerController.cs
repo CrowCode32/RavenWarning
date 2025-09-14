@@ -268,6 +268,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     public void slashAttack()
     {
+        anim.SetTrigger("Slash");
+
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;
 
@@ -289,7 +291,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             }
         }
 
-        if (anim) anim.SetTrigger("Slash");
     }
 
     // This method will go in spawn/whatever the trigger is to leave the tutorial room

@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     private bool canBreakWalls = false; // Woodpecker
     private int storeJumpMax; // Roadrunner
 
-    float horizontal;
+    float horizontal = 0f;
     bool isJumping = false;
     int jumpCount;
 
@@ -107,14 +107,24 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         featherQueue = GameManager.instance.selectedFeather;
         setAnimations();
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+
+        if(Input.GetKey(GameManager.instance.moveLeftKey))
+        {
+            horizontal = -1f;
+        }
+
+        if (Input.GetKey(GameManager.instance.moveRightKey))
+        {
+            horizontal = 1f;
+        }
+        
         Movement();
         UpdateOverlayAlpha();
 
         float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * GameManager.instance.mouseSensitivity;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Fire1")))
         {
             slashAttack();
         }
@@ -124,7 +134,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Jump")) && jumpCount < jumpMax)
         {
             isJumping = true;
             jumpCount++;
@@ -305,7 +315,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         {
             case "Roadrunner":
                 speed *= 2;
-                jumpMax = 0;
+                jumpMax = 1;
                 break;
 
             case "Woodpecker":

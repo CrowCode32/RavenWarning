@@ -95,5 +95,32 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.ToggleJournal();
     }
 
+    public void masterVolume()
+    {
+        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.masterVolumeSlider);
+    }
+
+    public void musicVolume()
+    {
+        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.musicVolumeSlider);
+    }
    
+    public void sfxVolume()
+    {
+        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.SFXVolumeSlider);
+    }
+
+    public void mouseSensitivity()
+    {
+        GameManager.instance.mouseSensitivity = GameManager.instance.ApplySlider(GameManager.instance.mouseSensitivitySlider);
+    }
+    public void brightness()
+    {
+        float val = GameManager.instance.ApplySlider(GameManager.instance.brightnessSlider);
+
+        Color c = GameManager.instance.brightnessImage.color;
+        c.a = 1f - val;
+        GameManager.instance.brightnessImage.color = c; 
+    }
+
 }

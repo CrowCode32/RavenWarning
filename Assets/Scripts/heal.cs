@@ -13,6 +13,7 @@ public class heal : MonoBehaviour
         else
         {
             heal.Heal(healAmount);
+            Destroy(gameObject);
         }
 
     }

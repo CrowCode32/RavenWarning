@@ -8,7 +8,7 @@ public class forestCheckpoint : MonoBehaviour
         {
             Debug.Log("Forest Checkpoint Reached");
             GameManager.instance.inForest = true;
-            GameManager.instance.loadStorm("Forest");
+            GameManager.instance.loadingScene("Forest");
         }
     }
 }

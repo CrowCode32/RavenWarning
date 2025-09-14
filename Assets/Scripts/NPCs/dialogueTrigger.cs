@@ -3,7 +3,7 @@ using UnityEngine;
 public class dialogueTrigger : MonoBehaviour
 {
     [SerializeField] TextAsset diaInput;
-    [SerializeField] GameObject dialogueBox;
+    GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
 
     dialogue instance;

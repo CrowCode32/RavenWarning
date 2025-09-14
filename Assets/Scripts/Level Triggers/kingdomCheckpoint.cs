@@ -8,8 +8,7 @@ public class kingdomCheckpoint : MonoBehaviour
         {
             Debug.Log("Kingdom Checkpoint Reached");
             GameManager.instance.inKingdom = true;
-            //GameManager.instance.LoadScene("Kingdom");
-            GameManager.instance.updateProgUI();
+            GameManager.instance.loadingScene("Kingdom");
         }
 
     }

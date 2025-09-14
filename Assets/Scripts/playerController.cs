@@ -104,7 +104,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         if (isDead) return;
 
-        featherQueue = GameManager.instance.selectedFeather;
+        //featherQueue = GameManager.instance.selectedFeather;
         setAnimations();
 
         horizontal = 0f;
@@ -147,14 +147,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
-        {
-            jumpCount = 0;
-        }
-
         if (collision.collider.CompareTag("Ground"))
         {
-            isJumping = false;
+            Vector3 normal = collision.GetContact(0).normal;
+            if (normal == Vector3.up)
+            {
+                jumpCount = 0;
+                isJumping = false;
+            }
         }
     }
 

@@ -391,6 +391,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!4 &593649454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8181234748473764984, guid: 191029dfe7030c842a4feba28e946359, type: 3}
+  m_PrefabInstance: {fileID: 5271247223904402940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &780973415
 GameObject:
   m_ObjectHideFlags: 0
@@ -11810,6 +11815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1131866110}
+  playerHP: {fileID: 0}
+  SettingsMenuUI: {fileID: 0}
   activeMenu: {fileID: 8376306711417217900}
   mainMenuUI: {fileID: 8376306711417217900}
   loadingScreenUI: {fileID: 3510292550680034051}
@@ -11825,7 +11832,7 @@ MonoBehaviour:
   trinketDrop: {fileID: 6328892658752982011}
   mainCamera: {fileID: 1693487173}
   stormPrefab: {fileID: 200283036535333916, guid: 249d35bd24261be4390357c2ec197978, type: 3}
-  stormSpawnPoint: {fileID: 0}
+  stormSpawnPoint: {fileID: 593649454}
   stormEndPoint: {fileID: 1938885484}
   stormOffset: 0
   stormSpawnDelay: 1

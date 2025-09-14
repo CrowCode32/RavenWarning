@@ -20,8 +20,7 @@ public class buttonFunctions : MonoBehaviour
     public void startGame()
     {
         GameManager.instance.gameStarted = true;
-        GameManager.instance.loadingScreen();
-        //load Graveyard scene
+        GameManager.instance.loadingScene("Forest");
     }
 
     public void load()

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 
 
@@ -119,6 +120,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+    AsyncOperation currentLoad;
 
     private void Awake()
     {
@@ -144,12 +146,12 @@ public class GameManager : MonoBehaviour
         // Load the game as soon as the manager is ready
         LoadGame();
 
-        Debug.Log("First Load: " + firstLoad);
         if (firstLoad)
         {
             firstLoad = false;
             activeMenu = mainMenuUI;
             activeMenu.SetActive(true);
+            statePause();
         }
         
     }
@@ -285,30 +287,40 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">The name of the scene file to load.</param>
 
-    public void loadingScreen()
+    public void loadingScene(string scene)
     {
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        loadingScreenUI.SetActive(true);
-        activeMenu = loadingScreenUI;
-        Debug.Log("Loading...");
-        StartCoroutine(FillLoadingBar(5f));
-    }
-
-    private IEnumerator FillLoadingBar(float duration)
-    {
-        float elapsed = 0f;
-        loadingBar.fillAmount = 0f;
-
-        while (elapsed<duration)
+        if(activeMenu != null)
         {
-            elapsed += Time.deltaTime;
-            loadingBar.fillAmount = Mathf.Clamp01(elapsed / duration);
-            yield return null;
+            activeMenu.SetActive(false);
+            activeMenu = null;
         }
 
+        loadingScreenUI.SetActive(true);
+        activeMenu = loadingScreenUI;
+        StartCoroutine(loadLevelAsync(scene));
+        Debug.Log("Loading...");
+    }
+
+    IEnumerator loadLevelAsync(string scene)
+    {
+
+        currentLoad = SceneManager.LoadSceneAsync(scene);
+
+        while (!currentLoad.isDone)
+        {
+            float loadProg = Mathf.Clamp01(currentLoad.progress / 0.9f);
+            loadingBar.fillAmount = loadProg;
+            yield return null;
+        }
+        
         loadingScreenUI.SetActive(false);
         activeMenu = null;
+
+        if(scene == "Forest" || scene == "Cave" || scene == "Kingdom")
+        {
+            StartCoroutine(stormSpawnReady());
+        }
+
     }
     
     public void LoadScene(string sceneName)
@@ -569,11 +581,18 @@ public class GameManager : MonoBehaviour
         playerIcon.transform.position = findProgFill();
     }
 
-    public async void loadStorm(string scene)
+    private IEnumerator stormSpawnReady()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-        await asyncLoad;
+        while(currentLoad != null && !currentLoad.isDone)
+        {
+            yield return null;
+        }
 
+        loadStorm();
+    }
+
+    public async void loadStorm()
+    {
         updateProgUI();
         if (stormPrefab != null && stormSpawnPoint != null)
         {

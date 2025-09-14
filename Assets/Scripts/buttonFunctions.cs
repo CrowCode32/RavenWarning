@@ -123,4 +123,8 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.brightnessImage.color = c; 
     }
 
+    public void resolution()
+    {
+
+    }
 }

@@ -266,7 +266,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 
-    void slashAttack()
+    public void slashAttack()
     {
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;

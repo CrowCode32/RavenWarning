@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
-    private bool firstLoad = true;
+    public bool firstLoad = true;
 
     private GameData gameData;
     private string saveFilePath;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public Image progFill;
     public Image playerIcon;
     public Image stormIcon;
+    public GameObject dialogueBox;
 
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
@@ -322,6 +323,19 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void loadMainMenu()
+    {
+        if(activeMenu != null)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
+        
+        activeMenu = mainMenuUI;
+        activeMenu.SetActive(true);
+        statePause();
+    }
     
     public void LoadScene(string sceneName)
     {
@@ -537,15 +551,18 @@ public class GameManager : MonoBehaviour
         statePause();
         Debug.Log("Game won");
 
-        LoadScene("Credits");
-        //Wait until credits animation has ended and then load main menu
+        loadingScene("Credits");
         Time.timeScale = 1;
+        //Credits animatoin triggers main menu
     }
 
     public void gameLost()
     {
         statePause();
         Debug.Log("Game lost");
+
+        loadingScene("Graveyard");
+        loadMainMenu();
     }
     
     Vector2 findProgFill()

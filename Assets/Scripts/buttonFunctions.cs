@@ -21,6 +21,7 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.instance.gameStarted = true;
         GameManager.instance.loadingScene("Forest");
+        GameManager.instance.stateUnpause();
     }
 
     public void load()

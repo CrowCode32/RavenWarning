@@ -11814,6 +11814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4207228b5a907748b866b77a8b1a897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLoad: 1
   player: {fileID: 1131866110}
   playerHP: {fileID: 0}
   SettingsMenuUI: {fileID: 0}
@@ -11828,6 +11829,7 @@ MonoBehaviour:
   progFill: {fileID: 1722731097}
   playerIcon: {fileID: 1019000893}
   stormIcon: {fileID: 2017070315}
+  dialogueBox: {fileID: 1520511735218477357}
   featherDrop: {fileID: 8924129456557553817}
   trinketDrop: {fileID: 6328892658752982011}
   mainCamera: {fileID: 1693487173}

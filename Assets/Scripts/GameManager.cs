@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's Healthbar here.")]
     public Image playerHP;
 
+    [Tooltip("Assign the main Settings UI Panel here.")]
+    public GameObject SettingsMenuUI;
 
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
@@ -159,6 +161,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles the game's pause state and manages the active menu.
+    /// </summary>
+    /// <param name="menuToToggle">The menu panel to show/hide.</param>
+    public void ToggleMenu(GameObject menuToToggle)
+    {
+        // Toggle the pause state
+        isPaused = !isPaused;
+
+        // Activate or deactivate the passed-in menu object
+        if (menuToToggle != null)
+        {
+            menuToToggle.SetActive(isPaused);
+        }
+
+        // Pause or unpause the game time
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Time.timeScale = timeScaleOrig;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
     private void Update()
     {
         // Check for the journal input key (e.g., 'J' or 'Tab').
@@ -169,9 +201,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("'J' key pressed!");
             if(gameStarted)
             {
-                ToggleJournal();
+                Debug.Log("Toggling Journal Menu. isPaused state will become: " + !isPaused);
+                ToggleMenu(journalMenuUI);
             }
             
+        }
+
+        // Toggles the main pause menu.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMenu(SettingsMenuUI); 
         }
 
         // A temporary way to test saving the game.

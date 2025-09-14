@@ -1945,6 +1945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1131866110}
   playerHP: {fileID: 10543910}
+  SettingsMenuUI: {fileID: 0}
   activeMenu: {fileID: 229261952}
   mainMenuUI: {fileID: 229261952}
   loadingScreenUI: {fileID: 225327525}

@@ -104,7 +104,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         if (isDead) return;
 
-        //featherQueue = GameManager.instance.selectedFeather;
+        featherQueue = GameManager.instance.selectedFeather;
         setAnimations();
 
         horizontal = Input.GetAxisRaw("Horizontal");

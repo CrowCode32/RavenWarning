@@ -614,6 +614,8 @@ public class GameManager : MonoBehaviour
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
         Debug.Log("Print please");
         await asyncLoad;
+    }
+
 
     public async void loadStorm()
     {

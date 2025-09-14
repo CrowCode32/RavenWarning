@@ -109,7 +109,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         horizontal = 0f;
 
-        Debug.Log("Left is bound to: " + InputManager.instance.GetKey("Left"));
+        
 
         if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
@@ -135,7 +135,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     void Movement()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
         if (Input.GetKeyDown(InputManager.instance.GetKey("Jump")) && jumpCount < jumpMax)
         {

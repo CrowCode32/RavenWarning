@@ -66,8 +66,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Press any key...")]
     public GameObject keyInput;
 
-    public KeyCode moveLeftKey = KeyCode.A;
-    public KeyCode moveRightKey = KeyCode.D;
+   
 
     public float mouseSensitivity = 1f;
 

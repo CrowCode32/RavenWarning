@@ -107,13 +107,16 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         featherQueue = GameManager.instance.selectedFeather;
         setAnimations();
 
+        horizontal = 0f;
 
-        if(Input.GetKey(GameManager.instance.moveLeftKey))
+        Debug.Log("Left is bound to: " + InputManager.instance.GetKey("Left"));
+
+        if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
             horizontal = -1f;
         }
 
-        if (Input.GetKey(GameManager.instance.moveRightKey))
+        if (Input.GetKey(InputManager.instance.GetKey("Right")))
         {
             horizontal = 1f;
         }
@@ -132,7 +135,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     void Movement()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.velocity.y);
 
         if (Input.GetKeyDown(InputManager.instance.GetKey("Jump")) && jumpCount < jumpMax)
         {
@@ -262,14 +265,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // Can also be used for the enemies
     void setAnimations()
     {
-        float moveSpeed = Input.GetAxisRaw("Horizontal");
+        //float moveSpeed = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        if (moveSpeed > 0)
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (horizontal > 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (moveSpeed < 0)
+        else if (horizontal < 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }

@@ -20,7 +20,8 @@ public class buttonFunctions : MonoBehaviour
     public void startGame()
     {
         GameManager.instance.gameStarted = true;
-        GameManager.instance.loadingScene("Forest");
+        GameManager.instance.activeMenu.SetActive(false);
+        GameManager.instance.activeMenu = null;
         GameManager.instance.stateUnpause();
     }
 

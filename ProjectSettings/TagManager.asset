@@ -9,6 +9,7 @@ TagManager:
   - Storm
   - Storm Start
   - Storm End
+  - Breakable
   layers:
   - Default
   - TransparentFX

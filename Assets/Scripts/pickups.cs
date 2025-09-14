@@ -6,6 +6,7 @@ public class pickups : MonoBehaviour
     [SerializeField] trinket trinket;
     [SerializeField] feather feather;
     
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {

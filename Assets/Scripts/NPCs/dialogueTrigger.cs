@@ -10,7 +10,11 @@ public class dialogueTrigger : MonoBehaviour
 
     void Start()
     {
-        instance = dialogueBox.GetComponent<dialogue>();
+        if (GameManager.instance.dialogueBox != null)
+        {
+            dialogueBox = GameManager.instance.dialogueBox;
+            instance = dialogueBox.GetComponent<dialogue>();
+        }
     }
 
     // Update is called once per frame

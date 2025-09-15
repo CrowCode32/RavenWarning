@@ -1475,17 +1475,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 3652110575134440954}
   m_HandleRect: {fileID: 2760605613226308863}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827834570745404859}
-        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: sfxVolume
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2325,17 +2325,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 6592459574834885701}
   m_HandleRect: {fileID: 3893193300865525191}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827834570745404859}
-        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: musicVolume
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13608,9 +13608,9 @@ RectTransform:
   - {fileID: 818177278404153173}
   - {fileID: 1501070018106270189}
   - {fileID: 5539963730954315211}
+  - {fileID: 2608454156742343155}
   - {fileID: 8333939572847156348}
   - {fileID: 6795015314091259085}
-  - {fileID: 2608454156742343155}
   - {fileID: 7085879724707510365}
   - {fileID: 1438865374346396324}
   - {fileID: 106769020279021839}
@@ -16319,7 +16319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1659987341764949805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23289,17 +23289,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 2900909260942606384}
   m_HandleRect: {fileID: 6882338769311856095}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827834570745404859}
-        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: masterVolume
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetMasterVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -34037,7 +34037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5764183289931599816
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36297,6 +36297,10 @@ PrefabInstance:
     - target: {fileID: 832540368205686308, guid: b26b683608d1d4a47b4001bd4176efa6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316692206690281366, guid: b26b683608d1d4a47b4001bd4176efa6, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.022
       objectReference: {fileID: 0}
     - target: {fileID: 7160753789752690666, guid: b26b683608d1d4a47b4001bd4176efa6, type: 3}
       propertyPath: m_Pivot.x

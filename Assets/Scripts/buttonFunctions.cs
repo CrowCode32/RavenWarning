@@ -42,7 +42,13 @@ public class buttonFunctions : MonoBehaviour
 
     public void credits()
     {
-        //load credits scene
+        GameManager.instance.loadingScene("Credits");
+        if(GameManager.instance.activeMenu != null)
+        {
+            GameManager.instance.activeMenu.SetActive(false);
+            GameManager.instance.activeMenu = null;
+        }
+        GameManager.instance.stateUnpause();
     }
 
     public void next()
@@ -114,5 +120,10 @@ public class buttonFunctions : MonoBehaviour
     public void resolution()
     {
 
+    }
+
+    public void mainMenu()
+    {
+        GameManager.instance.loadMainMenu();
     }
 }

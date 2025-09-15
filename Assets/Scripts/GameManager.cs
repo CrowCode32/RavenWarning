@@ -338,7 +338,6 @@ public class GameManager : MonoBehaviour
 
     public void statePause()
     {
-       
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -347,8 +346,11 @@ public class GameManager : MonoBehaviour
 
     public void stateUnpause()
     {
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        if (activeMenu != null)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -555,7 +557,7 @@ public class GameManager : MonoBehaviour
 
         loadingScene("Credits");
         Time.timeScale = 1;
-        //Credits animatoin triggers main menu
+        //Credits animation triggers main menu
     }
 
     public void gameLost()

@@ -301,7 +301,7 @@ MonoBehaviour:
   firstLoad: 1
   player: {fileID: 1761593463}
   playerHP: {fileID: 1890277094}
-  SettingsMenuUI: {fileID: 0}
+  SettingsMenuUI: {fileID: 1163653354}
   activeMenu: {fileID: 0}
   mainMenuUI: {fileID: 290961788}
   loadingScreenUI: {fileID: 883065080}

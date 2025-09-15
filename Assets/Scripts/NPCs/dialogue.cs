@@ -16,7 +16,7 @@ public class dialogue : MonoBehaviour
     int index;
     public bool isRunning;
     public bool isComplete; // only used by kingTrigger script
-
+    public kingTrigger kingTriggerScript;
 
     void OnEnable()
     {

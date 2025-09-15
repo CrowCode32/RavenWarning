@@ -8,7 +8,6 @@ public class forestLord : MonoBehaviour
     {
         if (isTriggered && Input.GetButtonDown("Interact")) {
             GameManager.instance.InformLordOfForest();
-            GameManager.instance.lordInformed("Forest");
         }
     }
 

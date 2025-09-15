@@ -8,9 +8,7 @@ public class caveLord : MonoBehaviour
     {
         if (isTriggered && Input.GetButtonDown("Interact"))
         {
-            GameManager.instance.lordInformed("Cave");
             GameManager.instance.InformLordOfCave();
-            Debug.Log("Informed");
         }
     }
 

@@ -5,27 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Charlie Moye.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DevZito.unity
     guid: 59c51512447ad924a88443e4bee0060f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ConkeyScene.unity
     guid: e954573b0ca95834f97b758c4010229a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Elijah_Test_Scene.unity
     guid: df78414c7c9871a428f4739d4e5f664b
-  - enabled: 1
+  - enabled: 0
     path: Assets/RavenWarning.unity
     guid: 31af1accdd067ab4aad4d1b38812897c
-  - enabled: 1
-    path: Assets/Scenes/Credits.unity
-    guid: 3a8726fbc62439a4e9045e5e448d3f52
-  - enabled: 1
-    path: Assets/Scenes/Forest.unity
-    guid: 411a6d5ff335fc64483307d017d56f55
   - enabled: 1
     path: Assets/Scenes/Graveyard.unity
     guid: 0f375d73f70abe04db5814677330ee22
@@ -33,8 +27,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Cave.unity
     guid: f9a4a4fb438780342b225cf50d7a04d0
   - enabled: 1
+    path: Assets/Scenes/Forest.unity
+    guid: 411a6d5ff335fc64483307d017d56f55
+  - enabled: 1
     path: Assets/Scenes/Kingdom.unity
     guid: 10ae4ed2ec7f4d1459a8583d81ee78ae
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 3a8726fbc62439a4e9045e5e448d3f52
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

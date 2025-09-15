@@ -10,6 +10,5 @@ public class kingdomCheckpoint : MonoBehaviour
             GameManager.instance.inKingdom = true;
             GameManager.instance.loadingScene("Kingdom");
         }
-
     }
 }

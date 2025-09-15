@@ -133,7 +133,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         if (Input.GetKeyDown(InputManager.instance.GetKey("Fire1")))
         {
-            
             slashAttack();
         }
     }
@@ -309,9 +308,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         foreach (var h in hits)
         {
-
-            Debug.Log($"Hit {h.name}, tag={h.tag}, canBreakWalls={canBreakWalls}");
-
             var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
             if (enemy != null)
             {
@@ -321,7 +317,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             {
                 if(h.CompareTag("Breakable"))
                 {
-                    Debug.Log("Breaking Object!");
                     Destroy(h.gameObject);
                 }
             }
@@ -334,7 +329,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         if (feather == null) return;
 
-       
+        Debug.Log(feather.featherName);
         switch (feather.featherName)
         {
             case "Roadrunner":

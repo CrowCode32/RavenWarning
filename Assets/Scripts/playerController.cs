@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     private bool canBreakWalls = false; // Woodpecker
     private int storeJumpMax; // Roadrunner
 
-    float horizontal;
+    float horizontal = 0f;
     bool isJumping = false;
     int jumpCount;
 
@@ -105,14 +105,35 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (isDead) return;
 
         featherQueue = GameManager.instance.selectedFeather;
+
+        feather = featherQueue;
+        FeatherAbility(feather);
+
         setAnimations();
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = 0f;
+
+        
+
+        if (Input.GetKey(InputManager.instance.GetKey("Left")))
+        {
+            horizontal = -1f;
+        }
+
+        if (Input.GetKey(InputManager.instance.GetKey("Right")))
+        {
+            horizontal = 1f;
+        }
+        
         Movement();
         UpdateOverlayAlpha();
 
-        if (Input.GetButtonDown("Fire1"))
+        float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * GameManager.instance.mouseSensitivity;
+
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Fire1")))
         {
+            
             slashAttack();
         }
     }
@@ -121,7 +142,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Jump")) && jumpCount < jumpMax)
         {
             isJumping = true;
             jumpCount++;
@@ -249,14 +270,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // Can also be used for the enemies
     void setAnimations()
     {
-        float moveSpeed = Input.GetAxisRaw("Horizontal");
+        //float moveSpeed = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        if (moveSpeed > 0)
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (horizontal > 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (moveSpeed < 0)
+        else if (horizontal < 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -284,10 +305,21 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         foreach (var h in hits)
         {
+
+            Debug.Log($"Hit {h.name}, tag={h.tag}, canBreakWalls={canBreakWalls}");
+
             var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
             if (enemy != null)
             {
                 enemy.takeDamage(attackDamage);
+            }
+            else if(canBreakWalls)
+            {
+                if(h.CompareTag("Breakable"))
+                {
+                    Debug.Log("Breaking Object!");
+                    Destroy(h.gameObject);
+                }
             }
         }
 
@@ -298,12 +330,12 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         if (feather == null) return;
 
-        Debug.Log(feather.featherName);
+       
         switch (feather.featherName)
         {
             case "Roadrunner":
                 speed *= 2;
-                jumpMax = 0;
+                jumpMax = 1;
                 break;
 
             case "Woodpecker":
@@ -343,9 +375,5 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
     }
 
-    // future implementation of Woodpecker's complex ability
-    void wallBreak()
-    {
-
-    }
+  
 }

@@ -35,7 +35,9 @@ public class buttonFunctions : MonoBehaviour
         
         GameManager.instance.journalMenuUI.SetActive(true);
         GameManager.instance.journalMenus[0].SetActive(true);
-        
+        GameManager.instance.journalMenus[1].SetActive(false);
+        GameManager.instance.journalMenus[2].SetActive(false);
+
     }
 
     public void credits()
@@ -80,6 +82,37 @@ public class buttonFunctions : MonoBehaviour
 #else
         Application.Quit();
 #endif
+
+    }
+
+    public void resume()
+    {
+
+        GameManager.instance.stateUnpause();
+    }
+
+    public void journal()
+    {
+        GameManager.instance.ToggleJournal();
+    }
+
+    
+
+    public void mouseSensitivity()
+    {
+        GameManager.instance.mouseSensitivity = GameManager.instance.ApplySlider(GameManager.instance.mouseSensitivitySlider);
+    }
+    public void brightness()
+    {
+        float val = GameManager.instance.ApplySlider(GameManager.instance.brightnessSlider);
+
+        Color c = GameManager.instance.brightnessImage.color;
+        c.a = 1f - val;
+        GameManager.instance.brightnessImage.color = c; 
+    }
+
+    public void resolution()
+    {
 
     }
 }

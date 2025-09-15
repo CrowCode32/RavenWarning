@@ -226,9 +226,13 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         yield return new WaitForSeconds(deathFreezeDelay);
 
         // Show Game over/lose menu and pause the game
-        if (gameOverUI)
-            gameOverUI.SetActive(true);
+        /*if (gameOverUI)
+            gameOverUI.SetActive(true);*/
+        GameManager.instance.activeMenu = gameOverUI;
+        GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         Debug.Log("The Player died");
     }

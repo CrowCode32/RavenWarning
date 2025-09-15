@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the main Menu UI Panel here.")]
     public GameObject mainMenuUI;
 
+    [Tooltip("Assign the player HUD here.")]
+    public GameObject playerHUD;
+
     [Tooltip("Assign the Loading screen UI Panel here.")]
     public GameObject loadingScreenUI;
     [SerializeField] Image loadingBar;
@@ -105,9 +108,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
-    public bool lordInCaveInformed = false;
+    public bool lordInCaveInformed;
     [Tooltip("Tracks if the player has informed the lord in the forest level.")]
-    public bool lordInForestInformed = false;
+    public bool lordInForestInformed;
     public bool inGraveyard = false;
     public bool inCave = false;
     public bool inForest = false;
@@ -351,6 +354,8 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(false);
             activeMenu = null;
         }
+
+        playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;

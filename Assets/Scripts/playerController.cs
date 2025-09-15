@@ -105,6 +105,10 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (isDead) return;
 
         featherQueue = GameManager.instance.selectedFeather;
+
+        feather = featherQueue;
+        FeatherAbility(feather);
+
         setAnimations();
 
         horizontal = 0f;
@@ -129,6 +133,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         if (Input.GetKeyDown(InputManager.instance.GetKey("Fire1")))
         {
+            
             slashAttack();
         }
     }
@@ -147,14 +152,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
-        {
-            jumpCount = 0;
-        }
-
         if (collision.collider.CompareTag("Ground"))
         {
-            isJumping = false;
+            Vector3 normal = collision.GetContact(0).normal;
+            if (normal == Vector3.up)
+            {
+                jumpCount = 0;
+                isJumping = false;
+            }
         }
     }
 
@@ -221,9 +226,13 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         yield return new WaitForSeconds(deathFreezeDelay);
 
         // Show Game over/lose menu and pause the game
-        if (gameOverUI)
-            gameOverUI.SetActive(true);
+        /*if (gameOverUI)
+            gameOverUI.SetActive(true);*/
+        GameManager.instance.activeMenu = gameOverUI;
+        GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         Debug.Log("The Player died");
     }
@@ -284,6 +293,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     public void slashAttack()
     {
+        anim.SetTrigger("Slash");
+
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;
 
@@ -298,14 +309,24 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         foreach (var h in hits)
         {
+
+            Debug.Log($"Hit {h.name}, tag={h.tag}, canBreakWalls={canBreakWalls}");
+
             var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
             if (enemy != null)
             {
                 enemy.takeDamage(attackDamage);
             }
+            else if(canBreakWalls)
+            {
+                if(h.CompareTag("Breakable"))
+                {
+                    Debug.Log("Breaking Object!");
+                    Destroy(h.gameObject);
+                }
+            }
         }
 
-        if (anim) anim.SetTrigger("Slash");
     }
 
     // This method will go in spawn/whatever the trigger is to leave the tutorial room
@@ -313,7 +334,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         if (feather == null) return;
 
-        Debug.Log(feather.featherName);
+       
         switch (feather.featherName)
         {
             case "Roadrunner":
@@ -358,9 +379,5 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
     }
 
-    // future implementation of Woodpecker's complex ability
-    void wallBreak()
-    {
-
-    }
+  
 }

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 
 
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 {
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
+
+    public bool firstLoad = true;
 
     private GameData gameData;
     private string saveFilePath;
@@ -37,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Assign the main Menu UI Panel here.")]
     public GameObject mainMenuUI;
+
+    [Tooltip("Assign the player HUD here.")]
+    public GameObject playerHUD;
 
     [Tooltip("Assign the Loading screen UI Panel here.")]
     public GameObject loadingScreenUI;
@@ -74,6 +80,7 @@ public class GameManager : MonoBehaviour
     public Image progFill;
     public Image playerIcon;
     public Image stormIcon;
+    public GameObject dialogueBox;
 
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
@@ -101,9 +108,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
-    public bool lordInCaveInformed = false;
+    public bool lordInCaveInformed;
     [Tooltip("Tracks if the player has informed the lord in the forest level.")]
-    public bool lordInForestInformed = false;
+    public bool lordInForestInformed;
     public bool inGraveyard = false;
     public bool inCave = false;
     public bool inForest = false;
@@ -134,6 +141,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+    AsyncOperation currentLoad;
 
 
 
@@ -161,8 +169,13 @@ public class GameManager : MonoBehaviour
         // Load the game as soon as the manager is ready
         LoadGame();
 
-        activeMenu = mainMenuUI;
-        activeMenu.SetActive(true);
+        if (firstLoad)
+        {
+            firstLoad = false;
+            activeMenu = mainMenuUI;
+            activeMenu.SetActive(true);
+            statePause();
+        }
         
     }
 
@@ -272,30 +285,53 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">The name of the scene file to load.</param>
 
-    public void loadingScreen()
+    public void loadingScene(string scene)
     {
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        loadingScreenUI.SetActive(true);
-        activeMenu = loadingScreenUI;
-        Debug.Log("Loading...");
-        StartCoroutine(FillLoadingBar(5f));
-    }
-
-    private IEnumerator FillLoadingBar(float duration)
-    {
-        float elapsed = 0f;
-        loadingBar.fillAmount = 0f;
-
-        while (elapsed<duration)
+        if(activeMenu != null)
         {
-            elapsed += Time.deltaTime;
-            loadingBar.fillAmount = Mathf.Clamp01(elapsed / duration);
-            yield return null;
+            activeMenu.SetActive(false);
+            activeMenu = null;
         }
 
+        loadingScreenUI.SetActive(true);
+        activeMenu = loadingScreenUI;
+        StartCoroutine(loadLevelAsync(scene));
+        Debug.Log("Loading...");
+    }
+
+    IEnumerator loadLevelAsync(string scene)
+    {
+
+        currentLoad = SceneManager.LoadSceneAsync(scene);
+
+        while (!currentLoad.isDone)
+        {
+            float loadProg = Mathf.Clamp01(currentLoad.progress / 0.9f);
+            loadingBar.fillAmount = loadProg;
+            yield return null;
+        }
+        
         loadingScreenUI.SetActive(false);
         activeMenu = null;
+
+        if(scene == "Forest" || scene == "Cave" || scene == "Kingdom")
+        {
+            StartCoroutine(stormSpawnReady());
+        }
+
+    }
+
+    public void loadMainMenu()
+    {
+        if(activeMenu != null)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
+        
+        activeMenu = mainMenuUI;
+        activeMenu.SetActive(true);
+        statePause();
     }
     
     public void LoadScene(string sceneName)
@@ -305,7 +341,6 @@ public class GameManager : MonoBehaviour
 
     public void statePause()
     {
-       
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -314,8 +349,13 @@ public class GameManager : MonoBehaviour
 
     public void stateUnpause()
     {
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        if (activeMenu != null)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
+
+        playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -520,15 +560,18 @@ public class GameManager : MonoBehaviour
         statePause();
         Debug.Log("Game won");
 
-        LoadScene("Credits");
-        //Wait until credits animation has ended and then load main menu
+        loadingScene("Credits");
         Time.timeScale = 1;
+        //Credits animation triggers main menu
     }
 
     public void gameLost()
     {
         statePause();
         Debug.Log("Game lost");
+
+        loadingScene("Graveyard");
+        loadMainMenu();
     }
     
     Vector2 findProgFill()
@@ -564,12 +607,25 @@ public class GameManager : MonoBehaviour
         playerIcon.transform.position = findProgFill();
     }
 
+    private IEnumerator stormSpawnReady()
+    {
+        while(currentLoad != null && !currentLoad.isDone)
+        {
+            yield return null;
+        }
+
+        loadStorm();
+    }
     public async void loadStorm(string scene)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
         Debug.Log("Print please");
         await asyncLoad;
+    }
 
+
+    public async void loadStorm()
+    {
         updateProgUI();
         Debug.Log("Updated");
         if (stormPrefab != null && stormSpawnPoint != null)

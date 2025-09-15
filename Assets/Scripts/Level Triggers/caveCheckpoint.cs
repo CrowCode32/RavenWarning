@@ -8,8 +8,7 @@ public class caveCheckpoint : MonoBehaviour
         {
             Debug.Log("Cave Checkpoint Reached");
             GameManager.instance.inCave = true;
-            //GameManager.instance.LoadScene("Cave");
-            GameManager.instance.updateProgUI();
+            GameManager.instance.loadingScene("Cave");
         }
         
     }

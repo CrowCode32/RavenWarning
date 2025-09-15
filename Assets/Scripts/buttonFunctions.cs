@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
@@ -20,8 +21,9 @@ public class buttonFunctions : MonoBehaviour
     public void startGame()
     {
         GameManager.instance.gameStarted = true;
-        GameManager.instance.loadingScreen();
-        //load Graveyard scene
+        GameManager.instance.activeMenu.SetActive(false);
+        GameManager.instance.activeMenu = null;
+        GameManager.instance.stateUnpause();
     }
 
     public void load()
@@ -41,7 +43,13 @@ public class buttonFunctions : MonoBehaviour
 
     public void credits()
     {
-        //load credits scene
+        GameManager.instance.loadingScene("Credits");
+        if(GameManager.instance.activeMenu != null)
+        {
+            GameManager.instance.activeMenu.SetActive(false);
+            GameManager.instance.activeMenu = null;
+        }
+        GameManager.instance.stateUnpause();
     }
 
     public void next()
@@ -95,20 +103,7 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.ToggleJournal();
     }
 
-    public void masterVolume()
-    {
-        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.masterVolumeSlider);
-    }
-
-    public void musicVolume()
-    {
-        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.musicVolumeSlider);
-    }
-   
-    public void sfxVolume()
-    {
-        AudioListener.volume = GameManager.instance.ApplySlider(GameManager.instance.SFXVolumeSlider);
-    }
+    
 
     public void mouseSensitivity()
     {
@@ -126,5 +121,10 @@ public class buttonFunctions : MonoBehaviour
     public void resolution()
     {
 
+    }
+
+    public void mainMenu()
+    {
+        GameManager.instance.loadMainMenu();
     }
 }

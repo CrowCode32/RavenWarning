@@ -6,7 +6,7 @@ public class kingTrigger : MonoBehaviour
     [SerializeField] TextAsset KingUninformed;
     [SerializeField] TextAsset KingCaveInformed;
     [SerializeField] TextAsset KingForestInformed;
-    [SerializeField] GameObject dialogueBox;
+    GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
     bool win;
 

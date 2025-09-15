@@ -229,8 +229,8 @@ public class enemyAI : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth - amount);
 
         // Hit anim
-        if (animator)
-            animator.SetTrigger("Hit");
+        /*if (animator)
+            animator.SetTrigger("Hit");*/
         if (sprite)
         {
             sprite.color = hitColor;

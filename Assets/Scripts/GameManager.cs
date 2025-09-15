@@ -147,20 +147,22 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // A safe place to store player data.
+        // Use the instance ID to uniquely identify each GameManager object.
+        Debug.Log("GameManager Awake() called by object: " + gameObject.name + " (ID: " + GetInstanceID() + ")");
+
+        // This path works on all platforms (Windows, Mac, Linux)
         saveFilePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
 
         // --- Singleton Pattern Implementation ---
-        // If an instance already exists and it's not this one, destroy this new one.
         if (instance != null && instance != this)
         {
+            Debug.LogWarning("An instance of GameManager already exists (ID: " + instance.GetInstanceID() + "). Destroying this new one (ID: " + GetInstanceID() + ").");
             Destroy(gameObject);
             return;
         }
 
-        // This is the first instance. Make it the singleton and ensure it persists
-        // between scene loads (e.g., when returning to the hub).
         instance = this;
+        Debug.Log("This object is now the official GameManager instance (ID: " + GetInstanceID() + "). Setting DontDestroyOnLoad.");
 
         timeScaleOrig = Time.timeScale;
 
@@ -168,15 +170,6 @@ public class GameManager : MonoBehaviour
 
         // Load the game as soon as the manager is ready
         LoadGame();
-
-        if (firstLoad)
-        {
-            firstLoad = false;
-            activeMenu = mainMenuUI;
-            activeMenu.SetActive(true);
-            statePause();
-        }
-        
     }
 
     private void Start()

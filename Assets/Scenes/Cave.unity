@@ -6286,7 +6286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeeac374ad218e847b12716b022dafbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diaInput: {fileID: 4900000, guid: 1deb48551b163be4fb730fee672c8f98, type: 3}
+  diaInput: {fileID: 4900000, guid: 42f85850ff6d4834794d1fee9654e2c5, type: 3}
 --- !u!1 &1761179360
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,8 @@ public class forestLord : MonoBehaviour
 
     void Update()
     {
-        if (isTriggered && Input.GetButtonDown("Interact")) {
+        if (isTriggered && Input.GetButtonDown("Interact")) 
+        {
             GameManager.instance.InformLordOfForest();
         }
     }

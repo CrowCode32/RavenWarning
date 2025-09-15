@@ -170,6 +170,14 @@ public class GameManager : MonoBehaviour
 
         // Load the game as soon as the manager is ready
         LoadGame();
+
+        if (firstLoad)
+        {
+            firstLoad = false;
+            activeMenu = mainMenuUI;
+            activeMenu.SetActive(true);
+            statePause();
+        }
     }
 
     private void Start()
@@ -270,6 +278,11 @@ public class GameManager : MonoBehaviour
         nextButton.SetActive(true);
         prevButton.SetActive(true);
         statePause();
+
+        if(isJournalOpen == false)
+        {
+            stateUnpause();
+        }
     }
 
     /// <summary>
@@ -498,7 +511,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Sets the status of the Forest Lord to 'informed' and saves the game.
     /// </summary>
-    public void InformLordOfForest()
+      public void InformLordOfForest()
     {
         // Only update and save if this is the first time informing this lord.
         if (!lordInForestInformed)
@@ -516,7 +529,7 @@ public class GameManager : MonoBehaviour
     /// function instead of having its own logic.
     /// </summary>
 
-     public void lordInformed(string lord)
+    public void lordInformed(string lord)
     {
         // I'm keeping all the save data in the 'gameData' object, which the
         // GameManager creates and manages. This makes the GameManager our "single
@@ -560,6 +573,7 @@ public class GameManager : MonoBehaviour
 
     public void gameLost()
     {
+        Debug.Log("Called");
         statePause();
         Debug.Log("Game lost");
 

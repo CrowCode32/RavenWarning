@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] LayerMask groundLayer;
 
     // SFX & Game Over
-    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] public GameObject gameOverUI;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;

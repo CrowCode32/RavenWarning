@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
-    public bool firstLoad = true;
-
     private GameData gameData;
     private string saveFilePath;
 
@@ -167,18 +165,11 @@ public class GameManager : MonoBehaviour
 
         playerHUD.SetActive(false);
         SceneManager.LoadScene("MainMenu");
-        //playerHUD.SetActive(false);
 
         //DontDestroyOnLoad(gameObject);
 
         // Load the game as soon as the manager is ready
         LoadGame();
-
-        if (firstLoad)
-        {
-            firstLoad = false;
-            statePause();
-        }
     }
 
     private void Start()
@@ -332,6 +323,7 @@ public class GameManager : MonoBehaviour
     public void loadMainMenu()
     {
         loadingScene("MainMenu");
+        deathDataReset();
         statePause();
     }
     
@@ -554,6 +546,12 @@ public class GameManager : MonoBehaviour
     {
         gameData.lesserLordForestInformed = false;
         gameData.lesserLordCaveInformed = false;
+        inCave = false;
+        inForest = false;
+        inKingdom = false;
+        inKing = false;
+        hasRunStarted = false;
+        stormOffset = 0;
     }
 
     // This method is called when the game is TRULY won.
@@ -569,6 +567,7 @@ public class GameManager : MonoBehaviour
     public void gameLost()
     {
         statePause();
+        deathDataReset();
         loadMainMenu();
     }
     
@@ -628,6 +627,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Updated");
         if (stormPrefab != null && stormSpawnPoint != null)
         {
+            /*if(stormOffset == null)
+            {
+                StartCoroutine(SpawnStormCoroutine());
+            }*/
             Debug.Log("Spawned");
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }

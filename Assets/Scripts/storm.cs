@@ -53,7 +53,7 @@ public class storm : MonoBehaviour
 
     public void setStormSpawn()
     {
-        if (GameManager.instance.inCave || GameManager.instance.inForest)
+        if (GameManager.instance.inCave || GameManager.instance.inForest || GameManager.instance.inKingdom)
         {
             spawnPos.x = spawnPos.x - GameManager.instance.stormOffset;
 

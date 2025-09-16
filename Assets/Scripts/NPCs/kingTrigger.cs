@@ -15,6 +15,7 @@ public class kingTrigger : MonoBehaviour
     void Start()
     {
         instance = dialogueBox.GetComponent<dialogue>();
+        instance.isComplete = false; // Reset the completion flag before starting.
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class kingTrigger : MonoBehaviour
 
             dialogueBox.SetActive(true);
 
-            instance.isComplete = false; // Reset the completion flag before starting.
+            //instance.isComplete = false; // Reset the completion flag before starting.
 
             // Both informed, win
             if (GameManager.instance.lordInCaveInformed && GameManager.instance.lordInForestInformed)
@@ -54,10 +55,16 @@ public class kingTrigger : MonoBehaviour
                 instance.startDialogue(KingUninformed);
             }
         }
+
+        if (instance.isComplete == true)
+        {
+            CheckWinCondition();
+        }
     }
 
     public void CheckWinCondition()
     {
+        Debug.Log("Win: " + win);
         if (win)
         {
             GameManager.instance.gameWon();

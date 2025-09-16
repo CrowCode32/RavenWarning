@@ -561,6 +561,7 @@ public class GameManager : MonoBehaviour
         playerHUD.SetActive(false);
 
         loadingScene("Credits");
+        stateUnpause();
         //Credits animation triggers main menu
     }
 
@@ -624,13 +625,8 @@ public class GameManager : MonoBehaviour
     public async void loadStorm()
     {
         updateProgUI();
-        Debug.Log("Updated");
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            /*if(stormOffset == null)
-            {
-                StartCoroutine(SpawnStormCoroutine());
-            }*/
             Debug.Log("Spawned");
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }

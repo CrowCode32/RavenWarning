@@ -10,6 +10,6 @@ public class caveCheckpoint : MonoBehaviour
             GameManager.instance.inCave = true;
             GameManager.instance.loadingScene("Cave");
         }
-        
+
     }
 }

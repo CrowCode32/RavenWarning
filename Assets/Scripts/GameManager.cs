@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
 
         timeScaleOrig = Time.timeScale;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         // Load the game as soon as the manager is ready
         LoadGame();
@@ -173,8 +173,6 @@ public class GameManager : MonoBehaviour
         if (firstLoad)
         {
             firstLoad = false;
-            //activeMenu = mainMenuUI;
-            //activeMenu.SetActive(true);
             statePause();
         }
     }
@@ -319,7 +317,7 @@ public class GameManager : MonoBehaviour
         loadingScreenUI.SetActive(false);
         activeMenu = null;
 
-        if(scene == "Forest" || scene == "Cave" || scene == "Kingdom")
+        if (scene == "Forest" || scene == "Cave" || scene == "Kingdom")
         {
             StartCoroutine(stormSpawnReady());
         }
@@ -329,8 +327,6 @@ public class GameManager : MonoBehaviour
     public void loadMainMenu()
     {
         loadingScene("MainMenu");
-        //mainMenuUI.SetActive(true);
-        //activeMenu =mainMenuUI;
         statePause();
     }
     
@@ -485,6 +481,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
+
+        SceneManager.LoadScene("MainMenu");
 
     }
 

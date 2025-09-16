@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 3652110575134440954}
   m_HandleRect: {fileID: 2760605613226308863}
   m_Direction: 0
-  m_MinValue: 0.001
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 7085879724707510365}
   - component: {fileID: 3005059778983846366}
   - component: {fileID: 6769302462238390474}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Journal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2302,7 +2302,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 6592459574834885701}
   m_HandleRect: {fileID: 3893193300865525191}
   m_Direction: 0
-  m_MinValue: 0.001
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -13050,7 +13050,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &4876974310782555438
 MonoBehaviour:
@@ -13865,7 +13865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8968698315704071455
 Transform:
   m_ObjectHideFlags: 0
@@ -15594,7 +15594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1659987341764949805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17159,6 +17159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6908534734928626373}
   - component: {fileID: 7988582430339017806}
+  - component: {fileID: 523844145185471593}
   - component: {fileID: 3439469488531270576}
   - component: {fileID: 8983263408570325827}
   - component: {fileID: 29467843198473799}
@@ -17197,6 +17198,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5022720955730439228}
   m_CullTransparentMesh: 1
+--- !u!114 &523844145185471593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022720955730439228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f3e9a5e913a4438202d7a92a4bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Fire1
+  buttonLabel: {fileID: 7395103990236220009}
 --- !u!114 &3439469488531270576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17285,7 +17300,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3439469488531270576}
+      - m_Target: {fileID: 523844145185471593}
         m_TargetAssemblyTypeName: rebindButton, Assembly-CSharp
         m_MethodName: StartRebind
         m_Mode: 1
@@ -22436,7 +22451,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 2900909260942606384}
   m_HandleRect: {fileID: 6882338769311856095}
   m_Direction: 0
-  m_MinValue: 0.001
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -25095,6 +25110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3194521350021881320}
   - component: {fileID: 494383060968276420}
+  - component: {fileID: 201407015087830859}
   - component: {fileID: 2242182710135531864}
   - component: {fileID: 5651265801358220213}
   - component: {fileID: 1786443118801025137}
@@ -25133,6 +25149,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6861726614347022915}
   m_CullTransparentMesh: 1
+--- !u!114 &201407015087830859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861726614347022915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f3e9a5e913a4438202d7a92a4bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Right
+  buttonLabel: {fileID: 2877300551801767842}
 --- !u!114 &2242182710135531864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25221,7 +25251,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2242182710135531864}
+      - m_Target: {fileID: 201407015087830859}
         m_TargetAssemblyTypeName: rebindButton, Assembly-CSharp
         m_MethodName: StartRebind
         m_Mode: 1
@@ -25455,6 +25485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8956714436320112408}
   - component: {fileID: 2934745567933850722}
+  - component: {fileID: 2392333282291209139}
   - component: {fileID: 2771204158923692671}
   - component: {fileID: 1382085389759400900}
   - component: {fileID: 1972865137708276505}
@@ -25493,6 +25524,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6930599797627647873}
   m_CullTransparentMesh: 1
+--- !u!114 &2392333282291209139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6930599797627647873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f3e9a5e913a4438202d7a92a4bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Interact
+  buttonLabel: {fileID: 7712780182124949730}
 --- !u!114 &2771204158923692671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25581,7 +25626,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2771204158923692671}
+      - m_Target: {fileID: 2392333282291209139}
         m_TargetAssemblyTypeName: rebindButton, Assembly-CSharp
         m_MethodName: StartRebind
         m_Mode: 1
@@ -30212,6 +30257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328426749274011573}
   - component: {fileID: 7568510441925361924}
+  - component: {fileID: 4195388219428123162}
   - component: {fileID: 5948504240176467436}
   - component: {fileID: 4883305559632601178}
   - component: {fileID: 3760948679752398470}
@@ -30250,6 +30296,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8015687115354914695}
   m_CullTransparentMesh: 1
+--- !u!114 &4195388219428123162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015687115354914695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f3e9a5e913a4438202d7a92a4bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Left
+  buttonLabel: {fileID: 3451772261291146146}
 --- !u!114 &5948504240176467436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30338,7 +30398,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5948504240176467436}
+      - m_Target: {fileID: 4195388219428123162}
         m_TargetAssemblyTypeName: rebindButton, Assembly-CSharp
         m_MethodName: StartRebind
         m_Mode: 1
@@ -32509,7 +32569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5764183289931599816
 RectTransform:
   m_ObjectHideFlags: 0

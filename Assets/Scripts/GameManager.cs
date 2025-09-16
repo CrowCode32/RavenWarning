@@ -165,6 +165,10 @@ public class GameManager : MonoBehaviour
 
         timeScaleOrig = Time.timeScale;
 
+        playerHUD.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
+        //playerHUD.SetActive(false);
+
         //DontDestroyOnLoad(gameObject);
 
         // Load the game as soon as the manager is ready
@@ -279,6 +283,7 @@ public class GameManager : MonoBehaviour
         if(isJournalOpen == false)
         {
             stateUnpause();
+            playerHUD.SetActive(true);
         }
     }
 
@@ -351,7 +356,7 @@ public class GameManager : MonoBehaviour
             activeMenu = null;
         }
 
-        playerHUD.SetActive(true);
+        //playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -482,7 +487,6 @@ public class GameManager : MonoBehaviour
             gameData = new GameData();
         }
 
-        SceneManager.LoadScene("MainMenu");
 
     }
 
@@ -556,20 +560,15 @@ public class GameManager : MonoBehaviour
     public void gameWon()
     {
         statePause();
-        Debug.Log("Game won");
+        playerHUD.SetActive(false);
 
         loadingScene("Credits");
-        Time.timeScale = 1;
         //Credits animation triggers main menu
     }
 
     public void gameLost()
     {
-        Debug.Log("Called");
         statePause();
-        Debug.Log("Game lost");
-
-        loadingScene("Graveyard");
         loadMainMenu();
     }
     

@@ -38,8 +38,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
 
-    [Tooltip("Assign the main Menu UI Panel here.")]
-    public GameObject mainMenuUI;
+
 
     [Tooltip("Assign the player HUD here.")]
     public GameObject playerHUD;
@@ -174,8 +173,8 @@ public class GameManager : MonoBehaviour
         if (firstLoad)
         {
             firstLoad = false;
-            activeMenu = mainMenuUI;
-            activeMenu.SetActive(true);
+            //activeMenu = mainMenuUI;
+            //activeMenu.SetActive(true);
             statePause();
         }
     }
@@ -329,14 +328,9 @@ public class GameManager : MonoBehaviour
 
     public void loadMainMenu()
     {
-        if(activeMenu != null)
-        {
-            activeMenu.SetActive(false);
-            activeMenu = null;
-        }
-        
-        activeMenu = mainMenuUI;
-        activeMenu.SetActive(true);
+        loadingScene("MainMenu");
+        //mainMenuUI.SetActive(true);
+        //activeMenu =mainMenuUI;
         statePause();
     }
     

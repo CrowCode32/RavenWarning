@@ -91,6 +91,7 @@ public class enemyAI : MonoBehaviour
             {
                 if (Time.time >= lastAttackTime + attackCooldown)
                 {
+                    animator.SetBool("Walk", false);
                     if (attackType == AttackType.Melee)
                     {
                         MeleeAttack();
@@ -102,13 +103,15 @@ public class enemyAI : MonoBehaviour
                 }
                 else
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);  
+                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                    animator.SetBool("Walk", true);
                 }
             }
             // Chase
             else if (distanceToPlayer <= chaseDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                animator.SetBool("Walk", true);
             }
             // Patrol
             else
@@ -116,10 +119,12 @@ public class enemyAI : MonoBehaviour
                 Vector2 target = (movingToAttack ? positionA : positionB).position;
                 transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
                 FaceDir(target.x - transform.position.x);
+                animator.SetBool("Walk", true);
 
                 if (Vector2.Distance(transform.position, target) < 0.1f) movingToAttack = !movingToAttack;
             }
-        } 
+        }
+        animator.SetBool("Walk", false);
     }
 
     public void Attack2D()
@@ -228,9 +233,9 @@ public class enemyAI : MonoBehaviour
         _iFrameTimer = hurtFrames;
         currentHealth = Mathf.Max(0, currentHealth - amount);
 
-        // Hit anim
-        /*if (animator)
-            animator.SetTrigger("Hit");*/
+        if (animator)
+            animator.SetTrigger("Hit");
+
         if (sprite)
         {
             sprite.color = hitColor;
@@ -259,12 +264,17 @@ public class enemyAI : MonoBehaviour
     }
     private void Death()
     {
+        if (animator)
+            animator.SetTrigger("Death");
+
         if (audioSource && deathSfx)
             audioSource.PlayOneShot(deathSfx); 
         
         var col = GetComponent<Collider2D>();
         if (col) col.enabled = false;
         enabled = false;
+
+        animator.SetBool("Walk", false);
 
         Destroy(gameObject, deathSfx ? deathSfx.length : 0f);
         // Todo - play death anim/SFX, add score or drop loot

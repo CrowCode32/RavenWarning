@@ -70,7 +70,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     bool isJumping = false;
     int jumpCount;
     private float dashTimer;
-    
+    private float facingDirection = 1;
+    private bool isDashing;
+
 
     void Awake()
     {
@@ -124,14 +126,20 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
             horizontal = -1f;
+            facingDirection = -1;
         }
 
         if (Input.GetKey(InputManager.instance.GetKey("Right")))
         {
             horizontal = 1f;
+            facingDirection = 1;
         }
         
-        Movement();
+        if(isDashing == false)
+        {
+            Movement();
+        }
+       
         UpdateOverlayAlpha();
 
         float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
@@ -154,9 +162,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
 
-        if (Input.GetKey(InputManager.instance.GetKey("Dash")) && dashCooldown < dashTimer)
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Dash")) && dashCooldown <= dashTimer)
         {
-            Debug.Log("Yeah bro idk");
+            Debug.Log("Dashing...");
             StartCoroutine(Dash());
             dashTimer = 0;
         }
@@ -164,11 +172,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     private IEnumerator Dash()
     {
-        rb.linearVelocity = new Vector2(horizontal * dashForce, rb.linearVelocity.y);
+        isDashing = true;
+        float dashDirection = (horizontal != 0) ? horizontal : facingDirection;
+        rb.linearVelocity = new Vector2( dashDirection * dashForce, rb.linearVelocity.y);
 
         yield return new WaitForSeconds(dashDuration);
 
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dashDirection * speed, rb.linearVelocity.y);
+        isDashing = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

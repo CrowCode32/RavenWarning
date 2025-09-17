@@ -180,9 +180,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  dashForce: 100
+  dashForce: 25
   dashDuration: 0.2
-  dashCooldown: 5
+  dashCooldown: 2
   gameOverUI: {fileID: 0}
   audioSource: {fileID: 0}
   hurtSfx: {fileID: 0}

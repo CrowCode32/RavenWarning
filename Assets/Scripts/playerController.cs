@@ -55,7 +55,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     // Trinket Stuff
     [SerializeField] trinket trinket;
-    [SerializeField] GameObject trinketModel;
+    [SerializeField] SpriteRenderer trinketModel;
+
 
     // Feather
     [SerializeField] feather featherQueue;   // allows the player to switch feathers in the UI without affecting the game
@@ -112,6 +113,12 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (isDead) return;
 
         featherQueue = GameManager.instance.selectedFeather;
+
+        if(GameManager.instance.selectedTrinket != null)
+        {
+            trinketModel.sprite = GameManager.instance.selectedTrinket.sprite;
+        }
+       
 
         feather = featherQueue;
         FeatherAbility(feather);

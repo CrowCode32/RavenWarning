@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TempDiamond
   m_EditorClassIdentifier: 
   model: {fileID: 7922432254740541296, guid: 7cb9051fe3dd8d74c8e04f7df886fbcd, type: 3}
+  sprite: {fileID: 5540396309347715757, guid: 49f558cc40a0238499c4de786d95e93c, type: 3}
   trinketNum: 0
   trinketName: Diamond
   trinketDesc: 'A shiny gem! '

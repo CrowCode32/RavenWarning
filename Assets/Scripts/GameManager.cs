@@ -126,6 +126,8 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+    [Tooltip("Updates journal player with selected trinket")]
+    public Image trinketDisplay;
 
     [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
@@ -417,14 +419,16 @@ public class GameManager : MonoBehaviour
     {
 
         trinketIndex = trinketDrop.value;
-
+        
         if (trinketIndex == 0)
         {
             selectedTrinket = null;
+            trinketDisplay.sprite = null;
         }
         else
         {
             selectedTrinket = trinketsAquired[trinketIndex - 1];
+            trinketDisplay.sprite = trinketsAquired[trinketIndex - 1].sprite;
         }
 
 

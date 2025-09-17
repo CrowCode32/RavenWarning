@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
-    public bool firstLoad = true;
-
     private GameData gameData;
     private string saveFilePath;
 
@@ -166,18 +164,13 @@ public class GameManager : MonoBehaviour
 
         timeScaleOrig = Time.timeScale;
 
-        DontDestroyOnLoad(gameObject);
+        playerHUD.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
+
+        //DontDestroyOnLoad(gameObject);
 
         // Load the game as soon as the manager is ready
         LoadGame();
-
-        if (firstLoad)
-        {
-            firstLoad = false;
-            //activeMenu = mainMenuUI;
-            //activeMenu.SetActive(true);
-            statePause();
-        }
     }
 
     private void Start()
@@ -283,6 +276,7 @@ public class GameManager : MonoBehaviour
         if(isJournalOpen == false)
         {
             stateUnpause();
+            playerHUD.SetActive(true);
         }
     }
 
@@ -321,7 +315,7 @@ public class GameManager : MonoBehaviour
         loadingScreenUI.SetActive(false);
         activeMenu = null;
 
-        if(scene == "Forest" || scene == "Cave" || scene == "Kingdom")
+        if (scene == "Forest" || scene == "Cave" || scene == "Kingdom")
         {
             StartCoroutine(stormSpawnReady());
         }
@@ -331,8 +325,7 @@ public class GameManager : MonoBehaviour
     public void loadMainMenu()
     {
         loadingScene("MainMenu");
-        //mainMenuUI.SetActive(true);
-        //activeMenu =mainMenuUI;
+        deathDataReset();
         statePause();
     }
     
@@ -357,7 +350,7 @@ public class GameManager : MonoBehaviour
             activeMenu = null;
         }
 
-        playerHUD.SetActive(true);
+        //playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
@@ -488,6 +481,7 @@ public class GameManager : MonoBehaviour
             gameData = new GameData();
         }
 
+
     }
 
     /// <summary>
@@ -554,26 +548,29 @@ public class GameManager : MonoBehaviour
     {
         gameData.lesserLordForestInformed = false;
         gameData.lesserLordCaveInformed = false;
+        inCave = false;
+        inForest = false;
+        inKingdom = false;
+        inKing = false;
+        hasRunStarted = false;
+        stormOffset = 0;
     }
 
     // This method is called when the game is TRULY won.
     public void gameWon()
     {
         statePause();
-        Debug.Log("Game won");
+        playerHUD.SetActive(false);
 
         loadingScene("Credits");
-        Time.timeScale = 1;
+        stateUnpause();
         //Credits animation triggers main menu
     }
 
     public void gameLost()
     {
-        Debug.Log("Called");
         statePause();
-        Debug.Log("Game lost");
-
-        loadingScene("Graveyard");
+        deathDataReset();
         loadMainMenu();
     }
     
@@ -630,7 +627,6 @@ public class GameManager : MonoBehaviour
     public async void loadStorm()
     {
         updateProgUI();
-        Debug.Log("Updated");
         if (stormPrefab != null && stormSpawnPoint != null)
         {
             Debug.Log("Spawned");

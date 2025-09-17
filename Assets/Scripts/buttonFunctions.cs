@@ -25,6 +25,7 @@ public class buttonFunctions : MonoBehaviour
   
         GameManager.instance.stateUnpause();
         GameManager.instance.loadingScene("Graveyard");
+        GameManager.instance.playerHUD.SetActive(true);
     }
 
     public void load()
@@ -49,6 +50,7 @@ public class buttonFunctions : MonoBehaviour
             GameManager.instance.activeMenu = null;
         }
         GameManager.instance.stateUnpause();
+        GameManager.instance.playerHUD.SetActive(false);
     }
 
     public void next()

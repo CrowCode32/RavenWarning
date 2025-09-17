@@ -30,11 +30,6 @@ public class storm : MonoBehaviour
         //Determining how far the storm is from the exit for offset in future levels
         exitDiff = endPos.x - transform.position.x;
         GameManager.instance.stormOffset = exitDiff;
-
-        if (exitDiff <= 0)
-        {
-            enabled = false;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,7 +48,7 @@ public class storm : MonoBehaviour
 
     public void setStormSpawn()
     {
-        if (GameManager.instance.inCave || GameManager.instance.inForest)
+        if (GameManager.instance.inCave || GameManager.instance.inForest || GameManager.instance.inKingdom)
         {
             spawnPos.x = spawnPos.x - GameManager.instance.stormOffset;
 
@@ -62,6 +57,7 @@ public class storm : MonoBehaviour
         {
             spawnPos = startPos;
         }
-        transform.position = spawnPos;
+        // transform.position = spawnPos;
+        GameManager.instance.stormSpawnPoint.position = spawnPos;
     }
 }

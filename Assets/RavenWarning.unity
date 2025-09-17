@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
       propertyPath: stormPrefab
       value: 
-      objectReference: {fileID: 200283036535333916, guid: 249d35bd24261be4390357c2ec197978, type: 3}
+      objectReference: {fileID: 1012858885144439504, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
     - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
       propertyPath: trinketDrop
       value: 
@@ -257,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 451977753}
     - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
       propertyPath: stormSpawnDelay
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
       propertyPath: stormSpawnPoint

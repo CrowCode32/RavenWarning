@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
     
     [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
     public float stormOffset;
+    public bool stormSpawned;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -228,6 +229,8 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
+            stormSpawned = false;
+            stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
             // The run has officially started, so we begin the storm countdown.
             StartCoroutine(SpawnStormCoroutine());
@@ -244,6 +247,7 @@ public class GameManager : MonoBehaviour
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
+            stormSpawned = true;
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else
@@ -562,6 +566,7 @@ public class GameManager : MonoBehaviour
 
         loadingScene("Credits");
         stateUnpause();
+        deathDataReset();
         //Credits animation triggers main menu
     }
 
@@ -570,6 +575,7 @@ public class GameManager : MonoBehaviour
         statePause();
         deathDataReset();
         loadMainMenu();
+        playerHUD.SetActive(false);
     }
     
     Vector2 findProgFill()
@@ -611,28 +617,18 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-
         loadStorm();
     }
-    public async void loadStorm(string scene)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-        Debug.Log("Print please");
-        await asyncLoad;
-    }
-
 
     public async void loadStorm()
     {
         updateProgUI();
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Debug.Log("Spawned");
-            Instantiate(stormPrefab, stormSpawnPoint.transform);
-        }
-        else
-        {
-            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+            if(stormSpawned == true)
+            {
+                Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation, stormSpawnPoint);
+            }
         }
     }
 }

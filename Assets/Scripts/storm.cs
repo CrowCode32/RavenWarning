@@ -5,23 +5,12 @@ public class storm : MonoBehaviour
 {
     [SerializeField] int speed;
 
-    Vector3 startPos; // = normal spawn position
     Vector3 endPos;   // last possible end point
-    Vector3 spawnPos; // = normal spawn position + offset
     float exitDiff = 0;
 
     // A very high damage value to ensure an instant kill.
     private const int LETHAL_DAMAGE = 9999;
 
-    private void Start()
-    {
-
-        //Game manager instantiates
-        startPos = GameManager.instance.stormSpawnPoint.position;
-        endPos = GameManager.instance.stormEndPoint.position;
-        setStormSpawn();
-    }
-    
     // Update is called once per frame
     void Update()
     {
@@ -44,20 +33,5 @@ public class storm : MonoBehaviour
             Debug.Log("Storm has hit " + collision.name + ". Dealing lethal damage.");
             damageable.TakeDamage(LETHAL_DAMAGE);
         }
-    }
-
-    public void setStormSpawn()
-    {
-        if (GameManager.instance.inCave || GameManager.instance.inForest || GameManager.instance.inKingdom)
-        {
-            spawnPos.x = spawnPos.x - GameManager.instance.stormOffset;
-
-        }
-        else
-        {
-            spawnPos = startPos;
-        }
-        // transform.position = spawnPos;
-        GameManager.instance.stormSpawnPoint.position = spawnPos;
     }
 }

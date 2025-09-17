@@ -23,6 +23,8 @@ public class enemyAI : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int currentHealth;
+    [SerializeField] private float meleeAttckDuration = 0.5f;
+    [SerializeField] private float deathAnimDuration = 1.0f;
     private float lastAttackTime = -999f;
     bool isAttacking = false;
 
@@ -111,6 +113,7 @@ public class enemyAI : MonoBehaviour
             else if (distanceToPlayer <= chaseDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                FaceDir(player.position.x - transform.position.x);
                 animator.SetBool("Walk", true);
             }
             // Patrol
@@ -121,11 +124,22 @@ public class enemyAI : MonoBehaviour
                 FaceDir(target.x - transform.position.x);
                 animator.SetBool("Walk", true);
 
-                if (Vector2.Distance(transform.position, target) < 0.1f) movingToAttack = !movingToAttack;
+                if (Vector2.Distance(transform.position, target) < 0.05f) movingToAttack = !movingToAttack;
             }
         }
-        animator.SetBool("Walk", false);
+        //animator.SetBool("Walk", false);
     }
+
+    IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        lastAttackTime = Time.time;
+        animator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(attackCooldown);
+        isAttacking = false;
+    }
+
 
     public void Attack2D()
     {
@@ -151,6 +165,7 @@ public class enemyAI : MonoBehaviour
     void MeleeAttack()
     {
         lastAttackTime = Time.time;
+        animator.ResetTrigger("Attack");
         if (animator)
             animator.SetTrigger("Attack");
 
@@ -169,7 +184,17 @@ public class enemyAI : MonoBehaviour
                 Debug.Log("Enemy hit the player!");
                 damageable.TakeDamage(attackDamage);
             }
+            StartCoroutine(ResetAttackAnim(meleeAttckDuration));
         }
+
+        isAttacking = false;
+    }
+
+    IEnumerator ResetAttackAnim(float duration)
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(duration);
+        isAttacking = false;
     }
 
     // Screaming or howl attack
@@ -190,6 +215,7 @@ public class enemyAI : MonoBehaviour
         }
 
         // Scream tick in cone shape
+        animator.ResetTrigger("Attack");
         if (animator)  
             animator.SetTrigger("Attack");
         float elasped = 0f;
@@ -276,7 +302,7 @@ public class enemyAI : MonoBehaviour
 
         animator.SetBool("Walk", false);
 
-        Destroy(gameObject, deathSfx ? deathSfx.length : 0f);
+        Destroy(gameObject, deathSfx ? deathSfx.length : deathAnimDuration);
         // Todo - play death anim/SFX, add score or drop loot
     }
 

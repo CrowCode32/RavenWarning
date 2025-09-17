@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
 
-
+    [Tooltip("Assign the main Menu UI Panel here.")]
+    public GameObject mainMenuUI;
 
     [Tooltip("Assign the player HUD here.")]
     public GameObject playerHUD;
@@ -269,14 +270,15 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
-        if(journalMenuIndex == 0)
-        {
-            journalMenuIndex++;
-        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
-        statePause();
+
+        if(activeMenu != pauseMenuUI)
+        {
+            statePause();
+        }
+       
 
         if(isJournalOpen == false)
         {

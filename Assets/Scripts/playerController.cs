@@ -15,6 +15,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] public float dashForce;
+    [SerializeField] public float dashDuration;
+    [SerializeField] public float dashCooldown;
 
     // SFX & Game Over
     [SerializeField] public GameObject gameOverUI;
@@ -66,6 +69,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     float horizontal = 0f;
     bool isJumping = false;
     int jumpCount;
+    private float dashTimer;
+    
 
     void Awake()
     {
@@ -113,7 +118,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         horizontal = 0f;
 
-        
+        dashTimer += Time.deltaTime;
+       
 
         if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
@@ -147,6 +153,22 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             jumpCount++;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
+
+        if (Input.GetKey(InputManager.instance.GetKey("Dash")) && dashCooldown < dashTimer)
+        {
+            Debug.Log("Yeah bro idk");
+            StartCoroutine(Dash());
+            dashTimer = 0;
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        rb.linearVelocity = new Vector2(horizontal * dashForce, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

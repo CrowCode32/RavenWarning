@@ -20,10 +20,12 @@ public class buttonFunctions : MonoBehaviour
 
     public void startGame()
     {
+        Debug.Log("Game starting...");
         GameManager.instance.gameStarted = true;
-        GameManager.instance.activeMenu.SetActive(false);
-        GameManager.instance.activeMenu = null;
+  
         GameManager.instance.stateUnpause();
+        GameManager.instance.loadingScene("Graveyard");
+        GameManager.instance.playerHUD.SetActive(true);
     }
 
     public void load()
@@ -38,6 +40,7 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.journalMenus[0].SetActive(true);
         GameManager.instance.journalMenus[1].SetActive(false);
         GameManager.instance.journalMenus[2].SetActive(false);
+        
 
     }
 
@@ -50,6 +53,7 @@ public class buttonFunctions : MonoBehaviour
             GameManager.instance.activeMenu = null;
         }
         GameManager.instance.stateUnpause();
+        GameManager.instance.playerHUD.SetActive(false);
     }
 
     public void next()
@@ -126,5 +130,6 @@ public class buttonFunctions : MonoBehaviour
     public void mainMenu()
     {
         GameManager.instance.loadMainMenu();
+        GameManager.instance.playerHUD.SetActive(false);
     }
 }

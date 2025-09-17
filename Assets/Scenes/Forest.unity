@@ -12786,10 +12786,10 @@ GameObject:
   - component: {fileID: 1623312740}
   - component: {fileID: 1623312739}
   - component: {fileID: 1623312738}
-  - component: {fileID: 1623312737}
+  - component: {fileID: 1623312741}
   - component: {fileID: 1623312736}
   m_Layer: 0
-  m_Name: Cave Lord
+  m_Name: Forest Lord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12831,18 +12831,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.21133333}
   m_Radius: 2
---- !u!114 &1623312737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623312735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1182e1444b57ad04b9c79421b2963d88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1623312738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12926,6 +12914,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623312741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623312735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe32429c5ca33c44b61e8caca6a2f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1685281241
 GameObject:
   m_ObjectHideFlags: 0

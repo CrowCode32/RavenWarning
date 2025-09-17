@@ -391,6 +391,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!4 &593649454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8181234748473764984, guid: 191029dfe7030c842a4feba28e946359, type: 3}
+  m_PrefabInstance: {fileID: 5271247223904402940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &780973415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,10 +1108,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 525030917866625313, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: c3260c9776fe5cf46a6b649e7fe528d7, type: 2}
     - target: {fileID: 765707424139868569, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: damageOverlay
       value: 
       objectReference: {fileID: 8430035342403085073}
+    - target: {fileID: 3894642211071824174, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.13
@@ -1150,6 +1163,10 @@ PrefabInstance:
     - target: {fileID: 4869596124616975790, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831187182241137255, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11809,7 +11826,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4207228b5a907748b866b77a8b1a897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLoad: 1
   player: {fileID: 1131866110}
+  playerHP: {fileID: 0}
+  SettingsMenuUI: {fileID: 0}
   activeMenu: {fileID: 8376306711417217900}
   mainMenuUI: {fileID: 8376306711417217900}
   loadingScreenUI: {fileID: 3510292550680034051}
@@ -11821,11 +11841,12 @@ MonoBehaviour:
   progFill: {fileID: 1722731097}
   playerIcon: {fileID: 1019000893}
   stormIcon: {fileID: 2017070315}
+  dialogueBox: {fileID: 1520511735218477357}
   featherDrop: {fileID: 8924129456557553817}
   trinketDrop: {fileID: 6328892658752982011}
   mainCamera: {fileID: 1693487173}
   stormPrefab: {fileID: 200283036535333916, guid: 249d35bd24261be4390357c2ec197978, type: 3}
-  stormSpawnPoint: {fileID: 0}
+  stormSpawnPoint: {fileID: 593649454}
   stormEndPoint: {fileID: 1938885484}
   stormOffset: 0
   stormSpawnDelay: 1

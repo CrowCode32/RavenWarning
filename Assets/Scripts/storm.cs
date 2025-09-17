@@ -10,6 +10,8 @@ public class storm : MonoBehaviour
     Vector3 spawnPos; // = normal spawn position + offset
     float exitDiff = 0;
 
+    // A very high damage value to ensure an instant kill.
+    private const int LETHAL_DAMAGE = 9999;
 
     private void Start()
     {
@@ -37,15 +39,15 @@ public class storm : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // Check if the object we hit has a component that can be damaged.
+        IDamage damageable = collision.GetComponent<IDamage>();
+
+        // If it's a damageable object (like the player, an NPC, or an enemy)...
+        if (damageable != null)
         {
-            //Player dies,  lose activated
-        } else if (collision.CompareTag("NPC"))
-        {
-            //Destroy NPC
-        } else if (collision.CompareTag("Enemy"))
-        {
-            //Kill enemy
+            // ...deal lethal damage to it.
+            Debug.Log("Storm has hit " + collision.name + ". Dealing lethal damage.");
+            damageable.TakeDamage(LETHAL_DAMAGE);
         }
     }
 

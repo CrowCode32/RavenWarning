@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] LayerMask groundLayer;
 
     // SFX & Game Over
-    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] public GameObject gameOverUI;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;
@@ -105,15 +105,22 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (isDead) return;
 
         featherQueue = GameManager.instance.selectedFeather;
+
+        feather = featherQueue;
+        FeatherAbility(feather);
+
         setAnimations();
 
+        horizontal = 0f;
 
-        if(Input.GetKey(GameManager.instance.moveLeftKey))
+        
+
+        if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
             horizontal = -1f;
         }
 
-        if (Input.GetKey(GameManager.instance.moveRightKey))
+        if (Input.GetKey(InputManager.instance.GetKey("Right")))
         {
             horizontal = 1f;
         }
@@ -144,14 +151,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && rb.transform.position.y > (collision.collider.transform.position.y + 1))
-        {
-            jumpCount = 0;
-        }
-
         if (collision.collider.CompareTag("Ground"))
         {
-            isJumping = false;
+            Vector3 normal = collision.GetContact(0).normal;
+            if (normal == Vector3.up)
+            {
+                jumpCount = 0;
+                isJumping = false;
+            }
         }
     }
 
@@ -218,9 +225,13 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         yield return new WaitForSeconds(deathFreezeDelay);
 
         // Show Game over/lose menu and pause the game
-        if (gameOverUI)
-            gameOverUI.SetActive(true);
+        /*if (gameOverUI)
+            gameOverUI.SetActive(true);*/
+        GameManager.instance.activeMenu = gameOverUI;
+        GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         Debug.Log("The Player died");
     }
@@ -262,14 +273,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // Can also be used for the enemies
     void setAnimations()
     {
-        float moveSpeed = Input.GetAxisRaw("Horizontal");
+        //float moveSpeed = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        if (moveSpeed > 0)
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (horizontal > 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (moveSpeed < 0)
+        else if (horizontal < 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -279,8 +290,10 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 
-    void slashAttack()
+    public void slashAttack()
     {
+        anim.SetTrigger("Slash");
+
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;
 
@@ -300,9 +313,15 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             {
                 enemy.takeDamage(attackDamage);
             }
+            else if(canBreakWalls)
+            {
+                if(h.CompareTag("Breakable"))
+                {
+                    Destroy(h.gameObject);
+                }
+            }
         }
 
-        if (anim) anim.SetTrigger("Slash");
     }
 
     // This method will go in spawn/whatever the trigger is to leave the tutorial room
@@ -355,9 +374,5 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
     }
 
-    // future implementation of Woodpecker's complex ability
-    void wallBreak()
-    {
-
-    }
+  
 }

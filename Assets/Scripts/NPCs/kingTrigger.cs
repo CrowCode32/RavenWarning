@@ -6,7 +6,7 @@ public class kingTrigger : MonoBehaviour
     [SerializeField] TextAsset KingUninformed;
     [SerializeField] TextAsset KingCaveInformed;
     [SerializeField] TextAsset KingForestInformed;
-    [SerializeField] GameObject dialogueBox;
+    GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
     bool win;
 
@@ -24,35 +24,48 @@ public class kingTrigger : MonoBehaviour
         {
             GameManager.instance.inKing = true;
             GameManager.instance.updateProgUI();
-            
+
             dialogueBox.SetActive(true);
+
+            instance.isComplete = false; // Reset the completion flag before starting.
 
             // Both informed, win
             if (GameManager.instance.lordInCaveInformed && GameManager.instance.lordInForestInformed)
             {
                 win = true;
                 instance.startDialogue(KingInformed);
-            // Only forest lord informed
-            } else if (GameManager.instance.lordInForestInformed)
+                // Only forest lord informed
+            }
+            else if (GameManager.instance.lordInForestInformed)
             {
                 win = false;
                 instance.startDialogue(KingForestInformed);
-            // Only cave lord informed
-            } else if (GameManager.instance.lordInCaveInformed)
+                // Only cave lord informed
+            }
+            else if (GameManager.instance.lordInCaveInformed)
             {
                 win = false;
                 instance.startDialogue(KingCaveInformed);
-            // Neither informed
-            } else
+                // Neither informed
+            }
+            else
             {
                 win = false;
                 instance.startDialogue(KingUninformed);
             }
         }
-        
-        // Tells the game manager to call the function for win/lose accordingly 
-        if (win && instance.isComplete) { GameManager.instance.gameWon(); }
-        else if (!win && instance.isComplete) { GameManager.instance.gameLost(); }
+    }
+
+    public void CheckWinCondition()
+    {
+        if (win)
+        {
+            GameManager.instance.gameWon();
+        }
+        else
+        {
+            GameManager.instance.gameLost();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

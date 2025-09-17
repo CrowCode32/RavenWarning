@@ -3,14 +3,18 @@ using UnityEngine;
 public class dialogueTrigger : MonoBehaviour
 {
     [SerializeField] TextAsset diaInput;
-    [SerializeField] GameObject dialogueBox;
+    GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
 
     dialogue instance;
 
     void Start()
     {
-        instance = dialogueBox.GetComponent<dialogue>();
+        if (GameManager.instance.dialogueBox != null)
+        {
+            dialogueBox = GameManager.instance.dialogueBox;
+            instance = dialogueBox.GetComponent<dialogue>();
+        }
     }
 
     // Update is called once per frame

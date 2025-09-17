@@ -142,7 +142,7 @@ public class enemyAI : MonoBehaviour
         }
     }
 
-    // Melee slashing attack
+  // Melee slashing attack
     void MeleeAttack()
     {
         lastAttackTime = Time.time;
@@ -152,18 +152,23 @@ public class enemyAI : MonoBehaviour
         Vector2 origin = (Vector2)transform.position + FowardDir() * frontOffset;
         Collider2D hit = Physics2D.OverlapCircle(origin, meleeRadius, playerLayer);
 
+        // --- This is the corrected part ---
         if (hit)
         {
-            var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
-
-            if (pc != null)
-                pc.takeDamage(attackDamage);
+            // Instead of looking for a specific controller, we look for any
+            // component that can be damaged.
+            IDamage damageable = hit.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                // Now it can correctly find our PlayerHealthBridge.
+                Debug.Log("Enemy hit the player!");
+                damageable.TakeDamage(attackDamage);
+            }
         }
-
     }
 
     // Screaming or howl attack
-     IEnumerator ScreamAttack()
+    IEnumerator ScreamAttack()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -224,8 +229,8 @@ public class enemyAI : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth - amount);
 
         // Hit anim
-        if (animator)
-            animator.SetTrigger("Hit");
+        /*if (animator)
+            animator.SetTrigger("Hit");*/
         if (sprite)
         {
             sprite.color = hitColor;

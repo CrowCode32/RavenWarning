@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4556216027867972064}
   - component: {fileID: 5334989437707209449}
   - component: {fileID: 9060892461485702481}
+  - component: {fileID: -598519682493482796}
   m_Layer: 9
   m_Name: Temp Enemy
   m_TagString: Untagged
@@ -114,10 +115,38 @@ MonoBehaviour:
     m_Bits: 128
   maxHealth: 5
   currentHealth: 0
+  screamDamage: 1
+  windUpTime: 0.8
+  screamDuration: 0.6
+  damageTick: 0.5
+  screamRange: 3
+  screamAngle: 70
+  attackType: 1
+  frontOffset: 0.5
+  meleeRadius: 0.5
   sprite: {fileID: 0}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTimer: 0.1
+  flashDuration: 0.1
   hurtFrames: 0.5
+  animator: {fileID: 0}
+  audioSource: {fileID: 0}
+  hitSfx: {fileID: 0}
+  deathSfx: {fileID: 0}
+  knockback: 4
+--- !u!114 &-598519682493482796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135105970369535485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44eed1f7e1f46a041a8c89f32e9c9f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyController: {fileID: 9060892461485702481}
+  maxHealth: 50
 --- !u!1 &5089643114311475127
 GameObject:
   m_ObjectHideFlags: 0

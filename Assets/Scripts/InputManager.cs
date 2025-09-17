@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour
         keybinds["Fire1"] = KeyCode.Mouse0;
         keybinds["Dash"] = KeyCode.LeftShift;
         keybinds["Interact"] = KeyCode.E;
+        keybinds["Left"] = KeyCode.A;
+        keybinds["Right"] = KeyCode.D;
 
 
     }

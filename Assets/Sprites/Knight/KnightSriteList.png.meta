@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 58542103004a7874d94e13b2a0a3b871
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3787277840560069469
+    second: KnightSriteList_0
+  - first:
+      213: 5669574859972528193
+    second: KnightSriteList_1
+  - first:
+      213: 1929073831551079219
+    second: KnightSriteList_2
+  - first:
+      213: 121579815232747368
+    second: KnightSriteList_3
+  - first:
+      213: 5305065484534576583
+    second: KnightSriteList_4
+  - first:
+      213: -7500312935444197382
+    second: KnightSriteList_5
+  - first:
+      213: 4296210643416144686
+    second: KnightSriteList_6
+  - first:
+      213: 496488108418485045
+    second: KnightSriteList_7
+  - first:
+      213: -7616396985420449150
+    second: KnightSriteList_8
+  - first:
+      213: -3275242638702087777
+    second: KnightSriteList_9
+  - first:
+      213: -4528601318040081414
+    second: KnightSriteList_10
+  - first:
+      213: -2858147926468496381
+    second: KnightSriteList_11
+  - first:
+      213: 256401732743045679
+    second: KnightSriteList_12
+  - first:
+      213: 4086403674743789096
+    second: KnightSriteList_13
+  - first:
+      213: -8472567210423824029
+    second: KnightSriteList_14
+  - first:
+      213: 7410310870276247422
+    second: KnightSriteList_15
+  - first:
+      213: -7422748006853818085
+    second: KnightSriteList_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: KnightSriteList_0
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 1969
+        width: 392
+        height: 591
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a465bfaed2e07bc0800000000000000
+      internalID: -3787277840560069469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_1
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1969
+        width: 402
+        height: 591
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 148c524eb406eae40800000000000000
+      internalID: 5669574859972528193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_2
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 1969
+        width: 392
+        height: 591
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3339a1bdd6275ca10800000000000000
+      internalID: 1929073831551079219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_3
+      rect:
+        serializedVersion: 2
+        x: 2029
+        y: 1969
+        width: 392
+        height: 591
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8673ec2a230ffa100800000000000000
+      internalID: 121579815232747368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_4
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 1329
+        width: 392
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c57ed363f06f9940800000000000000
+      internalID: 5305065484534576583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_5
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1329
+        width: 392
+        height: 582
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: affc492af1989e790800000000000000
+      internalID: -7500312935444197382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_6
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 1329
+        width: 392
+        height: 582
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2b521161d43f9b30800000000000000
+      internalID: 4296210643416144686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_7
+      rect:
+        serializedVersion: 2
+        x: 2029
+        y: 1329
+        width: 392
+        height: 582
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b4d79dd41e3e600800000000000000
+      internalID: 496488108418485045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_8
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 689
+        width: 392
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a78af8b4f1d4690800000000000000
+      internalID: -7616396985420449150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_9
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 689
+        width: 382
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f91f2fe4c200c82d0800000000000000
+      internalID: -3275242638702087777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_10
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 689
+        width: 432
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afbead4481d2721c0800000000000000
+      internalID: -4528601318040081414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_11
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 889
+        width: 162
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304735f9a91d558d0800000000000000
+      internalID: -2858147926468496381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_12
+      rect:
+        serializedVersion: 2
+        x: 2029
+        y: 689
+        width: 382
+        height: 582
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22a1f7740cee8300800000000000000
+      internalID: 256401732743045679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_13
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 49
+        width: 382
+        height: 582
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82654f1dd72d5b830800000000000000
+      internalID: 4086403674743789096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_14
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 49
+        width: 392
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 361d01ff2056b6a80800000000000000
+      internalID: -8472567210423824029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_15
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 49
+        width: 352
+        height: 542
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7f080a9976b6d660800000000000000
+      internalID: 7410310870276247422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightSriteList_16
+      rect:
+        serializedVersion: 2
+        x: 2039
+        y: 49
+        width: 352
+        height: 172
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b194d32e30a1df890800000000000000
+      internalID: -7422748006853818085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ee060d54790097d4f964294b43bb959f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      KnightSriteList_0: -3787277840560069469
+      KnightSriteList_1: 5669574859972528193
+      KnightSriteList_10: -4528601318040081414
+      KnightSriteList_11: -2858147926468496381
+      KnightSriteList_12: 256401732743045679
+      KnightSriteList_13: 4086403674743789096
+      KnightSriteList_14: -8472567210423824029
+      KnightSriteList_15: 7410310870276247422
+      KnightSriteList_16: -7422748006853818085
+      KnightSriteList_2: 1929073831551079219
+      KnightSriteList_3: 121579815232747368
+      KnightSriteList_4: 5305065484534576583
+      KnightSriteList_5: -7500312935444197382
+      KnightSriteList_6: 4296210643416144686
+      KnightSriteList_7: 496488108418485045
+      KnightSriteList_8: -7616396985420449150
+      KnightSriteList_9: -3275242638702087777
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

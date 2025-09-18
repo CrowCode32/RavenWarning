@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-
 public class playerController : MonoBehaviour, IPickup , IHeal
 {
     // Movement

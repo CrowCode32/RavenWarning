@@ -119,6 +119,9 @@ public class GameManager : MonoBehaviour
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
     public feather selectedFeather;
+    [Header("Feather")]
+    [Tooltip("Updates feather description.")]
+    public TMP_Text featherDesc;
     [Tooltip("Acquired feathers.")]
     public List<feather> feathersAquired = new List<feather>();
 
@@ -410,10 +413,13 @@ public class GameManager : MonoBehaviour
         if (featherIndex == 0)
         {
             selectedFeather = null;
+            featherDesc.text = string.Empty;
         }
         else
         {
             selectedFeather = feathersAquired[featherIndex - 1];
+            Debug.Log(feathersAquired[featherIndex - 1].featherDesc);
+            featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
         }
 
 

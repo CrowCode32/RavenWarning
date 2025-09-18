@@ -5808,6 +5808,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2603201863387324304, guid: ad53fadf1c15a75468b9fbc99c8bc377, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 765707424139868569, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: gameOverUI
       value: 
@@ -5859,10 +5863,6 @@ PrefabInstance:
     - target: {fileID: 4869596124616975790, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2603201863387324304, guid: ad53fadf1c15a75468b9fbc99c8bc377, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7789,7 +7789,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1998941901
-  m_SortingLayer: -2
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3248768379959530515, guid: 386100ec03bf352479f0a70f6d98c1c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7938,7 +7938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4995745747699893831, guid: 2a2e5bef25b456d4fa44bae275939604, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6771948207823298920, guid: 2a2e5bef25b456d4fa44bae275939604, type: 3}
       propertyPath: m_Enabled

@@ -145,6 +145,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+    public bool lockFeather;
+    public bool hasBeenRevived = false;
     AsyncOperation currentLoad;
 
 
@@ -235,6 +237,7 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
+            lockFeather = true;
             stormSpawned = false;
             stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
@@ -410,16 +413,22 @@ public class GameManager : MonoBehaviour
 
         featherIndex = featherDrop.value;
 
+        
+
         if (featherIndex == 0)
         {
             selectedFeather = null;
             featherDesc.text = string.Empty;
         }
         else
-        {
+        {   
             selectedFeather = feathersAquired[featherIndex - 1];
-            Debug.Log(feathersAquired[featherIndex - 1].featherDesc);
             featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
+        }
+
+        if (hasRunStarted == false)
+        {
+            lockFeather = true;
         }
 
 

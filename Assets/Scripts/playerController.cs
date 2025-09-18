@@ -72,7 +72,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     private float dashTimer;
     private float facingDirection = 1;
     private bool isDashing;
-
+   
+   
 
     void Awake()
     {
@@ -103,8 +104,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             damageOverlay.color = g;
         }
 
+        if(feather !=null) 
         FeatherAbility(feather);
-        // trinketModel = trinket.model; // future equip visuals
+       
     }
 
     void Update()
@@ -119,8 +121,24 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
        
 
-        feather = featherQueue;
-        FeatherAbility(feather);
+       
+
+        if (GameManager.instance.lockFeather == true)
+        {
+
+            if (feather != null) FeatherAbilityUndo(feather);
+            
+
+            Debug.Log(GameManager.instance.lockFeather);
+            feather = featherQueue;
+
+            if (feather != null) FeatherAbility(feather);
+           
+            
+            GameManager.instance.lockFeather = false;
+          
+        }
+        
 
         setAnimations();
 
@@ -247,6 +265,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (hasRevive)
         {
             currentHealth = (maxHealth / 2);
+            GameManager.instance.hasBeenRevived = true;  
             yield break;
         }
 
@@ -366,9 +385,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // This method will go in spawn/whatever the trigger is to leave the tutorial room
     void FeatherAbility(feather feather)
     {
-        if (feather == null) return;
+        
 
-        Debug.Log(feather.featherName);
+       
         switch (feather.featherName)
         {
             case "Roadrunner":
@@ -381,6 +400,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
                 break;
 
             case "Vulture":
+                if(GameManager.instance.hasBeenRevived==false)
                 hasRevive = true;
                 break;
 
@@ -398,6 +418,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         switch (feather.featherName)
         {
+         
             case "Roadrunner":
                 speed /= 2;
                 jumpMax = storeJumpMax;

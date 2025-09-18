@@ -16,7 +16,14 @@ public class stormPosition : MonoBehaviour
 
     public void setStormSpawn()
     {
-        GameManager.instance.stormSpawnPoint.position = new Vector3(GameManager.instance.stormSpawnPoint.position.x - GameManager.instance.stormOffset,
-            GameManager.instance.stormSpawnPoint.position.y, GameManager.instance.stormSpawnPoint.position.z);
+        if (GameManager.instance.inCave != true)
+        {
+            GameManager.instance.stormSpawnPoint.position = new Vector3(GameManager.instance.stormSpawnPoint.position.x,
+                GameManager.instance.stormSpawnPoint.position.y, GameManager.instance.stormSpawnPoint.position.z);
+        } else
+        {
+            GameManager.instance.stormSpawnPoint.position = new Vector3(GameManager.instance.stormSpawnPoint.position.x - GameManager.instance.stormOffset,
+                GameManager.instance.stormSpawnPoint.position.y, GameManager.instance.stormSpawnPoint.position.z);
+        }
     }
 }

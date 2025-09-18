@@ -35,11 +35,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void options()
     {
-        
-        GameManager.instance.journalMenuUI.SetActive(true);
-        GameManager.instance.journalMenus[0].SetActive(true);
-        GameManager.instance.journalMenus[1].SetActive(false);
-        GameManager.instance.journalMenus[2].SetActive(false);
+        GameManager.instance.journalMenuIndex = 0;
+        GameManager.instance.ToggleJournal();
         
 
     }
@@ -81,7 +78,7 @@ public class buttonFunctions : MonoBehaviour
     public void close()
     {
 
-        GameManager.instance.journalMenuUI.SetActive(false);
+        GameManager.instance.ToggleJournal();
         
     }
 
@@ -104,11 +101,12 @@ public class buttonFunctions : MonoBehaviour
 
     public void journal()
     {
+        GameManager.instance.journalMenuIndex = 1;
         GameManager.instance.ToggleJournal();
     }
 
     
-
+        
     public void mouseSensitivity()
     {
         GameManager.instance.mouseSensitivity = GameManager.instance.ApplySlider(GameManager.instance.mouseSensitivitySlider);

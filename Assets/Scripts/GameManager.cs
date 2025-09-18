@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
 
-
+    [Tooltip("Assign the main Menu UI Panel here.")]
+    public GameObject mainMenuUI;
 
     [Tooltip("Assign the player HUD here.")]
     public GameObject playerHUD;
@@ -126,6 +127,8 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+    [Tooltip("Updates journal player with selected trinket")]
+    public Image trinketDisplay;
 
     [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
@@ -266,14 +269,15 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
-        if(journalMenuIndex == 0)
-        {
-            journalMenuIndex++;
-        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
-        statePause();
+
+        if(activeMenu != pauseMenuUI)
+        {
+            statePause();
+        }
+       
 
         if(isJournalOpen == false)
         {
@@ -419,14 +423,16 @@ public class GameManager : MonoBehaviour
     {
 
         trinketIndex = trinketDrop.value;
-
+        
         if (trinketIndex == 0)
         {
             selectedTrinket = null;
+            trinketDisplay.sprite = null;
         }
         else
         {
             selectedTrinket = trinketsAquired[trinketIndex - 1];
+            trinketDisplay.sprite = trinketsAquired[trinketIndex - 1].sprite;
         }
 
 

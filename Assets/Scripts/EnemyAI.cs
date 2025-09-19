@@ -302,6 +302,9 @@ public class enemyAI : MonoBehaviour
 
         animator.SetBool("Walk", false);
 
+        //Not working yet
+        StartCoroutine(deathFade());
+
         Destroy(gameObject, deathSfx ? deathSfx.length : deathAnimDuration);
         // Todo - play death anim/SFX, add score or drop loot
     }
@@ -331,5 +334,22 @@ public class enemyAI : MonoBehaviour
         float cos = Vector2.Dot(fwd, toTarget.normalized);
         float limit = Mathf.Cos(screamAngle * Mathf.Deg2Rad);
         return cos >= limit;
+    }
+
+    //Not working yet
+    IEnumerator deathFade()
+    {
+        float alpha = sprite.color.a;
+        Color col = sprite.color;
+        
+        while(sprite.color.a > 0)
+        {
+            Debug.Log(sprite.name);
+            alpha -= 0.01f;
+            col.a = alpha;
+            sprite.color = col;
+
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }

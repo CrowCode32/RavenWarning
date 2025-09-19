@@ -5,10 +5,8 @@ public class stormProg : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collide called");
         if (collision.CompareTag("Storm"))
         {
-            Debug.Log("Storm collided");
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Graveyard":

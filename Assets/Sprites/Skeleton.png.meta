@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: c7302f1575c99bd499c26fc255fd4768
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3186544610575781631
+    second: Skelton_0
+  - first:
+      213: 5260579576456533144
+    second: Skelton_1
+  - first:
+      213: 2401882629469800543
+    second: Skelton_2
+  - first:
+      213: 6917154351639733819
+    second: Skelton_3
+  - first:
+      213: 346745614006807921
+    second: Skelton_4
+  - first:
+      213: 6102504658695318928
+    second: Skelton_5
+  - first:
+      213: 495521513596719761
+    second: Skelton_6
+  - first:
+      213: 3131474985887586208
+    second: Skelton_7
+  - first:
+      213: 8160132821309896551
+    second: Skelton_8
+  - first:
+      213: 5041159910267251682
+    second: Skelton_9
+  - first:
+      213: -8600940978321938811
+    second: Skelton_10
+  - first:
+      213: 5370484600732826739
+    second: Skelton_11
+  - first:
+      213: 1239477011821051585
+    second: Skelton_12
+  - first:
+      213: -7928393314767386609
+    second: Skelton_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Skelton_0
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 1959
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffe0e46b071e83c20800000000000000
+      internalID: 3186544610575781631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_1
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 1959
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894dd57c045510940800000000000000
+      internalID: 5260579576456533144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_2
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 1959
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f588ab99683355120800000000000000
+      internalID: 2401882629469800543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_3
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 1959
+        width: 192
+        height: 452
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b36a802fb3baeff50800000000000000
+      internalID: 6917154351639733819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_4
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1319
+        width: 222
+        height: 452
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17dec4e7c43efc400800000000000000
+      internalID: 346745614006807921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_5
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 1319
+        width: 232
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09d63b597a370b450800000000000000
+      internalID: 6102504658695318928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_6
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 1319
+        width: 262
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1921f74f03270e600800000000000000
+      internalID: 495521513596719761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_7
+      rect:
+        serializedVersion: 2
+        x: 1968
+        y: 1459
+        width: 180
+        height: 272
+      alignment: 9
+      pivot: {x: 0.16098906, y: 0.44948083}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a7d9dc88eb357b20800000000000000
+      internalID: 3131474985887586208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_8
+      rect:
+        serializedVersion: 2
+        x: 1970
+        y: 1317
+        width: 333
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 767be26119d9e3170800000000000000
+      internalID: 8160132821309896551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_9
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 679
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eb6b6baa3cc5f540800000000000000
+      internalID: 5041159910267251682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_10
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 679
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 586250dffb153a880800000000000000
+      internalID: -8600940978321938811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_11
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 679
+        width: 192
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37cb2625a4bc78a40800000000000000
+      internalID: 5370484600732826739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_12
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 679
+        width: 182
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce3bd476c1833110800000000000000
+      internalID: 1239477011821051585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skelton_13
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 39
+        width: 262
+        height: 132
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0845b16940b8f190800000000000000
+      internalID: -7928393314767386609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1bc528f7aca5cf74f9d66d35f168c2c6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Skelton_0: 3186544610575781631
+      Skelton_1: 5260579576456533144
+      Skelton_10: -8600940978321938811
+      Skelton_11: 5370484600732826739
+      Skelton_12: 1239477011821051585
+      Skelton_13: -7928393314767386609
+      Skelton_2: 2401882629469800543
+      Skelton_3: 6917154351639733819
+      Skelton_4: 346745614006807921
+      Skelton_5: 6102504658695318928
+      Skelton_6: 495521513596719761
+      Skelton_7: 3131474985887586208
+      Skelton_8: 8160132821309896551
+      Skelton_9: 5041159910267251682
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

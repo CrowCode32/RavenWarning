@@ -1122,11 +1122,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.13
+      value: 15.61
       objectReference: {fileID: 0}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.04
+      value: 8.19
       objectReference: {fileID: 0}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3551,6 +3551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7162890812919875824}
+  dropdown: {fileID: 0}
   desc: {fileID: 4352245540742795112}
 --- !u!224 &624432820871184763
 RectTransform:
@@ -4009,6 +4010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1539715777086043241}
+  dropdown: {fileID: 0}
   desc: {fileID: 6523058098934344541}
 --- !u!1 &757263736768236758
 GameObject:
@@ -4625,6 +4627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7527030931816604449}
+  dropdown: {fileID: 0}
   desc: {fileID: 5271786916868620268}
 --- !u!222 &947794714661544192
 CanvasRenderer:
@@ -4849,6 +4852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1404275944533023256}
+  dropdown: {fileID: 0}
   desc: {fileID: 1762461264642256136}
 --- !u!224 &1089583891374014169
 RectTransform:
@@ -5038,6 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5020456856063289825}
+  dropdown: {fileID: 0}
   desc: {fileID: 5610011889977189055}
 --- !u!224 &1171254744130925414
 RectTransform:
@@ -7345,6 +7350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4106096169931434639}
+  dropdown: {fileID: 0}
   desc: {fileID: 3284953052491146374}
 --- !u!1 &1821786055372690542
 GameObject:
@@ -7393,6 +7399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2384573908864033905}
+  dropdown: {fileID: 0}
   desc: {fileID: 8940701587792067594}
 --- !u!114 &1862590452128496538
 MonoBehaviour:
@@ -8047,6 +8054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7326607901609659274}
+  dropdown: {fileID: 0}
   desc: {fileID: 4204416823912769756}
 --- !u!224 &2057878987503657427
 RectTransform:
@@ -8440,6 +8448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1093044255486414627}
+  dropdown: {fileID: 0}
   desc: {fileID: 1977053024446378078}
 --- !u!222 &2187247275667235446
 CanvasRenderer:
@@ -9197,6 +9206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7067152587536366800}
+  dropdown: {fileID: 0}
   desc: {fileID: 7142517287401370742}
 --- !u!114 &2384573908864033905
 MonoBehaviour:
@@ -11025,6 +11035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7267815139797229931}
+  dropdown: {fileID: 0}
   desc: {fileID: 6544829775994847212}
 --- !u!1 &2737893102791707614
 GameObject:
@@ -11826,19 +11837,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4207228b5a907748b866b77a8b1a897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLoad: 1
   player: {fileID: 1131866110}
   playerHP: {fileID: 0}
-  SettingsMenuUI: {fileID: 0}
+  playerSpawnpoint: {fileID: 0}
   activeMenu: {fileID: 8376306711417217900}
   mainMenuUI: {fileID: 8376306711417217900}
+  playerHUD: {fileID: 0}
   loadingScreenUI: {fileID: 3510292550680034051}
   loadingBar: {fileID: 2711776755161837091}
+  pauseMenuUI: {fileID: 0}
   journalMenuUI: {fileID: 910193479757112038}
   journalMenus: []
   nextButton: {fileID: 4719993491200903086}
   prevButton: {fileID: 1689299213265636341}
+  masterVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  SFXVolumeSlider: {fileID: 0}
+  mouseSensitivitySlider: {fileID: 0}
+  brightnessSlider: {fileID: 0}
+  brightnessImage: {fileID: 0}
+  keyInput: {fileID: 0}
+  mouseSensitivity: 1
   progFill: {fileID: 1722731097}
+  playerFill: {fileID: 0}
+  stormFill: {fileID: 0}
   playerIcon: {fileID: 1019000893}
   stormIcon: {fileID: 2017070315}
   dialogueBox: {fileID: 1520511735218477357}
@@ -11848,8 +11870,10 @@ MonoBehaviour:
   stormPrefab: {fileID: 200283036535333916, guid: 249d35bd24261be4390357c2ec197978, type: 3}
   stormSpawnPoint: {fileID: 593649454}
   stormEndPoint: {fileID: 1938885484}
-  stormOffset: 0
   stormSpawnDelay: 1
+  stormOffset: 0
+  stormSpawned: 0
+  stormDist: 0
   lordInCaveInformed: 0
   lordInForestInformed: 0
   inGraveyard: 0
@@ -11858,9 +11882,11 @@ MonoBehaviour:
   inKingdom: 0
   inKing: 0
   selectedFeather: {fileID: 0}
+  featherDesc: {fileID: 0}
   feathersAquired: []
   selectedTrinket: {fileID: 0}
   trinketsAquired: []
+  trinketDisplay: {fileID: 0}
   trinketSlots: []
   journalMenuIndex: 0
   isPaused: 0
@@ -12620,6 +12646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1914480871788168959}
+  dropdown: {fileID: 0}
   desc: {fileID: 7557808655735622028}
 --- !u!224 &3144862882534803068
 RectTransform:
@@ -13672,6 +13699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 651597951394862620}
+  dropdown: {fileID: 0}
   desc: {fileID: 5150620749707418614}
 --- !u!114 &3500227462334646416
 MonoBehaviour:
@@ -14074,6 +14102,7 @@ MonoBehaviour:
   dialogueFile: {fileID: 4900000, guid: 1deb48551b163be4fb730fee672c8f98, type: 3}
   isRunning: 0
   isComplete: 0
+  kingTriggerScript: {fileID: 0}
 --- !u!1 &3568523674224543556
 GameObject:
   m_ObjectHideFlags: 0
@@ -15690,6 +15719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1241574350968820505}
+  dropdown: {fileID: 0}
   desc: {fileID: 3312001010139151441}
 --- !u!1 &4035967855404718543
 GameObject:
@@ -16318,6 +16348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 8530951542449599165}
+  dropdown: {fileID: 0}
   desc: {fileID: 3774695529630773494}
 --- !u!114 &4204416823912769756
 MonoBehaviour:
@@ -18759,6 +18790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2404910250894298554}
+  dropdown: {fileID: 0}
   desc: {fileID: 4191959229908518773}
 --- !u!224 &4799068408078857780
 RectTransform:
@@ -19290,6 +19322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 849632490347252240}
+  dropdown: {fileID: 0}
   desc: {fileID: 9030420046182439837}
 --- !u!224 &4903997695003944954
 RectTransform:
@@ -19824,6 +19857,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &5015536021829144495
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1012858885144439504, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_Name
+      value: Storm Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261312677734854583, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3e4838981efc93346ab91cfb249d57ab, type: 3}
 --- !u!114 &5020456856063289825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21634,6 +21724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1712902148258413764}
+  dropdown: {fileID: 0}
   desc: {fileID: 6262053977469204015}
 --- !u!114 &5482908869496154239
 MonoBehaviour:
@@ -22099,6 +22190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4952525427426446337}
+  dropdown: {fileID: 0}
   desc: {fileID: 8931382541313755891}
 --- !u!224 &5650377734961610630
 RectTransform:
@@ -22675,6 +22767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1969288195014009803}
+  dropdown: {fileID: 0}
   desc: {fileID: 6091516325198999078}
 --- !u!1 &5757895458225623137
 GameObject:
@@ -24159,6 +24252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 133054394408900949}
+  dropdown: {fileID: 0}
   desc: {fileID: 2922528875697428932}
 --- !u!224 &6242404738799416238
 RectTransform:
@@ -24970,6 +25064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2276577058642783605}
+  dropdown: {fileID: 0}
   desc: {fileID: 4830661939462265135}
 --- !u!1 &6484585213419329054
 GameObject:
@@ -25080,6 +25175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3975268870374716692}
+  dropdown: {fileID: 0}
   desc: {fileID: 3710426688919777486}
 --- !u!1 &6509846826473132673
 GameObject:
@@ -26089,6 +26185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5361941472377779105}
+  dropdown: {fileID: 0}
   desc: {fileID: 4217455141604348814}
 --- !u!1 &6837278256658708214
 GameObject:
@@ -26615,6 +26712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3354729656421093827}
+  dropdown: {fileID: 0}
   desc: {fileID: 5098814871256013342}
 --- !u!222 &6991225555410386561
 CanvasRenderer:
@@ -26759,6 +26857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1463471429043970828}
+  dropdown: {fileID: 0}
   desc: {fileID: 8373322647257829612}
 --- !u!224 &7053745216329305763
 RectTransform:
@@ -26953,6 +27052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 6071122150732170979}
+  dropdown: {fileID: 0}
   desc: {fileID: 8638350525253083462}
 --- !u!224 &7085879724515013871
 RectTransform:
@@ -27973,6 +28073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5540589567289574038}
+  dropdown: {fileID: 0}
   desc: {fileID: 6890989886364200174}
 --- !u!222 &7364509793186294286
 CanvasRenderer:
@@ -28174,6 +28275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3904600120239798431}
+  dropdown: {fileID: 0}
   desc: {fileID: 8395792479831024912}
 --- !u!222 &7399638827200308175
 CanvasRenderer:
@@ -28644,6 +28746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2168025566314517933}
+  dropdown: {fileID: 0}
   desc: {fileID: 5897804147482071532}
 --- !u!222 &7554368779076375591
 CanvasRenderer:
@@ -29303,6 +29406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 359480643749434770}
+  dropdown: {fileID: 0}
   desc: {fileID: 1259730657718351540}
 --- !u!1 &7681301391407676203
 GameObject:
@@ -29643,6 +29747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 826373356112557313}
+  dropdown: {fileID: 0}
   desc: {fileID: 5224702870843922286}
 --- !u!222 &7852171100022343159
 CanvasRenderer:
@@ -30292,6 +30397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 8717974181987835886}
+  dropdown: {fileID: 0}
   desc: {fileID: 7920280487743279436}
 --- !u!114 &7965009349860610659
 MonoBehaviour:
@@ -30907,6 +31013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3771861823404977060}
+  dropdown: {fileID: 0}
   desc: {fileID: 3222970749073176567}
 --- !u!224 &8128114072993574503
 RectTransform:
@@ -33277,6 +33384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2795462867194257326}
+  dropdown: {fileID: 0}
   desc: {fileID: 6223312596547027571}
 --- !u!222 &8757987249805118484
 CanvasRenderer:
@@ -34532,6 +34640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3500227462334646416}
+  dropdown: {fileID: 0}
   desc: {fileID: 792948545119045896}
 --- !u!114 &9090245866228805354
 MonoBehaviour:
@@ -35021,3 +35130,4 @@ SceneRoots:
   - {fileID: 4779797250884889702}
   - {fileID: 5271247223904402940}
   - {fileID: 5555768870992047441}
+  - {fileID: 5015536021829144495}

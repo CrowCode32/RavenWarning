@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's Healthbar here.")]
     public Image playerHP;
 
+    public GameObject playerSpawnpoint;
 
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
@@ -77,6 +78,8 @@ public class GameManager : MonoBehaviour
 
 
     public Image progFill;
+    public Image playerFill;
+    public Image stormFill;
     public Image playerIcon;
     public Image stormIcon;
     public GameObject dialogueBox;
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
     public float stormOffset;
     public bool stormSpawned;
+    public float stormDist;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -205,6 +209,9 @@ public class GameManager : MonoBehaviour
     {
         // Check for the journal input key (e.g., 'J' or 'Tab').
 
+        if(player == null) { player = GameObject.FindWithTag("Player"); }
+        if(playerSpawnpoint == null) { playerSpawnpoint = GameObject.FindWithTag("Spawn"); }
+
         if (Input.GetKeyDown(KeyCode.J))
         {
             // This will print a message to the console every time we press 'J'.
@@ -228,6 +235,8 @@ public class GameManager : MonoBehaviour
         {
             SaveGame();
         }
+
+        updateProgUI();
     }
 
     /// <summary>
@@ -331,7 +340,11 @@ public class GameManager : MonoBehaviour
 
         if (scene == "Forest" || scene == "Cave" || scene == "Kingdom")
         {
+            respawnPlayer();
             StartCoroutine(stormSpawnReady());
+        } else if (scene == "Graveyard")
+        {
+            respawnPlayer();
         }
 
     }
@@ -371,6 +384,11 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void respawnPlayer()
+    {
+        playerSpawnpoint = GameObject.FindWithTag("Spawn");
+        player.transform.position = playerSpawnpoint.transform.position;
+    }
 
 
     /// <summary>
@@ -595,7 +613,7 @@ public class GameManager : MonoBehaviour
         playerHUD.SetActive(false);
     }
     
-    Vector2 findProgFill(string reference)
+    /*Vector2 findProgFill(string reference)
     {
         Vector2 currPos = new Vector2(0, 0);
         bool stormUpdate = true;
@@ -633,15 +651,44 @@ public class GameManager : MonoBehaviour
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
 
         if (reference == "Player") { currPos = playerIcon.transform.position; }
-        else if (reference == "Storm" && stormUpdate == true) { currPos = stormIcon.transform.position; }
+        //else if (reference == "Storm" && stormUpdate == true) { currPos = stormIcon.transform.position; }
 
+        return new Vector2(screenPos.x, currPos.y);
+    }*/
+
+    Vector2 findProgFill(Image fill)
+    {
+        Vector2 currPos = new Vector2(0, 0);
+
+        RectTransform fillTrans = fill.rectTransform;
+        Rect fillRect = fillTrans.rect;
+
+        float fillAmount = fill.fillAmount;
+
+        // Location of fill edge locally
+        float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
+        float yPos = fillRect.center.y;
+
+        // Local pos as vector
+        Vector2 localPos = new Vector2(xPos, yPos);
+
+        // Converted to world & then screen pos
+        Vector2 worldPos = fillTrans.TransformPoint(localPos);
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
+
+        currPos = playerIcon.transform.position;
         return new Vector2(screenPos.x, currPos.y);
     }
 
     public void updateProgUI()
     {
-        stormIcon.transform.position = findProgFill("Storm");
-        playerIcon.transform.position = findProgFill("Player");
+        playerIcon.transform.position = findProgFill(playerFill);
+        stormIcon.transform.position = findProgFill(stormFill);
+        
+        if (player == null) return;
+        float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
+        float maxDistance = Vector3.Distance(stormSpawnPoint.position, stormEndPoint.position);
+        GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
     }
 
     private IEnumerator stormSpawnReady()

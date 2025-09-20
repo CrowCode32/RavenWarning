@@ -692,7 +692,7 @@ public class GameManager : MonoBehaviour
 
         //Finding distance from player to end of level and filling bar accordingly (storm updated in storm script)
         float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
-        float maxDistance = Vector3.Distance(stormSpawnPoint.position, stormEndPoint.position);
+        float maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
         GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
         
         //Moving player and storm icons in accordance with progress

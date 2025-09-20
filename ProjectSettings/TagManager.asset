@@ -60,6 +60,9 @@ TagManager:
   - name: Player
     uniqueID: 2012890099
     locked: 0
+  - name: Storm
+    uniqueID: 1373949681
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1

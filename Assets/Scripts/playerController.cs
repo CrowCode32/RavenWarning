@@ -14,6 +14,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] public float dashForce;
+    [SerializeField] public float dashDuration;
+    [SerializeField] public float dashCooldown;
 
     // SFX & Game Over
     [SerializeField] public GameObject gameOverUI;
@@ -51,7 +54,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     // Trinket Stuff
     [SerializeField] trinket trinket;
-    [SerializeField] GameObject trinketModel;
+    [SerializeField] SpriteRenderer trinketModel;
+
 
     // Feather
     [SerializeField] feather featherQueue;   // allows the player to switch feathers in the UI without affecting the game
@@ -65,6 +69,11 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     float horizontal = 0f;
     bool isJumping = false;
     int jumpCount;
+    private float dashTimer;
+    private float facingDirection = 1;
+    private bool isDashing;
+   
+   
 
     void Awake()
     {
@@ -95,8 +104,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             damageOverlay.color = g;
         }
 
+        if(feather !=null) 
         FeatherAbility(feather);
-        // trinketModel = trinket.model; // future equip visuals
+       
     }
 
     void Update()
@@ -105,26 +115,55 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         featherQueue = GameManager.instance.selectedFeather;
 
-        feather = featherQueue;
-        FeatherAbility(feather);
+        if(GameManager.instance.selectedTrinket != null)
+        {
+            trinketModel.sprite = GameManager.instance.selectedTrinket.sprite;
+        }
+       
+
+       
+
+        if (GameManager.instance.lockFeather == true)
+        {
+
+            if (feather != null) FeatherAbilityUndo(feather);
+            
+
+            Debug.Log(GameManager.instance.lockFeather);
+            feather = featherQueue;
+
+            if (feather != null) FeatherAbility(feather);
+           
+            
+            GameManager.instance.lockFeather = false;
+          
+        }
+        
 
         setAnimations();
 
         horizontal = 0f;
 
-        
+        dashTimer += Time.deltaTime;
+       
 
         if (Input.GetKey(InputManager.instance.GetKey("Left")))
         {
             horizontal = -1f;
+            facingDirection = -1;
         }
 
         if (Input.GetKey(InputManager.instance.GetKey("Right")))
         {
             horizontal = 1f;
+            facingDirection = 1;
         }
         
-        Movement();
+        if(isDashing == false)
+        {
+            Movement();
+        }
+       
         UpdateOverlayAlpha();
 
         float mouseX = Input.GetAxis("Mouse X") * GameManager.instance.mouseSensitivity;
@@ -146,6 +185,25 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             jumpCount++;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
+
+        if (Input.GetKeyDown(InputManager.instance.GetKey("Dash")) && dashCooldown <= dashTimer)
+        {
+            Debug.Log("Dashing...");
+            StartCoroutine(Dash());
+            dashTimer = 0;
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        float dashDirection = (horizontal != 0) ? horizontal : facingDirection;
+        rb.linearVelocity = new Vector2( dashDirection * dashForce, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        rb.linearVelocity = new Vector2(dashDirection * speed, rb.linearVelocity.y);
+        isDashing = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -207,6 +265,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (hasRevive)
         {
             currentHealth = (maxHealth / 2);
+            GameManager.instance.hasBeenRevived = true;  
             yield break;
         }
 
@@ -326,9 +385,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // This method will go in spawn/whatever the trigger is to leave the tutorial room
     void FeatherAbility(feather feather)
     {
-        if (feather == null) return;
+        
 
-        Debug.Log(feather.featherName);
+       
         switch (feather.featherName)
         {
             case "Roadrunner":
@@ -341,6 +400,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
                 break;
 
             case "Vulture":
+                if(GameManager.instance.hasBeenRevived==false)
                 hasRevive = true;
                 break;
 
@@ -358,6 +418,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         switch (feather.featherName)
         {
+         
             case "Roadrunner":
                 speed /= 2;
                 jumpMax = storeJumpMax;

@@ -8,4 +8,5 @@ public class TrinketSlotUI : MonoBehaviour
     public TextMeshProUGUI description;
     public Button locked;
     public Button unlocked;
+    
 }

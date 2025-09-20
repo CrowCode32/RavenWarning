@@ -14,7 +14,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Journal
   - Water
   - UI
   - Ground
@@ -44,17 +44,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: back
-    uniqueID: 2296025395
-    locked: 0
   - name: Background
     uniqueID: 2669052889
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Foreground
-    uniqueID: 2625311379
+  - name: Journal
+    uniqueID: 3568941123
+    locked: 0
+  - name: UI
+    uniqueID: 147831715
+    locked: 0
+  - name: Player
+    uniqueID: 2012890099
     locked: 0
   m_RenderingLayers:
   - Default

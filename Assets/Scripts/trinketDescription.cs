@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class trinketDescription : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button button;
+    [SerializeField] TMP_Dropdown dropdown;
     [SerializeField] Image desc;
 
     public void Start()

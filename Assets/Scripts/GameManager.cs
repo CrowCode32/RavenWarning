@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
 
-
+    [Tooltip("Assign the main Menu UI Panel here.")]
+    public GameObject mainMenuUI;
 
     [Tooltip("Assign the player HUD here.")]
     public GameObject playerHUD;
@@ -102,6 +103,7 @@ public class GameManager : MonoBehaviour
     
     [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
     public float stormOffset;
+    public bool stormSpawned;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -117,6 +119,9 @@ public class GameManager : MonoBehaviour
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
     public feather selectedFeather;
+    [Header("Feather")]
+    [Tooltip("Updates feather description.")]
+    public TMP_Text featherDesc;
     [Tooltip("Acquired feathers.")]
     public List<feather> feathersAquired = new List<feather>();
 
@@ -125,6 +130,8 @@ public class GameManager : MonoBehaviour
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+    [Tooltip("Updates journal player with selected trinket")]
+    public Image trinketDisplay;
 
     [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
@@ -138,6 +145,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+    public bool lockFeather;
+    public bool hasBeenRevived = false;
     AsyncOperation currentLoad;
 
 
@@ -228,6 +237,9 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
+            lockFeather = true;
+            stormSpawned = false;
+            stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
             // The run has officially started, so we begin the storm countdown.
             StartCoroutine(SpawnStormCoroutine());
@@ -244,6 +256,7 @@ public class GameManager : MonoBehaviour
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
+            stormSpawned = true;
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else
@@ -262,14 +275,15 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
-        if(journalMenuIndex == 0)
-        {
-            journalMenuIndex++;
-        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
-        statePause();
+
+        if(activeMenu != pauseMenuUI)
+        {
+            statePause();
+        }
+       
 
         if(isJournalOpen == false)
         {
@@ -399,13 +413,22 @@ public class GameManager : MonoBehaviour
 
         featherIndex = featherDrop.value;
 
+        
+
         if (featherIndex == 0)
         {
             selectedFeather = null;
+            featherDesc.text = string.Empty;
         }
         else
-        {
+        {   
             selectedFeather = feathersAquired[featherIndex - 1];
+            featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
+        }
+
+        if (hasRunStarted == false)
+        {
+            lockFeather = true;
         }
 
 
@@ -415,14 +438,16 @@ public class GameManager : MonoBehaviour
     {
 
         trinketIndex = trinketDrop.value;
-
+        
         if (trinketIndex == 0)
         {
             selectedTrinket = null;
+            trinketDisplay.sprite = null;
         }
         else
         {
             selectedTrinket = trinketsAquired[trinketIndex - 1];
+            trinketDisplay.sprite = trinketsAquired[trinketIndex - 1].sprite;
         }
 
 
@@ -562,6 +587,7 @@ public class GameManager : MonoBehaviour
 
         loadingScene("Credits");
         stateUnpause();
+        deathDataReset();
         //Credits animation triggers main menu
     }
 
@@ -570,6 +596,7 @@ public class GameManager : MonoBehaviour
         statePause();
         deathDataReset();
         loadMainMenu();
+        playerHUD.SetActive(false);
     }
     
     Vector2 findProgFill()
@@ -611,28 +638,18 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-
         loadStorm();
     }
-    public async void loadStorm(string scene)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-        Debug.Log("Print please");
-        await asyncLoad;
-    }
-
 
     public async void loadStorm()
     {
         updateProgUI();
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Debug.Log("Spawned");
-            Instantiate(stormPrefab, stormSpawnPoint.transform);
-        }
-        else
-        {
-            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+            if(stormSpawned == true)
+            {
+                Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation, stormSpawnPoint);
+            }
         }
     }
 }

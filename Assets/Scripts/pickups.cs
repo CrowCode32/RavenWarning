@@ -21,6 +21,7 @@ public class pickups : MonoBehaviour
 
             GameManager.instance.trinketSlots[trinket.trinketNum].name.text = trinket.name;
             GameManager.instance.trinketSlots[trinket.trinketNum].description.text = trinket.trinketDesc;
+            GameManager.instance.trinketSlots[trinket.trinketNum].unlocked.image.sprite = trinket.sprite;
             GameManager.instance.EnableJournalEntryTrinket(trinket.trinketNum);
             GameManager.instance.trinketsAquired.Add(trinket);
             GameManager.instance.UpdateTrinketDropdown();

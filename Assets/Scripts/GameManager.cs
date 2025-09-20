@@ -593,6 +593,7 @@ public class GameManager : MonoBehaviour
         inKing = false;
         hasRunStarted = false;
         stormOffset = 0;
+        stormIcon.enabled = false;
         progFill.fillAmount = 0;
         playerFill.fillAmount = 0;
         stormFill.fillAmount = 0;

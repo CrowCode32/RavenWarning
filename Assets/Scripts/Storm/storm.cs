@@ -43,4 +43,10 @@ public class storm : MonoBehaviour
             damageable.TakeDamage(LETHAL_DAMAGE);
         }
     }
+
+    private void OnDestroy()
+    {
+        GameManager.instance.stormOffset = Vector2.Distance(transform.position, endPos);
+        GameManager.instance.stormFill.fillAmount = 0;
+    }
 }

@@ -567,6 +567,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2540700415724818979, guid: 02cfd11789d8ed7438e58f57055f1d61, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2010271870}
     - targetCorrespondingSourceObject: {fileID: 6940707422940370617, guid: 02cfd11789d8ed7438e58f57055f1d61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 821508606}
@@ -590,6 +593,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverSound: {fileID: 8300000, guid: 5cdcca34589ffba4b93d693ca9d80dd4, type: 3}
   clickSound: {fileID: 8300000, guid: 2e61bbd558cbeec4bae4ea210783961c, type: 3}
+--- !u!1 &2010271869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2540700415724818979, guid: 02cfd11789d8ed7438e58f57055f1d61, type: 3}
+  m_PrefabInstance: {fileID: 821508604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2010271870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010271869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 051c3e25c3daf4444b85a0e64a685aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelectedButton: {fileID: 821508605}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

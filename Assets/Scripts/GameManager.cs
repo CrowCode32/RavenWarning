@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
+using NUnit.Framework.Internal;
 
 
 
@@ -115,6 +116,10 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
+    public bool stormGraveyard = false;
+    public bool stormCave = false;
+    public bool stormForest = false;
+    public bool stormKingdom = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -599,14 +604,27 @@ public class GameManager : MonoBehaviour
         playerHUD.SetActive(false);
     }
     
-    Vector2 findProgFill()
+    Vector2 findProgFill(string reference)
     {
-        if (inKing) { progFill.fillAmount = 1f; }
-        else if (inKingdom) { progFill.fillAmount = 0.6f; }
-        else if (inForest) { progFill.fillAmount = 0.3f;  }
-        else if (inCave) { progFill.fillAmount = 0.1f; }
-        else if (inGraveyard) { progFill.fillAmount = .02f; }
-            
+        Vector2 currPos = new Vector2(0, 0);
+        bool stormUpdate = true;
+
+        if(reference == "Player")
+        {
+            if (inKing) { progFill.fillAmount = 0.99f; }
+            else if (inKingdom) { progFill.fillAmount = 0.8f; }
+            else if (inForest) { progFill.fillAmount = 0.55f; }
+            else if (inCave) { progFill.fillAmount = 0.3f; }
+            else if (inGraveyard) { progFill.fillAmount = .02f; }
+        } else if (reference == "Storm")
+        {
+            if (stormKingdom) { progFill.fillAmount = 0.99f; }
+            else if (stormForest) { progFill.fillAmount = 0.55f; }
+            else if (stormCave) { progFill.fillAmount = 0.3f; }
+            else if (stormGraveyard) { progFill.fillAmount = .02f; }
+            else { stormUpdate = false; }
+        }
+
         RectTransform fillTrans = progFill.rectTransform;
         Rect fillRect = fillTrans.rect;
 
@@ -623,13 +641,16 @@ public class GameManager : MonoBehaviour
         Vector2 worldPos = fillTrans.TransformPoint(localPos);
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
 
-        Vector2 currPos = playerIcon.transform.position;
+        if (reference == "Player") { currPos = playerIcon.transform.position; }
+        else if (reference == "Storm" && stormUpdate == true) { currPos = stormIcon.transform.position; }
+
         return new Vector2(screenPos.x, currPos.y);
     }
 
     public void updateProgUI()
     {
-        playerIcon.transform.position = findProgFill();
+        stormIcon.transform.position = findProgFill("Storm");
+        playerIcon.transform.position = findProgFill("Player");
     }
 
     private IEnumerator stormSpawnReady()

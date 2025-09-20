@@ -120,10 +120,6 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
-    public bool stormGraveyard = false;
-    public bool stormCave = false;
-    public bool stormForest = false;
-    public bool stormKingdom = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -203,6 +199,11 @@ public class GameManager : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
+
+        stormIcon.enabled = false;
+        progFill.fillAmount = 0;
+        playerFill.fillAmount = 0;
+        stormFill.fillAmount = 0;
     }
 
     private void Update()
@@ -264,6 +265,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(stormSpawnDelay);
 
         Debug.Log("Spawning the storm!");
+        stormIcon.enabled = true;
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
@@ -591,6 +593,9 @@ public class GameManager : MonoBehaviour
         inKing = false;
         hasRunStarted = false;
         stormOffset = 0;
+        progFill.fillAmount = 0;
+        playerFill.fillAmount = 0;
+        stormFill.fillAmount = 0;
     }
 
     // This method is called when the game is TRULY won.
@@ -682,13 +687,23 @@ public class GameManager : MonoBehaviour
 
     public void updateProgUI()
     {
-        playerIcon.transform.position = findProgFill(playerFill);
-        stormIcon.transform.position = findProgFill(stormFill);
-        
         if (player == null) return;
+
+        //Finding distance from player to end of level and filling bar accordingly (storm updated in storm script)
         float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
         float maxDistance = Vector3.Distance(stormSpawnPoint.position, stormEndPoint.position);
         GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
+        
+        //Moving player and storm icons in accordance with progress
+        playerIcon.transform.position = findProgFill(playerFill);
+        stormIcon.transform.position = findProgFill(stormFill);
+
+        //Updating level progression UI
+        if (inKing) { progFill.fillAmount = 0.99f; }
+        else if (inKingdom) { progFill.fillAmount = 0.8f; }
+        else if (inForest) { progFill.fillAmount = 0.55f; }
+        else if (inCave) { progFill.fillAmount = 0.3f; }
+        else if (inGraveyard) { progFill.fillAmount = .02f; }
     }
 
     private IEnumerator stormSpawnReady()

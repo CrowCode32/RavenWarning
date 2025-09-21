@@ -12112,12 +12112,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 765707424139868569, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 765707424139868569, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: jumpSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 765707424139868569, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1629951319838028241, guid: 7c2ee12a1fbeab646b29984a76797e41, type: 3}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -96.31
+      value: -102.81
       objectReference: {fileID: 0}
     - target: {fileID: 4093803035835705406, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12842,7 +12850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4996166828700990768, guid: 6bb8cfde1378d87499cc66de8dc21512, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7476165201515004448, guid: 6bb8cfde1378d87499cc66de8dc21512, type: 3}
       propertyPath: m_ApplyRootMotion

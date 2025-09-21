@@ -121,6 +121,9 @@ public class GameManager : MonoBehaviour
     public bool inKingdom = false;
     public bool inKing = false;
 
+    //temp
+    public float maxDistance;
+
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
     public feather selectedFeather;
@@ -620,49 +623,6 @@ public class GameManager : MonoBehaviour
         loadMainMenu();
         playerHUD.SetActive(false);
     }
-    
-    /*Vector2 findProgFill(string reference)
-    {
-        Vector2 currPos = new Vector2(0, 0);
-        bool stormUpdate = true;
-
-        if(reference == "Player")
-        {
-            if (inKing) { progFill.fillAmount = 0.99f; }
-            else if (inKingdom) { progFill.fillAmount = 0.8f; }
-            else if (inForest) { progFill.fillAmount = 0.55f; }
-            else if (inCave) { progFill.fillAmount = 0.3f; }
-            else if (inGraveyard) { progFill.fillAmount = .02f; }
-        } else if (reference == "Storm")
-        {
-            if (stormKingdom) { progFill.fillAmount = 0.99f; }
-            else if (stormForest) { progFill.fillAmount = 0.55f; }
-            else if (stormCave) { progFill.fillAmount = 0.3f; }
-            else if (stormGraveyard) { progFill.fillAmount = .02f; }
-            else { stormUpdate = false; }
-        }
-
-        RectTransform fillTrans = progFill.rectTransform;
-        Rect fillRect = fillTrans.rect;
-
-        float fillAmount = progFill.fillAmount;
-
-        // Location of fill edge locally
-        float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
-        float yPos = fillRect.center.y;
-
-        // Local pos as vector
-        Vector2 localPos = new Vector2(xPos, yPos);
-
-        // Converted to world & then screen pos
-        Vector2 worldPos = fillTrans.TransformPoint(localPos);
-        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
-
-        if (reference == "Player") { currPos = playerIcon.transform.position; }
-        //else if (reference == "Storm" && stormUpdate == true) { currPos = stormIcon.transform.position; }
-
-        return new Vector2(screenPos.x, currPos.y);
-    }*/
 
     Vector2 findProgFill(Image fill)
     {
@@ -694,7 +654,7 @@ public class GameManager : MonoBehaviour
 
         //Finding distance from player to end of level and filling bar accordingly (storm updated in storm script)
         float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
-        float maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
+        maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
         GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
         
         //Moving player and storm icons in accordance with progress

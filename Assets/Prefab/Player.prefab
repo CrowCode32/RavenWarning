@@ -176,7 +176,7 @@ MonoBehaviour:
   rb: {fileID: 8422360893966061274}
   anim: {fileID: 2829837851378048402}
   speed: 5
-  jumpSpeed: 5
+  jumpSpeed: 6
   jumpMax: 2
   groundLayer:
     serializedVersion: 2
@@ -210,7 +210,7 @@ MonoBehaviour:
   trinket: {fileID: 0}
   trinketModel: {fileID: 2594927332555513993}
   featherQueue: {fileID: 0}
-  feather: {fileID: 11400000, guid: 3f0fadc9d7ce6f042bc2981b2f259ba2, type: 2}
+  feather: {fileID: 0}
   gotFeather: 0
 --- !u!212 &4803216134300275987
 SpriteRenderer:

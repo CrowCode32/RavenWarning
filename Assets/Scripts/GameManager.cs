@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's Healthbar here.")]
     public Image playerHP;
 
+
     public GameObject playerSpawnpoint;
 
     [Tooltip("The currently active menu.")]
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerHUD;
 
     [Tooltip("Assign the Loading screen UI Panel here.")]
-    public GameObject loadingScreenUI;
+    public GameObject loadingScreenUI; 
     [SerializeField] Image loadingBar;
 
     [Tooltip("Assign the Pause Menu UI Panel here.")]
@@ -152,6 +153,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
+    public bool lockFeather;
+    public bool hasBeenRevived = false;
     AsyncOperation currentLoad;
 
 
@@ -184,6 +187,49 @@ public class GameManager : MonoBehaviour
 
         // Load the game as soon as the manager is ready
         LoadGame();
+    }
+
+    // This is called when the script instance is being loaded.
+    private void OnEnable()
+    {
+        // Subscribe to the sceneLoaded event.
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // This is called when the script instance is being destroyed.
+    private void OnDisable()
+    {
+        // Unsubscribe to avoid memory leaks.
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// This method is called every time a new scene is finished loading.
+    /// We use it to find and assign references that are specific to that scene.
+    /// </summary>
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Find references that only exist in the playable scenes.
+        if (scene.name == "Graveyard" || scene.name == "Cave" || scene.name == "Forest" || scene.name == "Kingdom")
+        {
+            // Find the PlayerHUD in the new scene and assign it.
+            playerHUD = GameObject.FindWithTag("PlayerHUD");
+            if (playerHUD != null)
+            {
+                playerHUD.SetActive(true);
+            }
+
+            // Find the Player in the new scene and assign it.
+            player = GameObject.FindWithTag("Player");
+        }
+        else
+        {
+            // If we're in a menu scene, make sure the player HUD is disabled.
+            if (playerHUD != null)
+            {
+                playerHUD.SetActive(false);
+            }
+        }
     }
 
     private void Start()
@@ -252,6 +298,7 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
+            lockFeather = true;
             stormSpawned = false;
             stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
@@ -439,16 +486,22 @@ public class GameManager : MonoBehaviour
 
         featherIndex = featherDrop.value;
 
+        
+
         if (featherIndex == 0)
         {
             selectedFeather = null;
             featherDesc.text = string.Empty;
         }
         else
-        {
+        {   
             selectedFeather = feathersAquired[featherIndex - 1];
-            Debug.Log(feathersAquired[featherIndex - 1].featherDesc);
             featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
+        }
+
+        if (hasRunStarted == false)
+        {
+            lockFeather = true;
         }
 
 

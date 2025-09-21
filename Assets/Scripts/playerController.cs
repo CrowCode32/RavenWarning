@@ -71,7 +71,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     private float dashTimer;
     private float facingDirection = 1;
     private bool isDashing;
-
+   
+   
 
     void Awake()
     {
@@ -102,8 +103,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             damageOverlay.color = g;
         }
 
+        if(feather !=null) 
         FeatherAbility(feather);
-        // trinketModel = trinket.model; // future equip visuals
+       
     }
 
     void Update()
@@ -118,8 +120,24 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
        
 
-        feather = featherQueue;
-        FeatherAbility(feather);
+       
+
+        if (GameManager.instance.lockFeather == true)
+        {
+
+            if (feather != null) FeatherAbilityUndo(feather);
+            
+
+            Debug.Log(GameManager.instance.lockFeather);
+            feather = featherQueue;
+
+            if (feather != null) FeatherAbility(feather);
+           
+            
+            GameManager.instance.lockFeather = false;
+          
+        }
+        
 
         setAnimations();
 
@@ -246,6 +264,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (hasRevive)
         {
             currentHealth = (maxHealth / 2);
+            GameManager.instance.hasBeenRevived = true;  
             yield break;
         }
 
@@ -343,44 +362,41 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     public void slashAttack()
     {
-        anim.SetTrigger("Slash");
-
         if (Time.time < lastAttackTime + attackCooldown) return;
         lastAttackTime = Time.time;
 
-        if (!attackPoint)
-        {
-            Debug.Log("Is attacking");
-            return;
-        }
+        if (anim) anim.SetTrigger("Slash");
+        if (!attackPoint) return;
 
+        // Find all colliders on the enemy layer within our attack radius.
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, enemyLayer);
-        if (hits.Length == 0) return;
 
+        // Loop through everything we hit.
         foreach (var h in hits)
         {
-            var enemy = h.GetComponent<enemyAI>() ?? h.GetComponentInParent<enemyAI>();
-            if (enemy != null)
+            // The only thing we need to do is check if the object we hit
+            // has a component that uses our IDamage interface.
+            IDamage damageable = h.GetComponent<IDamage>();
+            if (damageable != null)
             {
-                enemy.takeDamage(attackDamage);
-            }
-            else if(canBreakWalls)
-            {
-                if(h.CompareTag("Breakable"))
+                // If it's a wall, check if we have the right feather.
+                if (h.GetComponent<BreakableWall>() != null && !canBreakWalls)
                 {
-                    Destroy(h.gameObject);
+                    // If it's a wall and we can't break it, do nothing.
+                    continue;
                 }
+
+                // If it's not a wall, or if it is a wall and we have the right feather, deal damage.
+                damageable.TakeDamage(attackDamage);
             }
         }
-
     }
-
     // This method will go in spawn/whatever the trigger is to leave the tutorial room
     void FeatherAbility(feather feather)
     {
-        if (feather == null) return;
 
-        Debug.Log(feather.featherName);
+
+
         switch (feather.featherName)
         {
             case "Roadrunner":
@@ -393,7 +409,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
                 break;
 
             case "Vulture":
-                hasRevive = true;
+                if (GameManager.instance.hasBeenRevived == false)
+                    hasRevive = true;
                 break;
 
             case "Cardinal":
@@ -410,6 +427,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     {
         switch (feather.featherName)
         {
+
             case "Roadrunner":
                 speed /= 2;
                 jumpMax = storeJumpMax;
@@ -424,6 +442,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
                 return;
         }
     }
-
-  
 }
+
+

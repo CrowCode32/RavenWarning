@@ -11,6 +11,7 @@ TagManager:
   - Storm End
   - Breakable
   - Spawn
+  - PlayerHUD
   layers:
   - Default
   - TransparentFX

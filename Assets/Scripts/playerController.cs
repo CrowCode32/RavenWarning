@@ -287,20 +287,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     public void killPlayer()
     {
-        GameManager.instance.activeMenu = gameOverUI;
+        //GameManager.instance.activeMenu = GameManager.instance.gameOverUI;
         GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         // Show Game over/lose menu and pause the game
-        ///*if (gameOverUI)
-        //    gameOverUI.SetActive(true);*/
-        //GameManager.instance.activeMenu = gameOverUI;
-        //GameManager.instance.activeMenu.SetActive(true);
-        //Time.timeScale = 0f;
-        //Cursor.visible = true;
-        //Cursor.lockState = CursorLockMode.None;
+        
         GameManager.instance.gameLost();
 
         Debug.Log("The Player died");

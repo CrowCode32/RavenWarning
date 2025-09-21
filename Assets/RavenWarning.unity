@@ -1264,6 +1264,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2083854873}
+    - target: {fileID: 6911308261328967573, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
+      propertyPath: m_TagString
+      value: PlayerHUD
+      objectReference: {fileID: 0}
     - target: {fileID: 7921559710565926391, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

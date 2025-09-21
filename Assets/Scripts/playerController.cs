@@ -19,7 +19,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] public float dashCooldown;
 
     // SFX & Game Over
-    [SerializeField] public GameObject gameOverUI;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;
@@ -76,18 +75,18 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     void Awake()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
 
-        if (!gameOverUI)
-        {
-            var found = GameObject.FindWithTag("GameOver");
-            if (found) gameOverUI = found;
-        }
+        //if (!gameOverUI)
+        //{
+        //    var found = GameObject.FindWithTag("GameOver");
+        //    if (found) gameOverUI = found;
+        //}
 
-        if (gameOverUI)
-        {
-            gameOverUI.SetActive(false);
-        }
+        //if (gameOverUI)
+        //{
+        //    gameOverUI.SetActive(false);
+        //}
     }
 
     void Start()
@@ -266,6 +265,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         //Animator calls killPlayer once death animation ends
     }
 
+
     public void killPlayer()
     {
         GameManager.instance.activeMenu = gameOverUI;
@@ -273,6 +273,16 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        // Show Game over/lose menu and pause the game
+        ///*if (gameOverUI)
+        //    gameOverUI.SetActive(true);*/
+        //GameManager.instance.activeMenu = gameOverUI;
+        //GameManager.instance.activeMenu.SetActive(true);
+        //Time.timeScale = 0f;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        GameManager.instance.gameLost();
 
         Debug.Log("The Player died");
     }

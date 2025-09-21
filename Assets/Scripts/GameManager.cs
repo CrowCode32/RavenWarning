@@ -86,8 +86,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Dropdown featherDrop;
     [SerializeField] TMP_Dropdown trinketDrop;
-    
 
+    [Tooltip("Assign the lose/Game Over UI Panel here.")]
+    public GameObject loseMenuUI;
 
     [Tooltip("Assign the scene's main camera here.")]
     public Camera mainCamera;
@@ -620,6 +621,11 @@ public class GameManager : MonoBehaviour
         deathDataReset();
         loadMainMenu();
         playerHUD.SetActive(false);
+
+        //statePause();
+        //deathDataReset();
+        //loadMainMenu();
+        showLoseMenu();
     }
 
     Vector2 findProgFill(Image fill)
@@ -686,5 +692,41 @@ public class GameManager : MonoBehaviour
                 Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation, stormSpawnPoint);
             }
         }
+    }
+
+    public void showLoseMenu()
+    {
+        statePause();
+        if (playerHUD)
+            playerHUD.SetActive(false);
+
+        if (activeMenu)
+            activeMenu.SetActive(false);
+        activeMenu = loseMenuUI;
+
+        if (loseMenuUI)
+            loseMenuUI.SetActive(true);
+    }
+
+    public void retryCurrentLevel()
+    {
+        stateUnpause();
+        if (activeMenu)
+            activeMenu.SetActive(false);
+        activeMenu = null;
+
+        //deathDataReset();
+        var scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
+    }
+
+    public void quitToMainMenu()
+    {
+        stateUnpause();
+        if(activeMenu)
+            activeMenu.SetActive(false);
+        activeMenu = null;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

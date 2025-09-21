@@ -128,14 +128,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4093803035835705406}
   - component: {fileID: 765707424139868569}
+  - component: {fileID: 5580669310067967734}
+  - component: {fileID: -7243936196102279853}
   - component: {fileID: 4803216134300275987}
   - component: {fileID: 2829837851378048402}
   - component: {fileID: 8422360893966061274}
   - component: {fileID: 525030917866625313}
-  - component: {fileID: 5580669310067967734}
-  - component: {fileID: 2759395464573046722}
   - component: {fileID: -10757822918429163}
-  - component: {fileID: -7243936196102279853}
+  - component: {fileID: 2759395464573046722}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -184,7 +184,6 @@ MonoBehaviour:
   dashForce: 25
   dashDuration: 0.2
   dashCooldown: 2
-  gameOverUI: {fileID: 0}
   audioSource: {fileID: 0}
   hurtSfx: {fileID: 0}
   deathSfx: {fileID: 0}
@@ -212,6 +211,37 @@ MonoBehaviour:
   featherQueue: {fileID: 0}
   feather: {fileID: 0}
   gotFeather: 0
+--- !u!114 &5580669310067967734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869596124616975790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5af13d89f9dc3f41ba5917a2d58fd85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  controller: {fileID: 765707424139868569}
+--- !u!114 &-7243936196102279853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869596124616975790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65190df13515ab44acadd96883fc439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  attackPoint: {fileID: 1312027542780449819}
+  controller: {fileID: 765707424139868569}
+  projectilePrefab: {fileID: 2519647138075490216, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+  firePoint: {fileID: 1312027542780449819}
 --- !u!212 &4803216134300275987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -353,7 +383,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.009697935, y: 0.005914887}
   m_Size: {x: 0.15840195, y: 0.62283224}
   m_Direction: 0
---- !u!114 &5580669310067967734
+--- !u!114 &-10757822918429163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,11 +392,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4869596124616975790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5af13d89f9dc3f41ba5917a2d58fd85, type: 3}
+  m_Script: {fileID: 11500000, guid: 9004ef0f53b7581488bc5b77a95c389c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  controller: {fileID: 765707424139868569}
+  sceneMusic: {fileID: 8300000, guid: ff297231203bc844891359bb6b8fd8e8, type: 3}
 --- !u!82 &2759395464573046722
 AudioSource:
   m_ObjectHideFlags: 0
@@ -464,33 +493,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-10757822918429163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4869596124616975790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9004ef0f53b7581488bc5b77a95c389c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneMusic: {fileID: 8300000, guid: ff297231203bc844891359bb6b8fd8e8, type: 3}
---- !u!114 &-7243936196102279853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4869596124616975790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65190df13515ab44acadd96883fc439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  controller: {fileID: 765707424139868569}
 --- !u!1 &4938752213614927125
 GameObject:
   m_ObjectHideFlags: 0

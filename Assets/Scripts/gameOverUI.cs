@@ -5,15 +5,22 @@ public class gameOverUI : MonoBehaviour
     
     public void OnRetry()
     {
-        Time.timeScale = 1f;
+        //GameManager.instance.stateUnpause();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //GameManager.instance.deathDataReset();
+        //GameManager.instance.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+
+        GameManager.instance.retryCurrentLevel();
     }
 
     public void OnQuitToMenu()
     {
-        Time.timeScale = 1f;
+        //GameManager.instance.stateUnpause();
 
-        SceneManager.LoadScene("Main Menu"); // This is subject to change 
+        //GameManager.instance.deathDataReset();
+
+        //GameManager.instance.loadingScene("MainMenu");
+
+        GameManager.instance.quitToMainMenu();
     }
 }

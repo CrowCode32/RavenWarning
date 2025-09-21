@@ -23,7 +23,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;
-    [SerializeField] private float deathFreezeDelay = 0.75f;
+    [SerializeField] private float deathFreezeDelay = 2f;
     private bool isDead = false;
 
     // Health
@@ -251,6 +251,9 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
 
         isDead = true;
+        
+        //Temp line for bug where sometimes the player dies before the UI updates
+        GameManager.instance.playerHP.fillAmount = 0;
 
         // Stop motion and inputs
         if (rb) rb.linearVelocity = Vector2.zero;
@@ -260,12 +263,11 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (audioSource && deathSfx)
             audioSource.PlayOneShot(deathSfx);
 
-        // Delay to see the player fall over
-        yield return new WaitForSeconds(deathFreezeDelay);
+        //Animator calls killPlayer once death animation ends
+    }
 
-        // Show Game over/lose menu and pause the game
-        /*if (gameOverUI)
-            gameOverUI.SetActive(true);*/
+    public void killPlayer()
+    {
         GameManager.instance.activeMenu = gameOverUI;
         GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;

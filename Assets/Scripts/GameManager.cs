@@ -296,12 +296,15 @@ public class GameManager : MonoBehaviour
         {
             statePause();
         }
-       
 
-        if(isJournalOpen == false)
+
+        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
         {
-            stateUnpause();
-            playerHUD.SetActive(true);
+            if (isJournalOpen == false)
+            {
+                playerHUD.SetActive(true);
+                stateUnpause();
+            }
         }
     }
 
@@ -379,7 +382,6 @@ public class GameManager : MonoBehaviour
             activeMenu = null;
         }
 
-        //playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;

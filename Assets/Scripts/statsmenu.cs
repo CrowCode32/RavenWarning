@@ -1,16 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
-
-
-[CreateAssetMenu]
-public class statsmenu : ScriptableObject
+public class statsMenu : MonoBehaviour
 {
-    [SerializeField] Text timeStat;
-    [SerializeField] Text enemiesKilledStat;
-    [SerializeField] Text trinketsUnlockedStat;
-    [SerializeField] Text feathersUnlockedStat;
-    [SerializeField] Text deathsStat;
-    [SerializeField] Text runsCompletedStat;
-    [SerializeField] Text npcStat;
+    [SerializeField] TextMeshProUGUI timeStat;
+    [SerializeField] TextMeshProUGUI killsStat;
+    [SerializeField] TextMeshProUGUI trinketsStat;
+    [SerializeField] TextMeshProUGUI feathersStat;
+    [SerializeField] TextMeshProUGUI deathsStat;
+    [SerializeField] TextMeshProUGUI winsStat;
+    [SerializeField] TextMeshProUGUI npcsStat;
+  
 }

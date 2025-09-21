@@ -3,6 +3,7 @@ using UnityEngine;
 public class dialogueTrigger : MonoBehaviour
 {
     [SerializeField] TextAsset diaInput;
+    [SerializeField] GameObject feather;
     GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
 
@@ -10,6 +11,11 @@ public class dialogueTrigger : MonoBehaviour
 
     void Start()
     {
+        if (feather != null)
+        {
+            feather.SetActive(false);
+        }
+
         if (GameManager.instance.dialogueBox != null)
         {
             dialogueBox = GameManager.instance.dialogueBox;
@@ -24,6 +30,27 @@ public class dialogueTrigger : MonoBehaviour
         {
             dialogueBox.SetActive(true);
             instance.startDialogue(diaInput);
+        }
+
+        if (feather != null && instance.isComplete)
+        {
+            bool hasFeather = false;
+            if (GameManager.instance.feathersAquired.Count > 0)
+            {
+                for (int i = 0; i < GameManager.instance.feathersAquired.Count; i++)
+                {
+                    if (GameManager.instance.feathersAquired[i].name == feather.name)
+                    {
+                        hasFeather = true;
+                    }
+                }
+            }
+
+            if (!hasFeather)
+            {
+                feather.SetActive(true);
+            }
+
         }
     }
 

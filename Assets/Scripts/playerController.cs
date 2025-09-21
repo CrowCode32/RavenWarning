@@ -193,7 +193,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (collision.collider.CompareTag("Ground"))
         {
             Vector3 normal = collision.GetContact(0).normal;
-            Debug.Log(normal == Vector3.up);
             if (normal == Vector3.up)
             {
                 jumpCount = 0;

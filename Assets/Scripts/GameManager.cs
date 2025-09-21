@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
     public float stormOffset;
     public bool stormSpawned;
     public float stormDist;
+    public float maxDistance;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -120,9 +121,6 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
-
-    //temp
-    public float maxDistance;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]

@@ -21,6 +21,7 @@ public class GameData
     public bool lesserLordCaveInformed;
     public bool lesserLordForestInformed;
     public bool finishedTutorial;
+    
     private void Awake()
     {
         if(instance != null && instance!= this)

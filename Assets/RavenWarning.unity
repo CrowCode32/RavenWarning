@@ -1260,6 +1260,14 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2083854873}
+    - target: {fileID: 3256318198454314432, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310341027377302161, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6862310990112194319, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

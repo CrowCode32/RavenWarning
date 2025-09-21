@@ -286,7 +286,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     public void killPlayer()
     {
-        GameManager.instance.activeMenu = gameOverUI;
+       // GameManager.instance.activeMenu = gameOverUI;
         GameManager.instance.activeMenu.SetActive(true);
         Time.timeScale = 0f;
         Cursor.visible = true;

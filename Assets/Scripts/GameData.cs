@@ -20,7 +20,8 @@ public class GameData
     // --- RUN-SPECIFIC PROGRESS ---
     public bool lesserLordCaveInformed;
     public bool lesserLordForestInformed;
-
+    public bool finishedTutorial;
+    
     private void Awake()
     {
         if(instance != null && instance!= this)
@@ -39,5 +40,6 @@ public class GameData
         this.unlockedFeatherIDs = new List<string>();
         this.lesserLordCaveInformed = false;
         this.lesserLordForestInformed = false;
+        this.finishedTutorial = false;
     }
 }

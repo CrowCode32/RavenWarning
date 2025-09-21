@@ -44457,7 +44457,7 @@ GameObject:
   - component: {fileID: 2084225048}
   m_Layer: 0
   m_Name: TutorialSpawn
-  m_TagString: Spawn
+  m_TagString: TutorialSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

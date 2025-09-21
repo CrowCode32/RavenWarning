@@ -393,7 +393,18 @@ public class GameManager : MonoBehaviour
 
     public void respawnPlayer()
     {
-        playerSpawnpoint = GameObject.FindWithTag("Spawn");
+
+        
+        if(!gameData.finishedTutorial)
+        {
+            playerSpawnpoint = GameObject.FindWithTag("TutorialSpawn");
+           gameData.finishedTutorial = true;
+        }
+        else
+        {
+            playerSpawnpoint = GameObject.FindWithTag("Spawn");
+        }
+          
         player.transform.position = playerSpawnpoint.transform.position;
     }
 

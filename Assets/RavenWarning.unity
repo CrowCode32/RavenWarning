@@ -1262,16 +1262,20 @@ PrefabInstance:
       objectReference: {fileID: 2083854873}
     - target: {fileID: 3256318198454314432, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3310341027377302161, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6862310990112194319, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2083854873}
+    - target: {fileID: 6911308261328967573, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
+      propertyPath: m_TagString
+      value: PlayerHUD
+      objectReference: {fileID: 0}
     - target: {fileID: 7921559710565926391, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1384,11 +1388,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStat: {fileID: 5014915008782707028}
   killsStat: {fileID: 5014915008782707027}
-  trinketsStat: {fileID: 5014915008782707026}
-  feathersStat: {fileID: 5014915008782707025}
-  deathsStat: {fileID: 5014915008782707024}
-  winsStat: {fileID: 5014915008782707023}
-  npcsStat: {fileID: 5014915008782707022}
+  trinketStat: {fileID: 5014915008782707026}
+  featherStat: {fileID: 5014915008782707025}
+  deathStat: {fileID: 5014915008782707024}
+  winStat: {fileID: 5014915008782707023}
+  npcStat: {fileID: 5014915008782707022}
 --- !u!114 &5069159048055732288 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8827766195213779532, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}

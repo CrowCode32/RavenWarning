@@ -12,6 +12,7 @@ TagManager:
   - Breakable
   - Spawn
   - TutorialSpawn
+  - PlayerHUD
   layers:
   - Default
   - TransparentFX

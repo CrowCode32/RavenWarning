@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
-    private GameData gameData;
+    public GameData gameData;
     private string saveFilePath;
 
     [Header("Object References")]
@@ -254,9 +254,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+        gameData.timeStat += Time.deltaTime;
         // Check for the journal input key (e.g., 'J' or 'Tab').
 
-        if(player == null) { player = GameObject.FindWithTag("Player"); }
+        if (player == null) { player = GameObject.FindWithTag("Player"); }
         if(playerSpawnpoint == null) { playerSpawnpoint = GameObject.FindWithTag("Spawn"); }
 
         if (Input.GetKeyDown(KeyCode.J))
@@ -437,7 +439,7 @@ public class GameManager : MonoBehaviour
 
     public void respawnPlayer()
     {
-
+        
         
         if(!gameData.finishedTutorial)
         {
@@ -668,6 +670,7 @@ public class GameManager : MonoBehaviour
     // This method is called when the game is TRULY won.
     public void gameWon()
     {
+        GameData.instance.winStat++;
         statePause();
         playerHUD.SetActive(false);
 

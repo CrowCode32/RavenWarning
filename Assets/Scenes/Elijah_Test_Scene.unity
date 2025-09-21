@@ -521,18 +521,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerHP: {fileID: 0}
-  SettingsMenuUI: {fileID: 0}
   activeMenu: {fileID: 0}
   mainMenuUI: {fileID: 0}
+  playerHUD: {fileID: 0}
   loadingScreenUI: {fileID: 0}
   loadingBar: {fileID: 0}
+  pauseMenuUI: {fileID: 0}
   journalMenuUI: {fileID: 0}
   journalMenus: []
   nextButton: {fileID: 0}
   prevButton: {fileID: 0}
+  masterVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  SFXVolumeSlider: {fileID: 0}
+  mouseSensitivitySlider: {fileID: 0}
+  brightnessSlider: {fileID: 0}
+  brightnessImage: {fileID: 0}
+  keyInput: {fileID: 0}
+  mouseSensitivity: 1
   progFill: {fileID: 0}
   playerIcon: {fileID: 0}
   stormIcon: {fileID: 0}
+  dialogueBox: {fileID: 0}
   featherDrop: {fileID: 0}
   trinketDrop: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -540,6 +550,8 @@ MonoBehaviour:
   stormSpawnPoint: {fileID: 0}
   stormEndPoint: {fileID: 0}
   stormSpawnDelay: 120
+  stormOffset: 0
+  stormSpawned: 0
   lordInCaveInformed: 0
   lordInForestInformed: 0
   inGraveyard: 0
@@ -547,14 +559,22 @@ MonoBehaviour:
   inForest: 0
   inKingdom: 0
   inKing: 0
+  stormGraveyard: 0
+  stormCave: 0
+  stormForest: 0
+  stormKingdom: 0
   selectedFeather: {fileID: 0}
+  featherDesc: {fileID: 0}
   feathersAquired: []
   selectedTrinket: {fileID: 0}
   trinketsAquired: []
+  trinketDisplay: {fileID: 0}
   trinketSlots: []
   journalMenuIndex: 0
   isPaused: 0
   gameStarted: 0
+  lockFeather: 0
+  hasBeenRevived: 0
 --- !u!4 &460565848
 Transform:
   m_ObjectHideFlags: 0
@@ -1519,6 +1539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1692027159}
+  masterMixer: {fileID: 0}
 --- !u!4 &1692027161
 Transform:
   m_ObjectHideFlags: 0
@@ -2818,6 +2839,63 @@ Transform:
   - {fileID: 2011621559}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7291838633867588158
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 111.63474
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949808193691314469, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519647138075490216, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
+      propertyPath: m_Name
+      value: Projectile
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35a0e79ebfeae3f4988d4e862969e80c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2841,3 +2919,4 @@ SceneRoots:
   - {fileID: 734938322}
   - {fileID: 20048534}
   - {fileID: 432034081}
+  - {fileID: 7291838633867588158}

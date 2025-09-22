@@ -289,7 +289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -176}
+  m_AnchoredPosition: {x: 0, y: -209}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73310294
@@ -312,12 +312,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Graveyard - GothicVania Cemetery by ansimuz | opengameart.org
-
-    Forest
-    - Pixel Dark Forest by Szadi Art. | assetstore.unity.com
-
-    Kingdom -'
+  m_text: "Graveyard - GothicVania Cemetery by ansimuz | opengameart.org\nForest
+    - Pixel Dark Forest by Szadi Art. | assetstore.unity.com\nKingdom - Platformer
+    Castle Tileset by thomaswp, Summer Thaxton and\n Stafford McIntyre of the PlatForge
+    project | opengameart.org"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a79bc1a3fb30b994e806ddcc59f7bd66, type: 2}
   m_sharedMaterial: {fileID: 5695898247815211769, guid: a79bc1a3fb30b994e806ddcc59f7bd66, type: 2}
@@ -2257,7 +2255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -3037}
+  m_AnchoredPosition: {x: 0, y: -3089}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910495859

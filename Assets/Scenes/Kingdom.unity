@@ -262634,7 +262634,7 @@ GameObject:
   - component: {fileID: 839534896}
   m_Layer: 0
   m_Name: Platforms
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270850,6 +270850,10 @@ PrefabInstance:
     - target: {fileID: 4869596124616975790, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938752213614927125, guid: 9bae9acac83a0c248b2b06af7af97f0c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

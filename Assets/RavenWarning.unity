@@ -204,6 +204,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2711776755670892677}
     - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
+      propertyPath: loseMenuUI
+      value: 
+      objectReference: {fileID: 1513760252}
+    - target: {fileID: 6372036795480816576, guid: 4db5819a4b05a4e4792689ad6922a4af, type: 3}
       propertyPath: mainMenuUI
       value: 
       objectReference: {fileID: 0}
@@ -452,6 +456,11 @@ Transform:
   - {fileID: 1787528585}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1513760252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2056621708727206266, guid: dd30ab65cbdfad54386c4ea561931361, type: 3}
+  m_PrefabInstance: {fileID: 5014915008782707021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1787528584
 GameObject:
   m_ObjectHideFlags: 0

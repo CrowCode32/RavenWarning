@@ -356,7 +356,7 @@ public class GameManager : MonoBehaviour
         {
             respawnPlayer();
             StartCoroutine(stormSpawnReady());
-        } else if (scene == "Graveyard")
+        } else if (scene == "Graveyard" && gameData.finishedTutorial != true)
         {
             respawnPlayer();
         }
@@ -410,8 +410,11 @@ public class GameManager : MonoBehaviour
         {
             playerSpawnpoint = GameObject.FindWithTag("Spawn");
         }
-          
-        player.transform.position = playerSpawnpoint.transform.position;
+
+        if (playerSpawnpoint != null)
+        {
+            player.transform.position = playerSpawnpoint.transform.position;
+        }
     }
 
 
@@ -638,12 +641,8 @@ public class GameManager : MonoBehaviour
     {
         statePause();
         deathDataReset();
-        loadMainMenu();
-        playerHUD.SetActive(false);
-
-
- 
         showLoseMenu();
+        playerHUD.SetActive(false);
 
     }
 

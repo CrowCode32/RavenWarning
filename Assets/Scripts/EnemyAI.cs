@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using Unity.Collections;
 using Unity.VisualScripting;
 
-public class enemyAI : MonoBehaviour
+public class enemyAI : MonoBehaviour, IDamage
 {
     // Patrol
     public float speed = 3f;
@@ -59,6 +59,8 @@ public class enemyAI : MonoBehaviour
     private Color _origColor;
     private float _flashTimer = 0f;
     private float _iFrameTimer = 0f;
+
+    public int Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void Awake()
     {
@@ -351,5 +353,11 @@ public class enemyAI : MonoBehaviour
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Death();
     }
 }

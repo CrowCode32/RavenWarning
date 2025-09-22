@@ -5,20 +5,29 @@ public class storm : MonoBehaviour
 {
     [SerializeField] int speed;
 
+    Vector3 startPos;
     Vector3 endPos;   // last possible end point
-    float exitDiff = 0;
+    float maxDistance;
 
     // A very high damage value to ensure an instant kill.
     private const int LETHAL_DAMAGE = 9999;
 
+    private void Start()
+    {
+        startPos = GameManager.instance.stormSpawnPoint.transform.position;
+        endPos = GameManager.instance.stormEndPoint.transform.position;
+        maxDistance = Vector3.Distance(startPos, endPos);
+    }
+
     // Update is called once per frame
     void Update()
     {
+        //Move the storm 
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-        //Determining how far the storm is from the exit for offset in future levels
-        exitDiff = endPos.x - transform.position.x;
-        GameManager.instance.stormOffset = exitDiff;
+        //Get the current distance to the end and fill the bar accordingly
+        float stormDistance = Vector3.Distance(transform.position, endPos);
+        GameManager.instance.stormFill.fillAmount = Mathf.InverseLerp(GameManager.instance.maxDistance, 0, stormDistance);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,5 +42,11 @@ public class storm : MonoBehaviour
             Debug.Log("Storm has hit " + collision.name + ". Dealing lethal damage.");
             damageable.TakeDamage(LETHAL_DAMAGE);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.instance.stormOffset = Vector2.Distance(transform.position, endPos);
+        GameManager.instance.stormFill.fillAmount = 0;
     }
 }

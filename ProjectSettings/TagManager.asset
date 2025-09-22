@@ -10,6 +10,7 @@ TagManager:
   - Storm Start
   - Storm End
   - Breakable
+  - Spawn
   layers:
   - Default
   - TransparentFX
@@ -58,6 +59,12 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2012890099
+    locked: 0
+  - name: Foreground
+    uniqueID: 3786133209
+    locked: 0
+  - name: Storm
+    uniqueID: 1373949681
     locked: 0
   m_RenderingLayers:
   - Default

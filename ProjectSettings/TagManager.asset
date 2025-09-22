@@ -13,6 +13,7 @@ TagManager:
   - Spawn
   - PlayerHUD
   - TutorialSpawn
+  - PlayerHUD
   layers:
   - Default
   - TransparentFX

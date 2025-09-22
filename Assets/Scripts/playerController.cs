@@ -261,6 +261,8 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     private IEnumerator death()
     {
+
+
         if (hasRevive)
         {
             currentHealth = (maxHealth / 2);
@@ -268,6 +270,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             yield break;
         }
 
+        GameManager.instance.gameData.deathStat++;
         isDead = true;
         
         //Temp line for bug where sometimes the player dies before the UI updates

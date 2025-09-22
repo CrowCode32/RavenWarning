@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
+    GameData gameData = GameManager.instance.gameData;
     // Patrol
     public float speed = 3f;
     public Transform positionA;
@@ -292,6 +293,8 @@ public class enemyAI : MonoBehaviour, IDamage
     }
     private void Death()
     {
+
+         gameData.killsStat++;
         if (animator)
             animator.SetTrigger("Death");
 

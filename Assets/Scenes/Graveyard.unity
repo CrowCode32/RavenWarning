@@ -725,6 +725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 592689201}
   - component: {fileID: 592689200}
+  - component: {fileID: 592689202}
   m_Layer: 0
   m_Name: Cave Entrance
   m_TagString: Untagged
@@ -803,6 +804,19 @@ Transform:
   - {fileID: 749204604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &592689202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592689199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9004ef0f53b7581488bc5b77a95c389c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneMusic: {fileID: 8300000, guid: ff297231203bc844891359bb6b8fd8e8, type: 3}
 --- !u!1001 &749204603
 PrefabInstance:
   m_ObjectHideFlags: 0

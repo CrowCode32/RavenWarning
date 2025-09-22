@@ -499,11 +499,16 @@ public class GameManager : MonoBehaviour
         // Convert the GameData object to a JSON string.
         string json = JsonUtility.ToJson(gameData, true);
 
-        // Write the JSON string to the file.
+#if UNITY_WEBGL
+        // For WebGL, save the JSON string to the browser's local storage using PlayerPrefs.
+        PlayerPrefs.SetString("SaveData", json);
+        PlayerPrefs.Save();
+        Debug.Log("Game data saved to PlayerPrefs! Current currency: " + gameData.currency);
+#else
+        // For standalone builds, write the JSON string to a local file.
         File.WriteAllText(saveFilePath, json);
-
-        // Use a log that confirms the value that was saved.
         Debug.Log("Game data saved! Current currency: " + gameData.currency);
+#endif
     }
 
     /// <summary>
@@ -511,6 +516,25 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadGame()
     {
+#if UNITY_WEBGL
+        // For WebGL, load from the browser's local storage.
+        if (PlayerPrefs.HasKey("SaveData"))
+        {
+            // If save data exists, read it.
+            string json = PlayerPrefs.GetString("SaveData");
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from PlayerPrefs.");
+        }
+        else
+        {
+            // If no save data exists, create a new GameData object with default values.
+            Debug.Log("No save data found in PlayerPrefs. Creating a new game.");
+            gameData = new GameData();
+        }
+#else
+        // For standalone builds, load from a local file.
         if (File.Exists(saveFilePath))
         {
             // If a save file exists, read it.
@@ -526,7 +550,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
-
+#endif
 
     }
 

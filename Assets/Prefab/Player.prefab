@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 5580669310067967734}
   - component: {fileID: 2759395464573046722}
   - component: {fileID: -10757822918429163}
+  - component: {fileID: -7243936196102279853}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -183,6 +184,7 @@ MonoBehaviour:
   dashForce: 25
   dashDuration: 0.2
   dashCooldown: 2
+  gameOverUI: {fileID: 0}
   audioSource: {fileID: 0}
   hurtSfx: {fileID: 0}
   deathSfx: {fileID: 0}
@@ -469,12 +471,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4869596124616975790}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9004ef0f53b7581488bc5b77a95c389c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneMusic: {fileID: 8300000, guid: ff297231203bc844891359bb6b8fd8e8, type: 3}
+--- !u!114 &-7243936196102279853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869596124616975790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65190df13515ab44acadd96883fc439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  attackPoint: {fileID: 0}
+  controller: {fileID: 765707424139868569}
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
 --- !u!1 &4938752213614927125
 GameObject:
   m_ObjectHideFlags: 0

@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
+    public bool hasBeenRevived = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -130,6 +131,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text featherDesc;
     [Tooltip("Acquired feathers.")]
     public List<feather> feathersAquired = new List<feather>();
+
+    [Header("Feather")]
+    public bool lockFeather = false;
 
     [Header("Trinket")]
     [Tooltip("Updates player trinket.")]

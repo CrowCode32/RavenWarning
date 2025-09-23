@@ -4,8 +4,9 @@ using UnityEngine.AI;
 using Unity.Collections;
 using Unity.VisualScripting;
 
-public class enemyAI : MonoBehaviour
+public class enemyAI : MonoBehaviour, IDamage
 {
+    GameData gameData = GameManager.instance.gameData;
     // Patrol
     public float speed = 3f;
     public Transform positionA;
@@ -59,6 +60,8 @@ public class enemyAI : MonoBehaviour
     private Color _origColor;
     private float _flashTimer = 0f;
     private float _iFrameTimer = 0f;
+
+    public int Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void Awake()
     {
@@ -290,6 +293,8 @@ public class enemyAI : MonoBehaviour
     }
     private void Death()
     {
+
+         gameData.killsStat++;
         if (animator)
             animator.SetTrigger("Death");
 
@@ -301,6 +306,9 @@ public class enemyAI : MonoBehaviour
         enabled = false;
 
         animator.SetBool("Walk", false);
+
+        //Not working yet
+        StartCoroutine(deathFade());
 
         Destroy(gameObject, deathSfx ? deathSfx.length : deathAnimDuration);
         // Todo - play death anim/SFX, add score or drop loot
@@ -331,5 +339,28 @@ public class enemyAI : MonoBehaviour
         float cos = Vector2.Dot(fwd, toTarget.normalized);
         float limit = Mathf.Cos(screamAngle * Mathf.Deg2Rad);
         return cos >= limit;
+    }
+
+    //Not working yet
+    IEnumerator deathFade()
+    {
+        float alpha = sprite.color.a;
+        Color col = sprite.color;
+        
+        while(sprite.color.a > 0)
+        {
+            Debug.Log(sprite.name);
+            alpha -= 0.01f;
+            col.a = alpha;
+            sprite.color = col;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Death();
     }
 }

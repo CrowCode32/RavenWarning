@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
+using NUnit.Framework.Internal;
 
 
 
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     // A static instance of the GameManager to be accessed from anywhere.
     public static GameManager instance;
 
-    private GameData gameData;
+    public GameData gameData;
     private string saveFilePath;
 
     [Header("Object References")]
@@ -33,10 +34,13 @@ public class GameManager : MonoBehaviour
     public Image playerHP;
 
 
+    public GameObject playerSpawnpoint;
+
     [Tooltip("The currently active menu.")]
     public GameObject activeMenu;
 
-
+    [Tooltip("Assign the main Menu UI Panel here.")]
+    public GameObject mainMenuUI;
 
     [Tooltip("Assign the player HUD here.")]
     public GameObject playerHUD;
@@ -75,6 +79,8 @@ public class GameManager : MonoBehaviour
 
 
     public Image progFill;
+    public Image playerFill;
+    public Image stormFill;
     public Image playerIcon;
     public Image stormIcon;
     public GameObject dialogueBox;
@@ -103,6 +109,9 @@ public class GameManager : MonoBehaviour
     
     [Tooltip("A value offsetting the storm once the player changes levels based on how far ahead of it they were.")]
     public float stormOffset;
+    public bool stormSpawned;
+    public float stormDist;
+    public float maxDistance;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -114,18 +123,27 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
+    public bool hasBeenRevived = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
     public feather selectedFeather;
+    [Header("Feather")]
+    [Tooltip("Updates feather description.")]
+    public TMP_Text featherDesc;
     [Tooltip("Acquired feathers.")]
     public List<feather> feathersAquired = new List<feather>();
+
+    [Header("Feather")]
+    public bool lockFeather = false;
 
     [Header("Trinket")]
     [Tooltip("Updates player trinket.")]
     public trinket selectedTrinket;
     [Tooltip("Acquired trinkets.")]
     public List<trinket> trinketsAquired = new List<trinket>();
+    [Tooltip("Updates journal player with selected trinket")]
+    public Image trinketDisplay;
 
     [SerializeField] public List<TrinketSlotUI> trinketSlots;
 
@@ -188,11 +206,21 @@ public class GameManager : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
+
+        stormIcon.enabled = false;
+        progFill.fillAmount = 0;
+        playerFill.fillAmount = 0;
+        stormFill.fillAmount = 0;
     }
 
     private void Update()
     {
+
+        gameData.timeStat += Time.deltaTime;
         // Check for the journal input key (e.g., 'J' or 'Tab').
+
+        if (player == null) { player = GameObject.FindWithTag("Player"); }
+        if(playerSpawnpoint == null) { playerSpawnpoint = GameObject.FindWithTag("Spawn"); }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -217,6 +245,8 @@ public class GameManager : MonoBehaviour
         {
             SaveGame();
         }
+
+        updateProgUI();
     }
 
     /// <summary>
@@ -229,6 +259,8 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
+            stormSpawned = false;
+            stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
             // The run has officially started, so we begin the storm countdown.
             StartCoroutine(SpawnStormCoroutine());
@@ -242,9 +274,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(stormSpawnDelay);
 
         Debug.Log("Spawning the storm!");
+        stormIcon.enabled = true;
         // Now, spawn the storm.
         if (stormPrefab != null && stormSpawnPoint != null)
         {
+            stormSpawned = true;
             Instantiate(stormPrefab, stormSpawnPoint.transform);
         }
         else
@@ -263,19 +297,23 @@ public class GameManager : MonoBehaviour
         
         isJournalOpen = !isJournalOpen;
         journalMenuUI.SetActive(isJournalOpen);
-        if(journalMenuIndex == 0)
-        {
-            journalMenuIndex++;
-        }
         journalMenus[journalMenuIndex].SetActive(true);
         nextButton.SetActive(true);
         prevButton.SetActive(true);
-        statePause();
 
-        if(isJournalOpen == false)
+        if(activeMenu != pauseMenuUI)
         {
-            stateUnpause();
-            playerHUD.SetActive(true);
+            statePause();
+        }
+
+
+        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
+        {
+            if (isJournalOpen == false)
+            {
+                playerHUD.SetActive(true);
+                stateUnpause();
+            }
         }
     }
 
@@ -316,7 +354,11 @@ public class GameManager : MonoBehaviour
 
         if (scene == "Forest" || scene == "Cave" || scene == "Kingdom")
         {
+            respawnPlayer();
             StartCoroutine(stormSpawnReady());
+        } else if (scene == "Graveyard" && gameData.finishedTutorial != true)
+        {
+            respawnPlayer();
         }
 
     }
@@ -349,13 +391,31 @@ public class GameManager : MonoBehaviour
             activeMenu = null;
         }
 
-        //playerHUD.SetActive(true);
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void respawnPlayer()
+    {
+        
+        
+        if(!gameData.finishedTutorial)
+        {
+            playerSpawnpoint = GameObject.FindWithTag("TutorialSpawn");
+           gameData.finishedTutorial = true;
+        }
+        else
+        {
+            playerSpawnpoint = GameObject.FindWithTag("Spawn");
+        }
+
+        if (playerSpawnpoint != null)
+        {
+            player.transform.position = playerSpawnpoint.transform.position;
+        }
+    }
 
 
     /// <summary>
@@ -403,10 +463,13 @@ public class GameManager : MonoBehaviour
         if (featherIndex == 0)
         {
             selectedFeather = null;
+            featherDesc.text = string.Empty;
         }
         else
         {
             selectedFeather = feathersAquired[featherIndex - 1];
+            Debug.Log(feathersAquired[featherIndex - 1].featherDesc);
+            featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
         }
 
 
@@ -416,14 +479,16 @@ public class GameManager : MonoBehaviour
     {
 
         trinketIndex = trinketDrop.value;
-
+        
         if (trinketIndex == 0)
         {
             selectedTrinket = null;
+            trinketDisplay.sprite = null;
         }
         else
         {
             selectedTrinket = trinketsAquired[trinketIndex - 1];
+            trinketDisplay.sprite = trinketsAquired[trinketIndex - 1].sprite;
         }
 
 
@@ -452,11 +517,16 @@ public class GameManager : MonoBehaviour
         // Convert the GameData object to a JSON string.
         string json = JsonUtility.ToJson(gameData, true);
 
-        // Write the JSON string to the file.
+#if UNITY_WEBGL
+        // For WebGL, save the JSON string to the browser's local storage using PlayerPrefs.
+        PlayerPrefs.SetString("SaveData", json);
+        PlayerPrefs.Save();
+        Debug.Log("Game data saved to PlayerPrefs! Current currency: " + gameData.currency);
+#else
+        // For standalone builds, write the JSON string to a local file.
         File.WriteAllText(saveFilePath, json);
-
-        // Use a log that confirms the value that was saved.
         Debug.Log("Game data saved! Current currency: " + gameData.currency);
+#endif
     }
 
     /// <summary>
@@ -464,6 +534,25 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadGame()
     {
+#if UNITY_WEBGL
+        // For WebGL, load from the browser's local storage.
+        if (PlayerPrefs.HasKey("SaveData"))
+        {
+            // If save data exists, read it.
+            string json = PlayerPrefs.GetString("SaveData");
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from PlayerPrefs.");
+        }
+        else
+        {
+            // If no save data exists, create a new GameData object with default values.
+            Debug.Log("No save data found in PlayerPrefs. Creating a new game.");
+            gameData = new GameData();
+        }
+#else
+        // For standalone builds, load from a local file.
         if (File.Exists(saveFilePath))
         {
             // If a save file exists, read it.
@@ -479,7 +568,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
-
+#endif
 
     }
 
@@ -553,39 +642,42 @@ public class GameManager : MonoBehaviour
         inKing = false;
         hasRunStarted = false;
         stormOffset = 0;
+        stormIcon.enabled = false;
+        progFill.fillAmount = 0;
+        playerFill.fillAmount = 0;
+        stormFill.fillAmount = 0;
     }
 
     // This method is called when the game is TRULY won.
     public void gameWon()
     {
+        GameData.instance.winStat++;
         statePause();
         playerHUD.SetActive(false);
 
         loadingScene("Credits");
         stateUnpause();
+        deathDataReset();
         //Credits animation triggers main menu
     }
 
     public void gameLost()
     {
-        //statePause();
-        //deathDataReset();
-        //loadMainMenu();
+        statePause();
+        deathDataReset();
         showLoseMenu();
+        playerHUD.SetActive(false);
+
     }
-    
-    Vector2 findProgFill()
+
+    Vector2 findProgFill(Image fill)
     {
-        if (inKing) { progFill.fillAmount = 1f; }
-        else if (inKingdom) { progFill.fillAmount = 0.6f; }
-        else if (inForest) { progFill.fillAmount = 0.3f;  }
-        else if (inCave) { progFill.fillAmount = 0.1f; }
-        else if (inGraveyard) { progFill.fillAmount = .02f; }
-            
-        RectTransform fillTrans = progFill.rectTransform;
+        Vector2 currPos = new Vector2(0, 0);
+
+        RectTransform fillTrans = fill.rectTransform;
         Rect fillRect = fillTrans.rect;
 
-        float fillAmount = progFill.fillAmount;
+        float fillAmount = fill.fillAmount;
 
         // Location of fill edge locally
         float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
@@ -598,13 +690,29 @@ public class GameManager : MonoBehaviour
         Vector2 worldPos = fillTrans.TransformPoint(localPos);
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
 
-        Vector2 currPos = playerIcon.transform.position;
+        currPos = playerIcon.transform.position;
         return new Vector2(screenPos.x, currPos.y);
     }
 
     public void updateProgUI()
     {
-        playerIcon.transform.position = findProgFill();
+        if (player == null) return;
+
+        //Finding distance from player to end of level and filling bar accordingly (storm updated in storm script)
+        float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
+        maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
+        GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
+        
+        //Moving player and storm icons in accordance with progress
+        playerIcon.transform.position = findProgFill(playerFill);
+        stormIcon.transform.position = findProgFill(stormFill);
+
+        //Updating level progression UI
+        if (inKing) { progFill.fillAmount = 0.99f; }
+        else if (inKingdom) { progFill.fillAmount = 0.8f; }
+        else if (inForest) { progFill.fillAmount = 0.55f; }
+        else if (inCave) { progFill.fillAmount = 0.3f; }
+        else if (inGraveyard) { progFill.fillAmount = .02f; }
     }
 
     private IEnumerator stormSpawnReady()
@@ -613,28 +721,18 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-
         loadStorm();
     }
-    public async void loadStorm(string scene)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-        Debug.Log("Print please");
-        await asyncLoad;
-    }
-
 
     public async void loadStorm()
     {
         updateProgUI();
         if (stormPrefab != null && stormSpawnPoint != null)
         {
-            Debug.Log("Spawned");
-            Instantiate(stormPrefab, stormSpawnPoint.transform);
-        }
-        else
-        {
-            Debug.LogWarning("GameManager is missing the Storm Prefab or Storm Spawn Point reference!");
+            if(stormSpawned == true)
+            {
+                Instantiate(stormPrefab, stormSpawnPoint.position, stormSpawnPoint.rotation, stormSpawnPoint);
+            }
         }
     }
 

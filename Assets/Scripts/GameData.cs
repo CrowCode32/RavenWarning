@@ -20,6 +20,14 @@ public class GameData
     // --- RUN-SPECIFIC PROGRESS ---
     public bool lesserLordCaveInformed;
     public bool lesserLordForestInformed;
+    public bool finishedTutorial;
+    public float timeStat;
+    public int killsStat;
+    public int trinketStat;
+    public int featherStat;
+    public int deathStat;
+    public int winStat;
+    public int npcStat;
 
     private void Awake()
     {
@@ -39,5 +47,13 @@ public class GameData
         this.unlockedFeatherIDs = new List<string>();
         this.lesserLordCaveInformed = false;
         this.lesserLordForestInformed = false;
+        this.finishedTutorial = false;
+        this.timeStat = 0;
+        this.killsStat = 0;
+        this.trinketStat = 0; 
+        this.featherStat = 0;   
+        this.deathStat = 0;
+        this.winStat = 0;
+        this.npcStat = 0;
     }
 }

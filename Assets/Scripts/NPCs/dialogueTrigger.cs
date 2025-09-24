@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class dialogueTrigger : MonoBehaviour
 {
+    
     [SerializeField] TextAsset diaInput;
     [SerializeField] GameObject feather;
     GameObject dialogueBox = GameManager.instance.dialogueBox;
+    GameData gameData = GameManager.instance.gameData;
     bool isTriggered;
 
     dialogue instance;
@@ -28,6 +30,7 @@ public class dialogueTrigger : MonoBehaviour
     {
         if (isTriggered && Input.GetButtonDown("Interact") && instance.isRunning == false)
         {
+            gameData.npcStat++;
             dialogueBox.SetActive(true);
             instance.startDialogue(diaInput);
         }

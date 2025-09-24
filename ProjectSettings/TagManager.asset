@@ -11,6 +11,7 @@ TagManager:
   - Storm End
   - Breakable
   - Spawn
+  - PlayerHUD
   - TutorialSpawn
   - PlayerHUD
   layers:
@@ -61,6 +62,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2012890099
+    locked: 0
+  - name: Foreground
+    uniqueID: 3786133209
     locked: 0
   - name: Storm
     uniqueID: 1373949681

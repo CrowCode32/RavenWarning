@@ -127,6 +127,12 @@ public class buttonFunctions : MonoBehaviour
 
     public void mainMenu()
     {
+        if(GameManager.instance.activeMenu != null)
+        {
+            GameManager.instance.activeMenu.SetActive(false);
+            GameManager.instance.activeMenu = null;
+            GameManager.instance.loseMenuUI.SetActive(false);
+        }
         GameManager.instance.loadMainMenu();
         GameManager.instance.playerHUD.SetActive(false);
     }

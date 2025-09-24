@@ -27,7 +27,7 @@ public class storm : MonoBehaviour
 
         //Get the current distance to the end and fill the bar accordingly
         float stormDistance = Vector3.Distance(transform.position, endPos);
-        GameManager.instance.stormFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, stormDistance);
+        GameManager.instance.stormFill.fillAmount = Mathf.InverseLerp(GameManager.instance.maxDistance, 0, stormDistance);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

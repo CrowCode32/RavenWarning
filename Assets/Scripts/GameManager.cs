@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Assign the player's Healthbar here.")]
     public Image playerHP;
 
+
     public GameObject playerSpawnpoint;
 
     [Tooltip("The currently active menu.")]
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerHUD;
 
     [Tooltip("Assign the Loading screen UI Panel here.")]
-    public GameObject loadingScreenUI; 
+    public GameObject loadingScreenUI;
     [SerializeField] Image loadingBar;
 
     [Tooltip("Assign the Pause Menu UI Panel here.")]
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
     public float stormOffset;
     public bool stormSpawned;
     public float stormDist;
+    public float maxDistance;
 
     [Header("Run Progress")]
     [Tooltip("Tracks if the player has informed the lord in the cave level.")]
@@ -121,6 +123,7 @@ public class GameManager : MonoBehaviour
     public bool inForest = false;
     public bool inKingdom = false;
     public bool inKing = false;
+    public bool hasBeenRevived = false;
 
     [Header("Feather")]
     [Tooltip("Updates featherQueue.")]
@@ -130,6 +133,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text featherDesc;
     [Tooltip("Acquired feathers.")]
     public List<feather> feathersAquired = new List<feather>();
+
+    [Header("Feather")]
+    public bool lockFeather = false;
 
     [Header("Trinket")]
     [Tooltip("Updates player trinket.")]
@@ -151,8 +157,6 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     public bool gameStarted = false;
-    public bool lockFeather;
-    public bool hasBeenRevived = false;
     AsyncOperation currentLoad;
 
 
@@ -185,49 +189,6 @@ public class GameManager : MonoBehaviour
 
         // Load the game as soon as the manager is ready
         LoadGame();
-    }
-
-    // This is called when the script instance is being loaded.
-    private void OnEnable()
-    {
-        // Subscribe to the sceneLoaded event.
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    // This is called when the script instance is being destroyed.
-    private void OnDisable()
-    {
-        // Unsubscribe to avoid memory leaks.
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    /// <summary>
-    /// This method is called every time a new scene is finished loading.
-    /// We use it to find and assign references that are specific to that scene.
-    /// </summary>
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Find references that only exist in the playable scenes.
-        if (scene.name == "Graveyard" || scene.name == "Cave" || scene.name == "Forest" || scene.name == "Kingdom")
-        {
-            // Find the PlayerHUD in the new scene and assign it.
-            playerHUD = GameObject.FindWithTag("PlayerHUD");
-            if (playerHUD != null)
-            {
-                playerHUD.SetActive(true);
-            }
-
-            // Find the Player in the new scene and assign it.
-            player = GameObject.FindWithTag("Player");
-        }
-        else
-        {
-            // If we're in a menu scene, make sure the player HUD is disabled.
-            if (playerHUD != null)
-            {
-                playerHUD.SetActive(false);
-            }
-        }
     }
 
     private void Start()
@@ -298,7 +259,6 @@ public class GameManager : MonoBehaviour
         if (!hasRunStarted)
         {
             hasRunStarted = true;
-            lockFeather = true;
             stormSpawned = false;
             stormOffset = 0;
             Debug.Log("Run has started! Storm timer initiated.");
@@ -396,7 +356,7 @@ public class GameManager : MonoBehaviour
         {
             respawnPlayer();
             StartCoroutine(stormSpawnReady());
-        } else if (scene == "Graveyard")
+        } else if (scene == "Graveyard" && gameData.finishedTutorial != true)
         {
             respawnPlayer();
         }
@@ -450,8 +410,11 @@ public class GameManager : MonoBehaviour
         {
             playerSpawnpoint = GameObject.FindWithTag("Spawn");
         }
-          
-        player.transform.position = playerSpawnpoint.transform.position;
+
+        if (playerSpawnpoint != null)
+        {
+            player.transform.position = playerSpawnpoint.transform.position;
+        }
     }
 
 
@@ -497,22 +460,16 @@ public class GameManager : MonoBehaviour
 
         featherIndex = featherDrop.value;
 
-        
-
         if (featherIndex == 0)
         {
             selectedFeather = null;
             featherDesc.text = string.Empty;
         }
         else
-        {   
-            selectedFeather = feathersAquired[featherIndex - 1];
-            featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
-        }
-
-        if (hasRunStarted == false)
         {
-            lockFeather = true;
+            selectedFeather = feathersAquired[featherIndex - 1];
+            Debug.Log(feathersAquired[featherIndex - 1].featherDesc);
+            featherDesc.text = feathersAquired[featherIndex-1].featherDesc;
         }
 
 
@@ -560,11 +517,16 @@ public class GameManager : MonoBehaviour
         // Convert the GameData object to a JSON string.
         string json = JsonUtility.ToJson(gameData, true);
 
-        // Write the JSON string to the file.
+#if UNITY_WEBGL
+        // For WebGL, save the JSON string to the browser's local storage using PlayerPrefs.
+        PlayerPrefs.SetString("SaveData", json);
+        PlayerPrefs.Save();
+        Debug.Log("Game data saved to PlayerPrefs! Current currency: " + gameData.currency);
+#else
+        // For standalone builds, write the JSON string to a local file.
         File.WriteAllText(saveFilePath, json);
-
-        // Use a log that confirms the value that was saved.
         Debug.Log("Game data saved! Current currency: " + gameData.currency);
+#endif
     }
 
     /// <summary>
@@ -572,6 +534,25 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadGame()
     {
+#if UNITY_WEBGL
+        // For WebGL, load from the browser's local storage.
+        if (PlayerPrefs.HasKey("SaveData"))
+        {
+            // If save data exists, read it.
+            string json = PlayerPrefs.GetString("SaveData");
+
+            // Convert the JSON string back to a GameData object.
+            gameData = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Game data loaded from PlayerPrefs.");
+        }
+        else
+        {
+            // If no save data exists, create a new GameData object with default values.
+            Debug.Log("No save data found in PlayerPrefs. Creating a new game.");
+            gameData = new GameData();
+        }
+#else
+        // For standalone builds, load from a local file.
         if (File.Exists(saveFilePath))
         {
             // If a save file exists, read it.
@@ -587,7 +568,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("No save file found. Creating a new game.");
             gameData = new GameData();
         }
-
+#endif
 
     }
 
@@ -684,52 +665,10 @@ public class GameManager : MonoBehaviour
     {
         statePause();
         deathDataReset();
-        loadMainMenu();
+        showLoseMenu();
         playerHUD.SetActive(false);
+
     }
-    
-    /*Vector2 findProgFill(string reference)
-    {
-        Vector2 currPos = new Vector2(0, 0);
-        bool stormUpdate = true;
-
-        if(reference == "Player")
-        {
-            if (inKing) { progFill.fillAmount = 0.99f; }
-            else if (inKingdom) { progFill.fillAmount = 0.8f; }
-            else if (inForest) { progFill.fillAmount = 0.55f; }
-            else if (inCave) { progFill.fillAmount = 0.3f; }
-            else if (inGraveyard) { progFill.fillAmount = .02f; }
-        } else if (reference == "Storm")
-        {
-            if (stormKingdom) { progFill.fillAmount = 0.99f; }
-            else if (stormForest) { progFill.fillAmount = 0.55f; }
-            else if (stormCave) { progFill.fillAmount = 0.3f; }
-            else if (stormGraveyard) { progFill.fillAmount = .02f; }
-            else { stormUpdate = false; }
-        }
-
-        RectTransform fillTrans = progFill.rectTransform;
-        Rect fillRect = fillTrans.rect;
-
-        float fillAmount = progFill.fillAmount;
-
-        // Location of fill edge locally
-        float xPos = Mathf.Lerp(fillRect.xMin, fillRect.xMax, fillAmount);
-        float yPos = fillRect.center.y;
-
-        // Local pos as vector
-        Vector2 localPos = new Vector2(xPos, yPos);
-
-        // Converted to world & then screen pos
-        Vector2 worldPos = fillTrans.TransformPoint(localPos);
-        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldPos);
-
-        if (reference == "Player") { currPos = playerIcon.transform.position; }
-        //else if (reference == "Storm" && stormUpdate == true) { currPos = stormIcon.transform.position; }
-
-        return new Vector2(screenPos.x, currPos.y);
-    }*/
 
     Vector2 findProgFill(Image fill)
     {
@@ -761,7 +700,7 @@ public class GameManager : MonoBehaviour
 
         //Finding distance from player to end of level and filling bar accordingly (storm updated in storm script)
         float playerDistance = Vector3.Distance(player.transform.position, stormEndPoint.position);
-        float maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
+        maxDistance = Vector3.Distance(playerSpawnpoint.transform.position, stormEndPoint.position);
         GameManager.instance.playerFill.fillAmount = Mathf.InverseLerp(maxDistance, 0, playerDistance);
         
         //Moving player and storm icons in accordance with progress

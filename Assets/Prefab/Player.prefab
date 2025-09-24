@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4803216134300275987}
   - component: {fileID: 2829837851378048402}
   - component: {fileID: 8422360893966061274}
-  - component: {fileID: 525030917866625313}
+  - component: {fileID: 3454464346119165205}
   - component: {fileID: 5580669310067967734}
   - component: {fileID: 2759395464573046722}
   - component: {fileID: -10757822918429163}
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8422360893966061274}
   anim: {fileID: 2829837851378048402}
+  box: {fileID: 3454464346119165205}
   speed: 5
   jumpSpeed: 6
   jumpMax: 2
@@ -184,7 +185,6 @@ MonoBehaviour:
   dashForce: 25
   dashDuration: 0.2
   dashCooldown: 2
-  gameOverUI: {fileID: 0}
   audioSource: {fileID: 0}
   hurtSfx: {fileID: 0}
   deathSfx: {fileID: 0}
@@ -316,8 +316,8 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &525030917866625313
-CapsuleCollider2D:
+--- !u!61 &3454464346119165205
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -326,7 +326,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c3260c9776fe5cf46a6b649e7fe528d7, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -350,9 +350,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.009697935, y: 0.005914887}
-  m_Size: {x: 0.15840195, y: 0.62283224}
-  m_Direction: 0
+  m_Offset: {x: 0.0000007599592, y: -0.013059109}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.13852942, y: 0.61388177}
+  m_EdgeRadius: 0
 --- !u!114 &5580669310067967734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,7 +519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &442856217577421697
 Transform:
   m_ObjectHideFlags: 0

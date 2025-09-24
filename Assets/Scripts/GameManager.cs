@@ -670,7 +670,7 @@ public class GameManager : MonoBehaviour
     // This method is called when the game is TRULY won.
     public void gameWon()
     {
-        GameData.instance.winStat++;
+       gameData.winStat++;
         statePause();
         playerHUD.SetActive(false);
 

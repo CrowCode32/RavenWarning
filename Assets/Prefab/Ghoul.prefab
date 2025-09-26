@@ -162,13 +162,14 @@ MonoBehaviour:
   meleeRadius: 0.5
   sprite: {fileID: 2452193621450996562}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.1
+  flashDuration: 0.3
   hurtFrames: 0.5
   animator: {fileID: 1793578034152137693}
   audioSource: {fileID: 0}
   hitSfx: {fileID: 0}
   deathSfx: {fileID: 0}
   knockback: 4
+  sprites: []
 --- !u!95 &1793578034152137693
 Animator:
   serializedVersion: 7
@@ -300,4 +301,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

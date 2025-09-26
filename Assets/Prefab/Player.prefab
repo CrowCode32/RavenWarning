@@ -185,9 +185,10 @@ MonoBehaviour:
   dashForce: 25
   dashDuration: 0.2
   dashCooldown: 2
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 2759395464573046722}
   hurtSfx: {fileID: 0}
   deathSfx: {fileID: 0}
+  slashSfx: {fileID: 8300000, guid: da944188c6b80c749a2a433edc3655f6, type: 3}
   deathFreezeDelay: 0.75
   maxHealth: 5
   currentHealth: 0

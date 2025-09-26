@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;
+    [SerializeField] private AudioClip slashSfx;
     [SerializeField] private float deathFreezeDelay = 2f;
     private bool isDead = false;
 
@@ -450,6 +451,12 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             default:
                 return;
         }
+    }
+
+    //Attack animation calls this
+    void slashAudio()
+    {
+        audioSource.PlayOneShot(slashSfx);
     }
 }
 

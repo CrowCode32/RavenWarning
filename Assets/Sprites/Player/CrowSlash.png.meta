@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: c3c3211157c348244bd3eaa1d52b7442
+guid: 86986f34ab208d54b82790a6f11b05e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1246732526337376509
-    second: CrowAttack2_0
+      213: 1383304574228338844
+    second: CrowSlash_0
+  - first:
+      213: 4767965388471176085
+    second: CrowSlash_1
+  - first:
+      213: 2018061229914007185
+    second: CrowSlash_2
+  - first:
+      213: -3633527860241077515
+    second: CrowSlash_3
+  - first:
+      213: 1645836902255669596
+    second: CrowSlash_4
+  - first:
+      213: -5738468785456364693
+    second: CrowSlash_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrowAttack2_0
+      name: CrowSlash_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,36 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 30f3cbd6f57b2bee0800000000000000
-      internalID: -1246732526337376509
+      spriteID: c989d036e2c723310800000000000000
+      internalID: 1383304574228338844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrowAttack2_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 571ffa15f6d4fbd4da77bff8b3a35aa3
-      internalID: -882255212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrowAttack2_2
+      name: CrowSlash_1
       rect:
         serializedVersion: 2
         x: 128
@@ -170,16 +163,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c40d22febe1051943b786577f5852d21
-      internalID: 270364359
+      spriteID: 59b8e2152473b2240800000000000000
+      internalID: 4767965388471176085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrowAttack2_3
+      name: CrowSlash_2
       rect:
         serializedVersion: 2
         x: 192
@@ -192,16 +185,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 84bcc8feefc673e4f99aad84a723ab1b
-      internalID: -739161289
+      spriteID: 19623081ff7910c10800000000000000
+      internalID: 2018061229914007185
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrowAttack2_4
+      name: CrowSlash_3
       rect:
         serializedVersion: 2
         x: 256
@@ -214,16 +207,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 45da43c055fb1d6418d8b7c0a12fa440
-      internalID: -879206858
+      spriteID: 5fa68d099ad139dc0800000000000000
+      internalID: -3633527860241077515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrowAttack2_5
+      name: CrowSlash_4
       rect:
         serializedVersion: 2
         x: 320
@@ -236,16 +229,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b083d1313ce06ee4486e44c0755d8823
-      internalID: 1244855983
+      spriteID: c51bd2d41ff27d610800000000000000
+      internalID: 1645836902255669596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrowAttack2_6
+      name: CrowSlash_5
       rect:
         serializedVersion: 2
         x: 384
@@ -258,10 +251,32 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b63c4381b0ddc50b0800000000000000
+      internalID: -5738468785456364693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrowSlash_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24c8f2cc86657e4458865345083cad43
-      internalID: 1194229699
+      spriteID: 2ca15a3fe9f0ce4478d37c85cc2d8c89
+      internalID: -1156905701
       vertices: []
       indices: 
       edges: []
@@ -270,7 +285,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d67a3d79d4ae839458b596b8b45cc38b
+    spriteID: 08540a8e486c0de49aa5ee311b4fd76f
     internalID: 0
     vertices: []
     indices: 
@@ -278,17 +293,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      CrowAttack2_0: -1246732526337376509
-      CrowAttack2_1: -882255212
-      CrowAttack2_2: 270364359
-      CrowAttack2_3: -739161289
-      CrowAttack2_4: -879206858
-      CrowAttack2_5: 1244855983
-      CrowAttack2_6: 1194229699
+      CrowSlash_0: 1383304574228338844
+      CrowSlash_1: 4767965388471176085
+      CrowSlash_2: 2018061229914007185
+      CrowSlash_3: -3633527860241077515
+      CrowSlash_4: 1645836902255669596
+      CrowSlash_5: -5738468785456364693
+      CrowSlash_6: -1156905701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     // Movement
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator anim;
+    [SerializeField] BoxCollider2D box;
     [SerializeField] int speed;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
@@ -22,6 +23,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hurtSfx;
     [SerializeField] private AudioClip deathSfx;
+    [SerializeField] private AudioClip slashSfx;
     [SerializeField] private float deathFreezeDelay = 2f;
     private bool isDead = false;
 
@@ -185,12 +187,38 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }
 
+        if(isGrounded() == true)
+        {
+            jumpCount = 0;
+            isJumping = false;
+        }
+
         if (Input.GetKeyDown(InputManager.instance.GetKey("Dash")) && dashCooldown <= dashTimer)
         {
             Debug.Log("Dashing...");
             StartCoroutine(Dash());
             dashTimer = 0;
         }
+    }
+
+    private bool isGrounded()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0f, Vector2.down, 0.1f, groundLayer);
+
+        //color for debug
+        Color rayColor;
+        if (hit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(box.bounds.center, Vector2.down * 0.1f, rayColor);
+
+
+        return hit.collider != null && rb.linearVelocityY <= 0.01f;
     }
 
     private IEnumerator Dash()
@@ -203,19 +231,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
         rb.linearVelocity = new Vector2(dashDirection * speed, rb.linearVelocity.y);
         isDashing = false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            Vector3 normal = collision.GetContact(0).normal;
-            if (normal == Vector3.up)
-            {
-                jumpCount = 0;
-                isJumping = false;
-            }
-        }
     }
 
     public void getTrinket(trinket trinket)
@@ -436,6 +451,12 @@ public class playerController : MonoBehaviour, IPickup , IHeal
             default:
                 return;
         }
+    }
+
+    //Attack animation calls this
+    void slashAudio()
+    {
+        audioSource.PlayOneShot(slashSfx);
     }
 }
 

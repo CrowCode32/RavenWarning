@@ -7,7 +7,7 @@ using NUnit.Framework;
 using System;
 
 public class dialogue : MonoBehaviour
-{   
+{
     public TextMeshProUGUI textField;
     public string[] lines;
     public float textSpeed;

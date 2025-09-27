@@ -304,17 +304,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (audioSource && deathSfx)
             audioSource.PlayOneShot(deathSfx);
 
+
         //Animator calls killPlayer once death animation ends
     }
 
 
     public void killPlayer()
     {
-        GameManager.instance.activeMenu = GameManager.instance.loseMenuUI;
-        GameManager.instance.activeMenu.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+      
 
         GameManager.instance.gameLost();
 

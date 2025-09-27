@@ -26,6 +26,9 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.stateUnpause();
         GameManager.instance.loadingScene("Graveyard");
         GameManager.instance.playerHUD.SetActive(true);
+
+        GameManager.instance.UpdateTrinketDropdown();
+        GameManager.instance.UpdateFeatherDropdown();
     }
 
     public void load()
@@ -127,13 +130,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void mainMenu()
     {
-        if(GameManager.instance.activeMenu != null)
-        {
-            GameManager.instance.activeMenu.SetActive(false);
-            GameManager.instance.activeMenu = null;
-            GameManager.instance.loseMenuUI.SetActive(false);
-        }
-        GameManager.instance.loadMainMenu();
+       
+        GameManager.instance.quitToMainMenu();
         GameManager.instance.playerHUD.SetActive(false);
     }
 }

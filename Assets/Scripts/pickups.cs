@@ -14,20 +14,35 @@ public class pickups : MonoBehaviour
     {
         
         IPickup pickupable = other.GetComponent<IPickup>();
-
+        bool alreadyAcquired = false;
         if (pickupable != null && trinket != null)
         {
-            Debug.Log("Yep thats a trinket");
-            pickupable.getTrinket(trinket);
-            Debug.Log(trinket.trinketNum);
-            gameData.trinketStat++;
+            for(int i = 0; i < GameManager.instance.trinketsAquired.Count; i++)
+            {
+                if(trinket == GameManager.instance.trinketsAquired[i])
+                {
+                    alreadyAcquired = true;
+                }
+                else
+                {
+                 
+                }
+            }
+            if (!alreadyAcquired)
+            {
+                Debug.Log("Yep thats a trinket");
+                pickupable.getTrinket(trinket);
+                Debug.Log(trinket.trinketNum);
+                gameData.trinketStat++;
 
-            GameManager.instance.trinketSlots[trinket.trinketNum].name.text = trinket.name;
-            GameManager.instance.trinketSlots[trinket.trinketNum].description.text = trinket.trinketDesc;
-            GameManager.instance.trinketSlots[trinket.trinketNum].unlocked.image.sprite = trinket.sprite;
-            GameManager.instance.EnableJournalEntryTrinket(trinket.trinketNum);
-            GameManager.instance.trinketsAquired.Add(trinket);
-            GameManager.instance.UpdateTrinketDropdown();
+                GameManager.instance.trinketSlots[trinket.trinketNum].name.text = trinket.name;
+                GameManager.instance.trinketSlots[trinket.trinketNum].description.text = trinket.trinketDesc;
+                GameManager.instance.trinketSlots[trinket.trinketNum].unlocked.image.sprite = trinket.sprite;
+                GameManager.instance.EnableJournalEntryTrinket(trinket.trinketNum);
+                GameManager.instance.trinketsAquired.Add(trinket);
+                GameManager.instance.UpdateTrinketDropdown();
+            }
+
             Destroy(gameObject);
         }
         else if(pickupable != null && feather != null)

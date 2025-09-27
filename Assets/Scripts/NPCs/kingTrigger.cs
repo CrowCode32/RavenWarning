@@ -9,6 +9,7 @@ public class kingTrigger : MonoBehaviour
     GameObject dialogueBox = GameManager.instance.dialogueBox;
     bool isTriggered;
     bool win;
+    bool hasCheckedWin;
 
     dialogue instance;
 
@@ -23,6 +24,7 @@ public class kingTrigger : MonoBehaviour
     {
         if (isTriggered && Input.GetButtonDown("Interact") && instance.isRunning == false)
         {
+            hasCheckedWin = false;
             GameManager.instance.inKing = true;
             GameManager.instance.updateProgUI();
 
@@ -56,8 +58,9 @@ public class kingTrigger : MonoBehaviour
             }
         }
 
-        if (instance.isComplete == true)
+        if (instance.isComplete && !hasCheckedWin)
         {
+            hasCheckedWin = true;
             CheckWinCondition();
         }
     }

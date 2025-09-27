@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61953b488cb93948a58814892cbaddb, type: 3}
   m_Name: Diamond
   m_EditorClassIdentifier: 
-  model: {fileID: 7922432254740541296, guid: 8bec9f62e9b33bb46a440380f31c3bc4, type: 3}
-  sprite: {fileID: -2182010335692100286, guid: 063345b1f3ae51a4283b6b038f531c3b, type: 3}
-  trinketNum: 16
-  trinketName: Amethyst
-  trinketDesc: A purple gem. Darkness surrounds it.
+  model: {fileID: 7922432254740541296, guid: f9c937982d3c8b3408287150baf26aa7, type: 3}
+  sprite: {fileID: 5071088702517225425, guid: 063345b1f3ae51a4283b6b038f531c3b, type: 3}
+  trinketNum: 17
+  trinketName: Diamond
+  trinketDesc: A white gem. Definitely glowing.

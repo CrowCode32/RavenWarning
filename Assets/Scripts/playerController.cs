@@ -119,10 +119,15 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if(GameManager.instance.selectedTrinket != null)
         {
             trinketModel.sprite = GameManager.instance.selectedTrinket.sprite;
+            trinketModel.enabled = true;
         }
-       
 
-       
+        if (GameManager.instance.selectedTrinket == null)
+        {
+            trinketModel.sprite = null;
+            trinketModel.enabled = false;
+        }
+
 
         if (GameManager.instance.lockFeather == true)
         {

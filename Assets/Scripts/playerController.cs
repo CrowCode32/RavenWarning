@@ -119,10 +119,15 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if(GameManager.instance.selectedTrinket != null)
         {
             trinketModel.sprite = GameManager.instance.selectedTrinket.sprite;
+            trinketModel.enabled = true;
         }
-       
 
-       
+        if (GameManager.instance.selectedTrinket == null)
+        {
+            trinketModel.sprite = null;
+            trinketModel.enabled = false;
+        }
+
 
         if (GameManager.instance.lockFeather == true)
         {
@@ -299,17 +304,14 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (audioSource && deathSfx)
             audioSource.PlayOneShot(deathSfx);
 
+
         //Animator calls killPlayer once death animation ends
     }
 
 
     public void killPlayer()
     {
-        GameManager.instance.activeMenu = GameManager.instance.loseMenuUI;
-        GameManager.instance.activeMenu.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+      
 
         GameManager.instance.gameLost();
 

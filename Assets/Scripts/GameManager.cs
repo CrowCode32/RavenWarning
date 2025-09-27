@@ -235,9 +235,13 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            activeMenu = pauseMenuUI;
-            activeMenu.SetActive(true);
-            statePause();
+            if (gameStarted)
+            {
+                activeMenu = pauseMenuUI;
+                activeMenu.SetActive(true);
+                statePause();
+            }
+                
         }
 
         // A temporary way to test saving the game.
@@ -356,19 +360,14 @@ public class GameManager : MonoBehaviour
         {
             respawnPlayer();
             StartCoroutine(stormSpawnReady());
-        } else if (scene == "Graveyard" && gameData.finishedTutorial != true)
+        } else if (scene == "Graveyard")
         {
             respawnPlayer();
         }
 
     }
 
-    public void loadMainMenu()
-    {
-        loadingScene("MainMenu");
-        deathDataReset();
-        statePause();
-    }
+  
     
     public void LoadScene(string sceneName)
     {
@@ -399,8 +398,8 @@ public class GameManager : MonoBehaviour
 
     public void respawnPlayer()
     {
-        
-        
+
+        Debug.Log("Dude you're totally spawning");
         if(!gameData.finishedTutorial)
         {
             playerSpawnpoint = GameObject.FindWithTag("TutorialSpawn");
@@ -646,12 +645,13 @@ public class GameManager : MonoBehaviour
         progFill.fillAmount = 0;
         playerFill.fillAmount = 0;
         stormFill.fillAmount = 0;
+        gameStarted = false;
     }
 
     // This method is called when the game is TRULY won.
     public void gameWon()
     {
-        GameData.instance.winStat++;
+       gameData.winStat++;
         statePause();
         playerHUD.SetActive(false);
 
@@ -663,7 +663,7 @@ public class GameManager : MonoBehaviour
 
     public void gameLost()
     {
-        statePause();
+        
         deathDataReset();
         showLoseMenu();
         playerHUD.SetActive(false);
@@ -764,11 +764,16 @@ public class GameManager : MonoBehaviour
 
     public void quitToMainMenu()
     {
-        stateUnpause();
-        if(activeMenu)
-            activeMenu.SetActive(false);
-        activeMenu = null;
 
+        Debug.Log("Quitting to main menu. Active menu before: " + (activeMenu ? activeMenu.name : "null"));
+
+        if (activeMenu)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
+       
+        deathDataReset();
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61953b488cb93948a58814892cbaddb, type: 3}
+  m_Name: Amethyst
+  m_EditorClassIdentifier: 
+  model: {fileID: 7922432254740541296, guid: 8bec9f62e9b33bb46a440380f31c3bc4, type: 3}
+  sprite: {fileID: -2182010335692100286, guid: 063345b1f3ae51a4283b6b038f531c3b, type: 3}
+  trinketNum: 16
+  trinketName: Amethyst
+  trinketDesc: A purple gem. Darkness surrounds it.

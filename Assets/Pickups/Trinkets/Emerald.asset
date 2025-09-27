@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e61953b488cb93948a58814892cbaddb, type: 3}
-  m_Name: TempGem
+  m_Name: Emerald
   m_EditorClassIdentifier: 
-  model: {fileID: 7922432254740541296, guid: 61df6762117d75e40906afc67c187791, type: 3}
-  trinketNum: 1
-  trinketName: Gem
-  trinketDesc: A shiny Gem!
+  model: {fileID: 7922432254740541296, guid: c610641fcd981034a98c095d2ec823c3, type: 3}
+  sprite: {fileID: -7711221548071056586, guid: 063345b1f3ae51a4283b6b038f531c3b, type: 3}
+  trinketNum: 14
+  trinketName: Emerald
+  trinketDesc: A green gem. Might have healing properties.

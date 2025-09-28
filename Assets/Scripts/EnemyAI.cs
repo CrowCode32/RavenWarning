@@ -66,6 +66,8 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         if (!sprite) sprite = GetComponentInChildren<SpriteRenderer>(true);
         if (!animator) animator = GetComponentInChildren<Animator>(true);
         if (!audioSource) audioSource = GetComponentInChildren<AudioSource>(true);
@@ -271,7 +273,9 @@ public class enemyAI : MonoBehaviour, IDamage
         if (audioSource && deathSfx) audioSource.PlayOneShot(deathSfx);
 
         var col = GetComponent<Collider2D>(); if (col) col.enabled = false;
+
         var rb = GetComponent<Rigidbody2D>(); if (rb) rb.linearVelocity = Vector2.zero;
+
         if (animator) animator.SetBool("Walk", false);
 
         float destroyDelay = deathAnimDuration;

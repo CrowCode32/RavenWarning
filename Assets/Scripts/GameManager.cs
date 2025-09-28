@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour
 
 
 
+
     private void Awake()
     {
         // Use the instance ID to uniquely identify each GameManager object.
@@ -544,7 +545,6 @@ public class GameManager : MonoBehaviour
             // Convert the JSON string back to a GameData object.
             gameData = JsonUtility.FromJson<GameData>(json);
             Debug.Log("Game data loaded from PlayerPrefs.");
-            Debug.Log("Tutorial: " + gameData.finishedTutorial);
         }
         else
         {

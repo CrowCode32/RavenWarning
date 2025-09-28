@@ -226,7 +226,6 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         }
         Debug.DrawRay(box.bounds.center, Vector2.down * 0.1f, rayColor);
 
-
         return hit.collider != null && rb.linearVelocityY <= 0.01f;
     }
 

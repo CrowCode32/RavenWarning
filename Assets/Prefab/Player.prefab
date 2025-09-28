@@ -190,6 +190,7 @@ MonoBehaviour:
   deathSfx: {fileID: 0}
   slashSfx: {fileID: 8300000, guid: da944188c6b80c749a2a433edc3655f6, type: 3}
   deathFreezeDelay: 0.75
+  isDead: 0
   maxHealth: 5
   currentHealth: 0
   damageOverlay: {fileID: 0}
@@ -481,7 +482,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4869596124616975790}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9004ef0f53b7581488bc5b77a95c389c, type: 3}
   m_Name: 

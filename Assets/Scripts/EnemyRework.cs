@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -21,6 +22,8 @@ public class EnemyRework : MonoBehaviour, IDamage
 
     private bool dead;
     private bool faceRight;
+    private SpriteRenderer sprite;
+    private Color origColor;
     private GameObject player;
 
     //Doesn't do anything by design
@@ -28,8 +31,11 @@ public class EnemyRework : MonoBehaviour, IDamage
 
     void Start()
     {
+        // Setting default values
         player = GameObject.FindWithTag("Player");
         HP = maxHP;
+        sprite = GetComponent<SpriteRenderer>();
+        origColor = sprite.color;
     }
 
     // Update is called once per frame
@@ -42,6 +48,8 @@ public class EnemyRework : MonoBehaviour, IDamage
     public void TakeDamage(int damageAmount)
     {
         HP -= damageAmount;
+        flash();
+
 
         if(HP <= 0)
         {
@@ -113,5 +121,15 @@ public class EnemyRework : MonoBehaviour, IDamage
         Debug.DrawRay(rb.transform.position, dir * distance, rayColor);
     }
 
+    void flash()
+    {
+        StartCoroutine(flashRoutine());
+    }
 
+    IEnumerator flashRoutine()
+    {
+      sprite.color = Color.red;
+      yield return new WaitForSeconds(0.3f);
+      sprite.color = origColor;
+    }
 }

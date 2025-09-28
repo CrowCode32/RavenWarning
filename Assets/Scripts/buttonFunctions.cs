@@ -20,20 +20,31 @@ public class buttonFunctions : MonoBehaviour
 
     public void startGame()
     {
+        /*GameManager.instance.NewGame();
         Debug.Log("Game starting...");
         GameManager.instance.gameStarted = true;
-  
+
         GameManager.instance.stateUnpause();
         GameManager.instance.loadingScene("Graveyard");
         GameManager.instance.playerHUD.SetActive(true);
 
         GameManager.instance.UpdateTrinketDropdown();
-        GameManager.instance.UpdateFeatherDropdown();
+        GameManager.instance.UpdateFeatherDropdown();*/
     }
 
     public void load()
     {
-        //uhhh
+        /*GameManager.instance.LoadGame();
+        Debug.Log("Game loading...");
+        GameManager.instance.gameStarted = true;
+
+        GameManager.instance.stateUnpause();
+        GameManager.instance.loadingScene("Graveyard");
+        GameManager.instance.playerHUD.SetActive(true);
+
+        GameManager.instance.UpdateTrinketDropdown();
+        GameManager.instance.UpdateFeatherDropdown();*/
+
     }
 
     public void options()

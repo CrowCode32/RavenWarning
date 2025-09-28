@@ -8,6 +8,7 @@ public class TutorialExitTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entered the tutorial exit trigger.");
+            GameManager.instance.gameData.finishedTutorial = true;
             // Tell the GameManager to start the run.
             GameManager.instance.BeginRun();
         }

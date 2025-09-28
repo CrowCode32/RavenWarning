@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
 using NUnit.Framework.Internal;
+using System.Data;
 
 
 
@@ -403,7 +404,7 @@ public class GameManager : MonoBehaviour
         if(!gameData.finishedTutorial)
         {
             playerSpawnpoint = GameObject.FindWithTag("TutorialSpawn");
-           gameData.finishedTutorial = true;
+
         }
         else
         {
@@ -543,6 +544,7 @@ public class GameManager : MonoBehaviour
             // Convert the JSON string back to a GameData object.
             gameData = JsonUtility.FromJson<GameData>(json);
             Debug.Log("Game data loaded from PlayerPrefs.");
+            Debug.Log("Tutorial: " + gameData.finishedTutorial);
         }
         else
         {
@@ -570,6 +572,14 @@ public class GameManager : MonoBehaviour
 #endif
 
     }
+
+  /*  public void NewGame()
+    {
+        PlayerPrefs.DeleteAll();
+        Debug.Log("Tutorial: " + gameData.finishedTutorial);
+        LoadGame();
+        SaveGame();
+    }*/
 
     /// <summary>
     /// Sets the status of the Cave Lord to 'informed' and saves the game.

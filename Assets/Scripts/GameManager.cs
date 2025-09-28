@@ -404,6 +404,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Dude you're totally spawning");
         if(!gameData.finishedTutorial)
         {
+
             playerSpawnpoint = GameObject.FindWithTag("TutorialSpawn");
 
         }
@@ -573,13 +574,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-  /*  public void NewGame()
+    public void NewGame()
     {
         PlayerPrefs.DeleteAll();
-        Debug.Log("Tutorial: " + gameData.finishedTutorial);
+        gameData = new GameData();
         LoadGame();
         SaveGame();
-    }*/
+    }
 
     /// <summary>
     /// Sets the status of the Cave Lord to 'informed' and saves the game.
@@ -643,6 +644,7 @@ public class GameManager : MonoBehaviour
     // This method would be called when the player dies, resetting only values which are not maintained after death.
     public void deathDataReset()
     {
+        StopAllCoroutines();
         gameData.lesserLordForestInformed = false;
         gameData.lesserLordCaveInformed = false;
         inCave = false;
@@ -776,7 +778,7 @@ public class GameManager : MonoBehaviour
     {
 
         Debug.Log("Quitting to main menu. Active menu before: " + (activeMenu ? activeMenu.name : "null"));
-
+        SaveGame();
         if (activeMenu)
         {
             activeMenu.SetActive(false);

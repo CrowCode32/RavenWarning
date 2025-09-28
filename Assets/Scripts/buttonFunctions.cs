@@ -20,7 +20,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void startGame()
     {
-        //GameManager.instance.NewGame();
+        GameManager.instance.NewGame();
         Debug.Log("Game starting...");
         GameManager.instance.gameStarted = true;
 
@@ -34,8 +34,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void load()
     {
-        //Not functional yet
-        /*GameManager.instance.LoadGame();
+        GameManager.instance.LoadGame();
         Debug.Log("Game loading...");
         GameManager.instance.gameStarted = true;
 
@@ -44,8 +43,7 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.playerHUD.SetActive(true);
 
         GameManager.instance.UpdateTrinketDropdown();
-        GameManager.instance.UpdateFeatherDropdown();*/
-
+        GameManager.instance.UpdateFeatherDropdown();
     }
 
     public void options()

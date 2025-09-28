@@ -323,9 +323,9 @@ public class enemyAI : MonoBehaviour, IDamage
             col.isTrigger = true;
         }
 
-        float delay = deathAnimDuration;
-        if (deathSfx) delay = Mathf.Max(delay, deathSfx.length);
-        yield return new WaitForSeconds(delay);
+        //float delay = deathAnimDuration;
+        //if (deathSfx) delay = Mathf.Max(delay, deathSfx.length);
+        //yield return new WaitForSeconds(delay);
 
         Destroy(gameObject);
     }

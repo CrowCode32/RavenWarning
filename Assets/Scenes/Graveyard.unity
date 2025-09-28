@@ -534,6 +534,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5cf443b3a9f15f540b7634f716e29769, type: 3}
+--- !u!4 &309338711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3313763215211732512, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+  m_PrefabInstance: {fileID: 1544928313}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &332870381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +721,10 @@ PrefabInstance:
       propertyPath: positionB
       value: 
       objectReference: {fileID: 1040547587}
+    - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 355810381}
     - target: {fileID: 7675821660926995983, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: m_Name
       value: Ghoul 1 (2)
@@ -725,6 +734,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+--- !u!4 &355810381 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3687436982291863567, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+  m_PrefabInstance: {fileID: 355810380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360896536
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +987,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 462825405}
     - target: {fileID: 7675821660926995983, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: m_Name
       value: Ghoul 1
@@ -982,6 +1000,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+--- !u!4 &462825405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3687436982291863567, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+  m_PrefabInstance: {fileID: 462825404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &545302419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23618,6 +23641,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1851282530816602383, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626824214144833278, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196056971004442715, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3313763215211732512, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -104.19
@@ -23658,6 +23693,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6665380506447184292, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: player
       value: 
@@ -23670,10 +23709,10 @@ PrefabInstance:
       propertyPath: positionB
       value: 
       objectReference: {fileID: 2094447659}
-    - target: {fileID: 6665380506447184292, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
+    - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 309338711}
     - target: {fileID: 7675821660926995983, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: m_Name
       value: Ghoul 1 (1)

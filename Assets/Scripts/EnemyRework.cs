@@ -22,6 +22,8 @@ public class EnemyRework : MonoBehaviour, IDamage
 
     private bool dead;
     private bool faceRight;
+    private bool aggro;
+    private Vector2 prevPos;
     private SpriteRenderer sprite;
     private Color origColor;
     private GameObject player;
@@ -34,6 +36,7 @@ public class EnemyRework : MonoBehaviour, IDamage
         // Setting default values
         player = GameObject.FindWithTag("Player");
         HP = maxHP;
+        prevPos = transform.position;
         sprite = GetComponent<SpriteRenderer>();
         origColor = sprite.color;
     }
@@ -41,8 +44,8 @@ public class EnemyRework : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        setBehavior();
         faceDir();
-        setRoam();
     }
 
     public void TakeDamage(int damageAmount)
@@ -77,21 +80,25 @@ public class EnemyRework : MonoBehaviour, IDamage
 
     void faceDir()
     {
+        float diff = rb.transform.position.x - prevPos.x;
+
         // If moving right
-        if(rb.linearVelocityX >= 0)
+        if(diff > 0.01f)
         {
-            rb.GetComponent<SpriteRenderer>().flipX = false;
+            sprite.flipX = false;
             faceRight = true;
         
         // If moving right
-        } else if(rb.linearVelocityX < 0)
+        } else if(diff < -0.01f)
         {
-            rb.GetComponent<SpriteRenderer>().flipX = true;
+            sprite.flipX = true;
             faceRight = false;
         }
+
+        prevPos = transform.position;
     }
 
-    void setRoam()
+    void setBehavior()
     {
         // Figure out direction of player and distance to them
         Vector2 origin = rb.transform.position;
@@ -103,15 +110,18 @@ public class EnemyRework : MonoBehaviour, IDamage
         LayerMask enemyLayer = LayerMask.GetMask("Enemy");
         RaycastHit2D hit = Physics2D.Raycast(rb.transform.position, dir, distance, ~enemyLayer);
 
-        if (hit.collider.CompareTag("Player") && distance <= aggroRange)
+        if (hit.collider.CompareTag("Player") && distance <= aggroRange) { aggro = true; }
+
+        if (aggro) { transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime); }
+        else
         {
-            
+            roam();
         }
-        
-        
-        
-        // Ray for debug
-        Color rayColor = Color.white;
+
+
+
+            // Ray for debug
+            Color rayColor = Color.white;
         if(hit.collider != null)
         {
             Debug.Log("Hit: " + hit.collider.name);
@@ -119,6 +129,36 @@ public class EnemyRework : MonoBehaviour, IDamage
 
         }
         Debug.DrawRay(rb.transform.position, dir * distance, rayColor);
+    }
+
+    void roam()
+    {
+        // Take current position
+        Vector2 startPos = transform.position;
+        
+        if (faceRight)
+        {
+            // Move right until moved roam distance
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            if(transform.position.x >= startPos.x + roamDist)
+            {
+                faceRight = false;
+            }
+        }
+
+        if (!faceRight)
+        {
+            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            if(transform.position.x >= startPos.x - roamDist)
+            {
+                faceRight = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        aggro = false;
     }
 
     void flash()

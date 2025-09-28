@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6665380506447184292, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 3218340943221673202}
+    - target: {fileID: 6687360794404316646, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7675821660926995983, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
       propertyPath: m_Name
       value: Ghoul
@@ -57,3 +69,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+--- !u!4 &3218340943221673202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3313763215211732512, guid: aa5df7ed5d6e89c469364dbfc1cf59c1, type: 3}
+  m_PrefabInstance: {fileID: 95985299739464402}
+  m_PrefabAsset: {fileID: 0}

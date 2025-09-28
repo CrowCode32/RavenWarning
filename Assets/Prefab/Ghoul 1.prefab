@@ -136,13 +136,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7d102260cd8914eb21dd0c3bb72d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0
   speed: 3
   positionA: {fileID: 0}
   positionB: {fileID: 0}
   player: {fileID: 0}
   attackDamage: 1
   attackCooldown: 1
-  attackPoint: {fileID: 3687436982291863567}
+  attackPoint: {fileID: 3218340943221673202, guid: 366ebaf5738ce914b88d8e015c6e6b6a, type: 3}
   attackRadius: 0.6
   playerLayer:
     serializedVersion: 2
@@ -282,7 +286,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7675821660926995983}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

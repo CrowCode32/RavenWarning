@@ -10,6 +10,9 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private Rigidbody2D rb;
 
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 0.2f;
+
     // Patrol / chase
     public float speed = 3f;
     public Transform positionA;
@@ -269,19 +272,76 @@ public class enemyAI : MonoBehaviour, IDamage
 
         gameData.killsStat++;
 
-        if (animator) animator.SetTrigger("Death");
+        if (animator)
+        {
+            animator.ResetTrigger("Hit");
+            animator.SetBool("Walk", false);
+            animator.SetTrigger("Death");
+        }
         if (audioSource && deathSfx) audioSource.PlayOneShot(deathSfx);
 
-        var col = GetComponent<Collider2D>(); if (col) col.enabled = false;
+        var rb2d = GetComponent<Rigidbody2D>();
+        if (rb2d)
+        {
+            rb2d.linearVelocity = new Vector2(0f, rb2d.linearVelocity.y);
+            rb2d.bodyType = RigidbodyType2D.Dynamic;
+            rb2d.simulated = true;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
 
-        var rb = GetComponent<Rigidbody2D>(); if (rb) rb.linearVelocity = Vector2.zero;
+        StartCoroutine(DeathGroundFreeze());
+    }
 
-        if (animator) animator.SetBool("Walk", false);
+    private IEnumerator DeathGroundFreeze()
+    {
+        var col = GetComponent<Collider2D>();
+        if (col)
+        {
+            col.enabled = true;
+            col.isTrigger = false;
+        }
 
-        float destroyDelay = deathAnimDuration;
-        if (deathSfx) destroyDelay = Mathf.Max(destroyDelay, deathSfx.length);
+        float timeout = 3f;
+        while (!IsGrounded() && timeout > 0f)
+        {
+            timeout -= Time.deltaTime;
+            yield return null;
+        }
 
-        Destroy(gameObject, destroyDelay);
+        var rb2d = GetComponent<Rigidbody2D>();
+        if (rb2d)
+        {
+            rb2d.linearVelocity = Vector2.zero;
+            rb2d.angularVelocity = 0f;
+            rb2d.bodyType = RigidbodyType2D.Kinematic;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        if (col)
+        {
+            col.enabled = true;
+            col.isTrigger = true;
+        }
+
+        float delay = deathAnimDuration;
+        if (deathSfx) delay = Mathf.Max(delay, deathSfx.length);
+        yield return new WaitForSeconds(delay);
+
+        Destroy(gameObject);
+    }
+
+    private bool IsGrounded()
+    {
+        var col = GetComponent<Collider2D>();
+        Vector2 origin;
+
+        if (col)
+            origin = new Vector2(col.bounds.center.x, col.bounds.min.y + 0.01f);
+        else
+            origin = (Vector2)transform.position + Vector2.down * 0.05f;
+
+        var hit = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance, groundLayer);
+        return hit.collider != null;
     }
 
     private void FaceDir(float dx)

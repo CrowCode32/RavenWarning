@@ -159,6 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7d102260cd8914eb21dd0c3bb72d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0
   speed: 4
   positionA: {fileID: 793552562813325495}
   positionB: {fileID: 1928021223013174673}
@@ -264,7 +268,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &5440564463205756520
 GameObject:
   m_ObjectHideFlags: 0

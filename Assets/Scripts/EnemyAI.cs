@@ -347,8 +347,20 @@ public class enemyAI : MonoBehaviour, IDamage
     private void FaceDir(float dx)
     {
         if (sprite == null) return;
-        if (dx > 0.1f) sprite.flipX = false;
-        else if (dx < -0.1f) sprite.flipX = true;
+        if (dx > 0.1f)
+        {
+            sprite.flipX = false;
+            
+            //Not convinced this line is working as intended
+            //attackPoint.localPosition = new Vector3(attackPoint.localPosition.x * -1, attackPoint.localPosition.y, attackPoint.localPosition.z);
+        }
+        else if (dx < -0.1f)
+        {
+            sprite.flipX = true;
+
+            //Not convinced this line is working as intended
+            //attackPoint.localPosition = new Vector3(attackPoint.localPosition.x * -1, attackPoint.localPosition.y, attackPoint.localPosition.z);
+        }
     }
 
     Vector2 FowardDir()

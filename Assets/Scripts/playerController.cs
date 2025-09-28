@@ -364,10 +364,12 @@ public class playerController : MonoBehaviour, IPickup , IHeal
         if (horizontal > 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = false;
+            attackPoint.localPosition = new Vector3(attackPoint.localPosition.x * -1, attackPoint.localPosition.y, attackPoint.localPosition.z);
         }
         else if (horizontal < 0)
         {
             rb.GetComponent<SpriteRenderer>().flipX = true;
+            attackPoint.localPosition = new Vector3(attackPoint.localPosition.x * -1, attackPoint.localPosition.y, attackPoint.localPosition.z);
         }
 
         anim.SetBool("isJumping", isJumping);

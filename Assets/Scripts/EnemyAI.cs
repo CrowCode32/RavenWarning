@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 public class enemyAI : MonoBehaviour, IDamage
 {
     GameData gameData = GameManager.instance.gameData;
-    // Patrol
+
+    // Patrol / chase
     public float speed = 3f;
     public Transform positionA;
     public Transform positionB;
@@ -28,6 +29,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] private float deathAnimDuration = 1.0f;
     private float lastAttackTime = -999f;
     bool isAttacking = false;
+    bool dead = false;
 
     public enum AttackType { Scream, Melee }
 
@@ -38,9 +40,6 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float damageTick = 0.5f;
     [SerializeField] float screamRange = 3f;
     [SerializeField] float screamAngle = 70f;
-
-    // Knight attack
-
 
     // Slashing attack
     [SerializeField] AttackType attackType = AttackType.Melee;
@@ -65,7 +64,9 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        if (!sprite) sprite = GetComponentInChildren<SpriteRenderer>(true);
+        if (!animator) animator = GetComponentInChildren<Animator>(true);
+        if (!audioSource) audioSource = GetComponentInChildren<AudioSource>(true);
     }
 
     void Start()
@@ -76,8 +77,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void Update()
     {
-        // Timers
-        if (_iFrameTimer > 0f) _iFrameTimer -= Time.deltaTime; // Invulnerability
+        if (_iFrameTimer > 0f) _iFrameTimer -= Time.deltaTime;
 
         if (_flashTimer > 0f)
         {
@@ -85,11 +85,10 @@ public class enemyAI : MonoBehaviour, IDamage
             if (_flashTimer <= 0f && sprite) sprite.color = _origColor;
         }
 
-        if (!player) return;
+        if (dead || !player) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Attack   
         if (!isAttacking)
         {
             if (distanceToPlayer <= attackDistance)
@@ -98,13 +97,9 @@ public class enemyAI : MonoBehaviour, IDamage
                 {
                     animator.SetBool("Walk", false);
                     if (attackType == AttackType.Melee)
-                    {
                         MeleeAttack();
-                    }
-                    else if (attackType == AttackType.Scream)
-                    {
+                    else
                         StartCoroutine(ScreamAttack());
-                    }
                 }
                 else
                 {
@@ -112,14 +107,12 @@ public class enemyAI : MonoBehaviour, IDamage
                     animator.SetBool("Walk", true);
                 }
             }
-            // Chase
             else if (distanceToPlayer <= chaseDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
                 FaceDir(player.position.x - transform.position.x);
                 animator.SetBool("Walk", true);
             }
-            // Patrol
             else
             {
                 Vector2 target = (movingToAttack ? positionA : positionB).position;
@@ -127,22 +120,20 @@ public class enemyAI : MonoBehaviour, IDamage
                 FaceDir(target.x - transform.position.x);
                 animator.SetBool("Walk", true);
 
-                if (Vector2.Distance(transform.position, target) < 0.05f) movingToAttack = !movingToAttack;
+                if (Vector2.Distance(transform.position, target) < 0.05f)
+                    movingToAttack = !movingToAttack;
             }
         }
-        //animator.SetBool("Walk", false);
     }
 
     IEnumerator AttackRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
-        animator.SetTrigger("Attack");
-
+        if (animator) animator.SetTrigger("Attack");
         yield return new WaitForSeconds(attackCooldown);
         isAttacking = false;
     }
-
 
     public void Attack2D()
     {
@@ -152,44 +143,28 @@ public class enemyAI : MonoBehaviour, IDamage
         Vector2 g = attackPoint ? (Vector2)attackPoint.position : (Vector2)transform.position;
         Collider2D hit = Physics2D.OverlapCircle(g, attackRadius, playerLayer);
 
-        if (!hit)
-        {
-            return;
-        }
-            var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
+        if (!hit) return;
 
-        if (pc != null)
-        {
-            pc.takeDamage(attackDamage);
-        }
+        var pc = hit.GetComponent<playerController>() ?? hit.GetComponentInParent<playerController>();
+        if (pc != null) pc.takeDamage(attackDamage);
     }
 
-  // Melee slashing attack
     void MeleeAttack()
     {
         lastAttackTime = Time.time;
-        animator.ResetTrigger("Attack");
-        if (animator)
-            animator.SetTrigger("Attack");
+        if (animator) { animator.ResetTrigger("Attack"); animator.SetTrigger("Attack"); }
 
         Vector2 origin = (Vector2)transform.position + FowardDir() * frontOffset;
         Collider2D hit = Physics2D.OverlapCircle(origin, meleeRadius, playerLayer);
 
-        // --- This is the corrected part ---
         if (hit)
         {
-            // Instead of looking for a specific controller, we look for any
-            // component that can be damaged.
             IDamage damageable = hit.GetComponent<IDamage>();
             if (damageable != null)
-            {
-                // Now it can correctly find our PlayerHealthBridge.
-                Debug.Log("Enemy hit the player!");
                 damageable.TakeDamage(attackDamage);
-            }
+
             StartCoroutine(ResetAttackAnim(meleeAttckDuration));
         }
-
         isAttacking = false;
     }
 
@@ -200,16 +175,13 @@ public class enemyAI : MonoBehaviour, IDamage
         isAttacking = false;
     }
 
-    // Screaming or howl attack
     IEnumerator ScreamAttack()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        // WindUp
         float t = 0f;
-        if (animator)
-            animator.SetTrigger("Windup");
+        if (animator) animator.SetTrigger("Windup");
         while (t < windUpTime)
         {
             FaceDir(player.position.x - transform.position.x);
@@ -217,34 +189,27 @@ public class enemyAI : MonoBehaviour, IDamage
             yield return null;
         }
 
-        // Scream tick in cone shape
-        animator.ResetTrigger("Attack");
-        if (animator)  
-            animator.SetTrigger("Attack");
-        float elasped = 0f;
+        if (animator) { animator.ResetTrigger("Attack"); animator.SetTrigger("Attack"); }
+        float elapsed = 0f;
         float nextTick = 0f;
 
-        while (elasped < screamDuration)
+        while (elapsed < screamDuration)
         {
-            elasped += Time.deltaTime;
+            elapsed += Time.deltaTime;
             FaceDir(player.position.x - transform.position.x);
 
-            if (elasped >= nextTick)
+            if (elapsed >= nextTick)
             {
                 nextTick += damageTick;
 
-                // Get colliders in cone range
                 Vector2 origin = transform.position;
                 Collider2D[] hits = Physics2D.OverlapCircleAll(origin, screamRange, playerLayer);
 
                 for (int i = 0; i < hits.Length; i++)
                 {
                     var pc = hits[i].GetComponent<playerController>() ?? hits[i].GetComponentInParent<playerController>();
-
                     if (pc != null && InScreamCone(origin, hits[i].transform.position))
-                    {
                         pc.takeDamage(screamDamage);
-                    }
                 }
             }
             yield return null;
@@ -252,18 +217,13 @@ public class enemyAI : MonoBehaviour, IDamage
         isAttacking = false;
     }
 
-
     public void takeDamage(int amount)
     {
-        if (amount <= 0) return;
-
+        if (amount <= 0 || dead) return;
         if (_iFrameTimer > 0f) return;
 
         _iFrameTimer = hurtFrames;
         currentHealth = Mathf.Max(0, currentHealth - amount);
-
-        if (animator)
-            animator.SetTrigger("Hit");
 
         if (sprite)
         {
@@ -271,11 +231,9 @@ public class enemyAI : MonoBehaviour, IDamage
             _flashTimer = flashDuration;
         }
 
-        // Sound SFX
-        if (audioSource && hitSfx) 
-            audioSource.PlayOneShot(hitSfx);
+        if (animator) animator.SetTrigger("Hit");
+        if (audioSource && hitSfx) audioSource.PlayOneShot(hitSfx);
 
-        // Knoackback --- VOID this out if we don't need it
         if (player)
         {
             var rb = GetComponent<Rigidbody2D>();
@@ -283,7 +241,7 @@ public class enemyAI : MonoBehaviour, IDamage
             {
                 Vector2 dir = (transform.position - player.position).normalized;
                 rb.AddForce(dir * knockback, ForceMode2D.Impulse);
-            }    
+            }
         }
 
         if (currentHealth <= 0)
@@ -291,36 +249,37 @@ public class enemyAI : MonoBehaviour, IDamage
             Death();
         }
     }
+
+    public void TakeDamage(int damageAmount)
+    {
+        takeDamage(damageAmount);
+    }
+
     private void Death()
     {
+        if (dead) return;
+        dead = true;
 
-         gameData.killsStat++;
-        if (animator)
-            animator.SetTrigger("Death");
+        gameData.killsStat++;
 
-        if (audioSource && deathSfx)
-            audioSource.PlayOneShot(deathSfx); 
-        
-        var col = GetComponent<Collider2D>();
-        if (col) col.enabled = false;
-        enabled = false;
+        if (animator) animator.SetTrigger("Death");
+        if (audioSource && deathSfx) audioSource.PlayOneShot(deathSfx);
 
-        animator.SetBool("Walk", false);
+        var col = GetComponent<Collider2D>(); if (col) col.enabled = false;
+        var rb = GetComponent<Rigidbody2D>(); if (rb) rb.linearVelocity = Vector2.zero;
+        if (animator) animator.SetBool("Walk", false);
 
-        //Not working yet
-        StartCoroutine(deathFade());
+        float destroyDelay = deathAnimDuration;
+        if (deathSfx) destroyDelay = Mathf.Max(destroyDelay, deathSfx.length);
 
-        Destroy(gameObject, deathSfx ? deathSfx.length : deathAnimDuration);
-        // Todo - play death anim/SFX, add score or drop loot
+        Destroy(gameObject, destroyDelay);
     }
 
     private void FaceDir(float dx)
     {
         if (sprite == null) return;
-        if (dx > 0.1f)
-            sprite.flipX = false; // Right
-        else if (dx < -0.1f)
-            sprite.flipX = true; // Left
+        if (dx > 0.1f) sprite.flipX = false;
+        else if (dx < -0.1f) sprite.flipX = true;
     }
 
     Vector2 FowardDir()
@@ -342,25 +301,20 @@ public class enemyAI : MonoBehaviour, IDamage
     }
 
     //Not working yet
-    IEnumerator deathFade()
-    {
-        float alpha = sprite.color.a;
-        Color col = sprite.color;
-        
-        while(sprite.color.a > 0)
-        {
-            Debug.Log(sprite.name);
-            alpha -= 0.01f;
-            col.a = alpha;
-            sprite.color = col;
+    //IEnumerator deathFade()
+    //    {
+    //        float alpha = sprite.color.a;
+    //        Color col = sprite.color;
 
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
+    //        while(sprite.color.a > 0)
+    //        {
+    //            Debug.Log(sprite.name);
+    //            alpha -= 0.01f;
+    //            col.a = alpha;
+    //            sprite.color = col;
 
-    public void TakeDamage(int damageAmount)
-    {
-        currentHealth -= damageAmount;
-        Death();
-    }
+    //            yield return new WaitForSeconds(0.05f);
+    //        }
+    //    }
 }
+

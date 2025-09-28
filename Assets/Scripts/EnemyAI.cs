@@ -8,6 +8,8 @@ public class enemyAI : MonoBehaviour, IDamage
 {
     GameData gameData = GameManager.instance.gameData;
 
+    private Rigidbody2D rb;
+
     // Patrol / chase
     public float speed = 3f;
     public Transform positionA;
@@ -85,45 +87,48 @@ public class enemyAI : MonoBehaviour, IDamage
             if (_flashTimer <= 0f && sprite) sprite.color = _origColor;
         }
 
-        if (dead || !player) return;
+        if (dead || !player || isAttacking) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (!isAttacking)
+        // Attack
+        if (distanceToPlayer <= attackDistance)
         {
-            if (distanceToPlayer <= attackDistance)
+            if (Time.time >= lastAttackTime + attackCooldown)
             {
-                if (Time.time >= lastAttackTime + attackCooldown)
-                {
-                    animator.SetBool("Walk", false);
-                    if (attackType == AttackType.Melee)
-                        MeleeAttack();
-                    else
-                        StartCoroutine(ScreamAttack());
-                }
+                animator.SetBool("Walk", false);
+                if (attackType == AttackType.Melee)
+                    MeleeAttack();
                 else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-                    animator.SetBool("Walk", true);
-                }
-            }
-            else if (distanceToPlayer <= chaseDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-                FaceDir(player.position.x - transform.position.x);
-                animator.SetBool("Walk", true);
+                    StartCoroutine(ScreamAttack());
             }
             else
             {
-                Vector2 target = (movingToAttack ? positionA : positionB).position;
-                transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-                FaceDir(target.x - transform.position.x);
-                animator.SetBool("Walk", true);
-
-                if (Vector2.Distance(transform.position, target) < 0.05f)
-                    movingToAttack = !movingToAttack;
+                MoveHorizontally(player.position.x);
             }
         }
+        // Chase
+        else if (distanceToPlayer <= chaseDistance)
+        {
+            MoveHorizontally(player.position.x);
+        }
+        // Patrol
+        else
+        {
+            float patrolX = (movingToAttack ? positionA.position.x : positionB.position.x);
+            MoveHorizontally(patrolX);
+
+            if (Mathf.Abs(transform.position.x - patrolX) < 0.05f)
+                movingToAttack = !movingToAttack;
+        }
+    }
+
+    private void MoveHorizontally(float targetX)
+    {
+        float dir = Mathf.Sign(targetX - transform.position.x);
+        rb.velocity = new Vector2(dir * speed, rb.velocity.y);
+        FaceDir(dir);
+        animator.SetBool("Walk", true);
     }
 
     IEnumerator AttackRoutine()

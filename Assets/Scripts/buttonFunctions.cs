@@ -100,7 +100,10 @@ public class buttonFunctions : MonoBehaviour
 
     public void exit()
     {
-#if UNITY_EDITOR
+#if UNITY_WEBGL
+        return;
+
+#elif UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();

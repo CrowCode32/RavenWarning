@@ -25,7 +25,7 @@ public class playerController : MonoBehaviour, IPickup , IHeal
     [SerializeField] private AudioClip deathSfx;
     [SerializeField] private AudioClip slashSfx;
     [SerializeField] private float deathFreezeDelay = 2f;
-    private bool isDead = false;
+    public bool isDead = false;
 
     // Health
     [SerializeField] private int maxHealth = 5;
@@ -112,7 +112,11 @@ public class playerController : MonoBehaviour, IPickup , IHeal
 
     void Update()
     {
-        if (isDead) return;
+        if (isDead)
+        {
+            GameManager.instance.dialogueBox.SetActive(false);
+            return;
+        }
 
         featherQueue = GameManager.instance.selectedFeather;
 

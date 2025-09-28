@@ -126,7 +126,7 @@ public class enemyAI : MonoBehaviour, IDamage
     private void MoveHorizontally(float targetX)
     {
         float dir = Mathf.Sign(targetX - transform.position.x);
-        rb.velocity = new Vector2(dir * speed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
         FaceDir(dir);
         animator.SetBool("Walk", true);
     }
